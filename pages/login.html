@@ -5,24 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../src/output.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <title>Login</title>
 </head>
 
-<body>
-    <div class="flex flex-col bg-amber-50 p-4">
-        <h1 class="text-5xl font-bold mt-4">Book Loving ournal</h1>
+<body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
+    <div class="absolute top-4 left-4 flex w-40 gap-x-4 items-center">
+        <img class="flex w-20 rounded-2xl" src="/src/img/bj-logo.png" alt="logo">
 
-        <h2 class="text-3xl font-semibold mt-4">Login</h2>
-        <form action="" class="mt-4 flex flex-col ">
-            <label for="email">Email</label>
-            <input type="email" class="bg-white-50" id="email">
-
-            <label for="pwd">Passwort</label>
-            <input type="password" id="pwd">
-
-            <input type="submit" value="Konto anlegen">
-        </form>
+        <h1 class="flex flex-col uppercase tracking-wide text-2xl leading-none font-bold">
+            <a href="/index.html">
+                <span>Book</span>
+                <span>loving</span>
+                <span>journal</span>
+            </a>
+        </h1>
+        </a>
     </div>
+
+    <h2 class="text-4xl font-semibold mt-4">Login</h2>
+    <form action="" class="grid gap-y-4">
+        <div class="grid grid-cols-3 items-center">
+            <label for="name" class="text-xl">Vorname</label>
+            <input type="text" id="name" class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+        </div>
+        <div class="grid grid-cols-3 items-center">
+            <label for="surname" class="text-xl">Nachname</label>
+            <input type="text" id="surname" class="col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+        </div>
+        <div class="grid grid-cols-3 items-center">
+            <input type="submit" value="Einloggen"
+                class="col-start-2 border-2 border-back rounded-4xl py-4 px-6 text-green-200 bg-black">
+    </form>
 </body>
 
 </html>
