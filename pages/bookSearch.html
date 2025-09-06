@@ -1,9 +1,44 @@
-<h2>Buchsuche
-    
-</h2>
-<form action="">
-    <label for="input">Titel</label>
-    <input type="text" id="input">
+<!DOCTYPE html>
+<html lang="en">
 
-    <input type="submit" value="Suchen">
-</form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../src/output.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <title>Login</title>
+</head>
+
+<body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
+    <header class="absolute top-4 left-4 flex w-40 gap-x-4 items-center">
+        <img class="flex w-20 rounded-2xl" src="/src/img/bj-logo.png" alt="logo">
+
+        <h1 class="flex flex-col uppercase tracking-wide text-2xl leading-none font-bold">
+            <a href="/index.html">
+                <span>Book</span>
+                <span>loving</span>
+                <span>journal</span>
+            </a>
+        </h1>
+        </a>
+    </header>
+
+    <h2 class="text-4xl font-semibold mt-4">
+        Buchsuche
+    </h2>
+    <form action="" class="grid gap-y-4">
+        <div class="grid grid-cols-3 items-center">
+            <label for="title" class="text-xl">Titel</label>
+            <input type="text" id="name" class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+        </div>
+
+        <div class="grid grid-cols-3 items-center">
+            <input type="submit" value="Suchen"
+                class="col-start-2 border-2 border-back rounded-4xl py-3 px-6 text-green-200 bg-black">
+        </div>
+    </form>
+
+</body>
+
+</html>
