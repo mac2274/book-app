@@ -5,6 +5,7 @@ echo 'done';
 
 ?>
 
+<!doctype html>
 <html>
 
 <head>
