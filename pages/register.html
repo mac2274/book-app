@@ -10,7 +10,7 @@
 
 <body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
     <header class="absolute top-4 left-4 flex gap-x-4 w-40 items-center">
-        <img class="w-20 rounded-2xl" src="/src/img/bj-logo.png" alt="logo">
+        <img class="w-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
         <a href="/index.php">
             <h1 class="flex flex-col uppercase tracking-wide leading-none text-2xl font-bold ">
                 <span>Book</span>
@@ -21,11 +21,11 @@
     </header>
 
     <h2 class="text-2xl font-bold">Hier registrieren</h2>
-    <form method="POST" action="" class="grid gap-y-4 text-right">
+    <form method="POST" action="../config/registerUser.php" class="grid gap-y-4 text-right">
         <div class="grid grid-cols-3 items-center gap-x-4">
             <label for="name" class="grid text-xl">Vorname</label>
             <input type="text" id="name" name="name"
-                class="grid col-span-2 text-xl border-2 border-back rounded-3xl p-2 focus:bg-white">
+                class="grid col-span-2 border-2 border-black rounded-3xl p-2 focus:bg-white">
         </div>
         <div class="grid grid-cols-3 items-center gap-x-4 ">
             <label for="surname" class="grid text-xl">Nachname</label>

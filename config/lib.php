@@ -1,5 +1,7 @@
 <?php
 
+require_once 'config.db.php';
+
 function registerUser($name, $surname, $email, $password){
     global $mysqli;
  
