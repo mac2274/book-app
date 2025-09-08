@@ -1,3 +1,9 @@
+<?php require_once 'config/config.db.php';
+
+echo 'done';
+
+?>
+
 <!doctype html>
 <html>
 
@@ -14,8 +20,8 @@
 </head>
 
 
-<body class="flex flex-col items-center justify-center  h-screen py-8 bg-yellow-50">
-    <header class="flex flex-col rounded-2xl outline-2 outline-teal-200 outline-offset-4 border-teal-400 p-6">
+<body class="flex flex-col items-center justify-center  h-screen py-8 bg-green-200">
+    <header class="flex flex-col rounded-2xl outline-2 outline-white outline-offset-4 border-white p-6">
         <div class="flex gap-x-4 md:gap-x-8 items-center">
             <img class="w-50 rounded-2xl" src="/src/img/bj-logo.png" alt="logo">
             <h1 class="flex flex-col flex-start uppercase tracking-wide text-wrap text-4xl font-bold ">
