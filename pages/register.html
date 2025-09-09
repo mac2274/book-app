@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Registrierung</title>
+    <link rel="icon" type="image/x-icon" href="src/img/bj-logo.png">
+
 </head>
 
 <body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
     <header class="absolute top-4 left-4 flex gap-x-4 w-40 items-center">
         <img class="w-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
-        <a href="/index.php">
+        <a href="../index.html">
             <h1 class="flex flex-col uppercase tracking-wide leading-none text-2xl font-bold ">
                 <span>Book</span>
                 <span>loving</span>
@@ -29,16 +31,19 @@
         </div>
         <div class="grid grid-cols-3 items-center gap-x-4 ">
             <label for="surname" class="grid text-xl">Nachname</label>
-            <input type="text" id="surname" name="surname" class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+            <input type="text" id="surname" name="surname"
+                class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
         </div>
 
         <div class="grid grid-cols-3 items-center gap-x-4">
             <label for="email" class="grid text-xl">Email</label>
-            <input type="email" id="email" name="email" class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+            <input type="email" id="email" name="email"
+                class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
         </div>
         <div class="grid grid-cols-3 items-center gap-x-4">
             <label for="pwd" class="grid text-xl">Passwort</label>
-            <input type="password" id="pwd" name="pwd" class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+            <input type="password" id="pwd" name="pwd"
+                class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
         </div>
         <div class="grid grid-cols-3 items-center gap-x-4">
             <label for="pwdConfirm" class="grid text-xl">Passwort bestätigen</label>

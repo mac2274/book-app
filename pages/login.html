@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <title>Login</title>
+    <link rel="icon" type="image/x-icon" href="src/img/bj-logo.png">
 </head>
 
 <body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
@@ -15,7 +16,7 @@
         <img class="flex w-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
 
         <h1 class="flex flex-col uppercase tracking-wide text-2xl leading-none font-bold">
-            <a href="/index.php">
+            <a href="../index.html">
                 <span>Book</span>
                 <span>loving</span>
                 <span>journal</span>
@@ -28,17 +29,20 @@
     <form action="../config/loginUser.php" method="POST" class="grid gap-y-4">
         <div class="grid grid-cols-3 items-center">
             <label for="loginEmail" class="text-xl">Email</label>
-            <input type="email" id="loginEmail" name="loginEmail" class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+            <input type="email" id="loginEmail" name="loginEmail"
+                class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
         </div>
         <div class="grid grid-cols-3 items-center">
             <label for="loginPwd" class="text-xl">Password</label>
-            <input type="password" id="loginPwd" name="loginPwd" class="col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+            <input type="password" id="loginPwd" name="loginPwd"
+                class="col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
         </div>
         <div class="grid grid-cols-3 items-center">
             <input type="submit" value="Einloggen" name="loginSubmit"
                 class="col-start-2 border-2 border-transparent rounded-4xl py-3 px-6 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
         </div>
     </form>
+    <p>Noch nicht registriert? Dann <a href="register.html" class="underline">registriere</a> dich jetzt hier!</p>
 </body>
 
 </html>

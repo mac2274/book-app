@@ -16,7 +16,7 @@ function emailExists($email)
     if (!$stmt->execute())
         throw new Exception('Fehlermeldung:' . $stmt->error);
     $result = $stmt->get_result();
-    $result->num_rows > 0;
+    return $result->num_rows > 0;
 }
 
 function registerUser($name, $surname, $email, $password)
@@ -63,6 +63,7 @@ function loginUser($email, $pwd)
             $_SESSION['loginDone'] = true;
 
             echo 'Login erfolgreich!';
+            echo 'Hallo zurück, '.$_SESSION['name'];
         }
     } else {
         echo 'Passwörter stimmen nicht überein.';
