@@ -1,6 +1,23 @@
 <?php
-
+session_start();
 require_once 'config.db.php';
+
+function emailExist()
+{
+    global $mysqli;
+
+    # Doppelte Email s prüfen
+    $stmt = "SELECT email FROM user WHERE email=?";
+    $stmt = $mysqli->prepare($stmt);
+    if (!$stmt) {
+        throw new Exception('Fehlermeldung:' . $mysqli->error);
+    }
+    $stmt->bind_param('s', $email);
+    if (!$stmt->execute())
+        throw new Exception('Fehlermeldung:' . $stmt->error);
+    $result = $stmt->get_result();
+    $result->num_rows > 0
+}
 
 function registerUser($name, $surname, $email, $password)
 {
@@ -8,7 +25,8 @@ function registerUser($name, $surname, $email, $password)
 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO User (name, surname, email, pwd) VALUE(?,?,?,?)";
+    # Hinzufügen vonneuen Usern
+    $sql = "INSERT INTO user (name, surname, email, pwd) VALUES(?,?,?,?)";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
@@ -20,34 +38,33 @@ function registerUser($name, $surname, $email, $password)
     return $stmt->affected_rows;
 }
 
-function loginUser()
+function loginUser($email, $pwd)
 {
     global $mysqli;
 
-    $sql = "SELECT name, surname, email, pwd FROM user WHERE email=?";
+    $sql = "SELECT name, email, pwd FROM user WHERE email=?";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
-        throw new Exception('Fehler bei Datenbankaufbau:' . $mysqli->error);
+        throw new Exception('Datenbankfehler: ' . $mysqli->error);
     }
     $stmt->bind_param('s', $email);
     if (!$stmt->execute()) {
-        throw new Exception('Fehlermeldung:' . $stmt->error);
+        throw new Exception('Datenbankfehler: ' . $stmt->error);
     }
+
     $result = $stmt->get_result();
 
-    echo 'hey1';
+    if ($result->num_rows > 0) {
+        $getRow = $result->fetch_assoc();
 
-    if ($result->num_rows === 1) {
-        $row = $result->fetch_assoc();
-
-        if (password_verify($_POST['loginPwd'], $$row['pwd'])){
-            $_SESSION['userEmail'] = $row['email'];
-            $_SESSION['name'] = $row['name'];
+        if (password_verify($pwd, $getRow['pwd'])) {
+            $_SESSION['name'] = $getRow['name'];
+            $_SESSION['email'] = $getRow['email'];
             $_SESSION['loginDone'] = true;
 
-            echo 'hey2';
-        } 
+            echo 'Login erfolgreich!';
+        }
     } else {
-        echo 'User nicht gefunden!';
+        echo 'Passwörter stimmen nicht überein.';
     }
 }
