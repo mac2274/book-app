@@ -1,19 +1,20 @@
 <?php
 require_once 'lib.php';
 
-if (isset($_SERVER['REQUEST_METHOD']) === 'POST' && isset($_POST['submitRegisterUSer'])) {
+echo 'hallo1';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitRegisterUser'])) {
+
+    echo 'hallo2';
+
     $name = $_POST['name'] ?? '';
+    $surname = $_POST['surname'] ?? '';
     $email = $_POST['email'] ?? '';
+    $password = $_POST['pwd'];
 
-
-    if ($name && $email) {
-        $password = $_POST['pwd'];
-
-        registerUser($name, $surname, $email, $hashedPassword);
-    } else {
-        echo 'Registrierung hat nicht geklappt.';
-    }
+    registerUser($name, $surname, $email, $password);
 } else {
     echo 'kein Post geschickt.';
 }
 
+?>

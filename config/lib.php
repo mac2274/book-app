@@ -7,7 +7,7 @@ function registerUser($name, $surname, $email, $password){
  
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
-    $sql = "INSERT INTO User (name, surname, email, password) VALUE(?,?,?,?)";
+    $sql = "INSERT INTO User (name, surname, email, pwd) VALUE(?,?,?,?)";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt){
         throw new Exception('Fehlermeldung:'.$mysqli->error);
