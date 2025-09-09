@@ -2,7 +2,7 @@
 session_start();
 require_once 'config.db.php';
 
-function emailExist()
+function emailExists($email)
 {
     global $mysqli;
 
@@ -16,7 +16,7 @@ function emailExist()
     if (!$stmt->execute())
         throw new Exception('Fehlermeldung:' . $stmt->error);
     $result = $stmt->get_result();
-    $result->num_rows > 0
+    $result->num_rows > 0;
 }
 
 function registerUser($name, $surname, $email, $password)
