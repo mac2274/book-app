@@ -1,4 +1,4 @@
-<?php 
+<?php
 #require_once './config/config.db.php';
 
 echo 'done';
@@ -18,6 +18,7 @@ echo 'done';
       }
     </style>
     <title>Book-App - using tailwind.css</title>
+    <link rel="icon" type="image/x-icon" href="src/img/bj-logo.png">
 </head>
 
 

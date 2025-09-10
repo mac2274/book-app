@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
         } else {
             echo 'Login war erfolgreich! <br>';
             echo '<strong>Hallo zurück, ' . $_SESSION['name'] . '!</strong><br>';
-            require '../index.html';
+            require '../index.html'; // hier muss noch eine andere Seite her!  
             echo 'Du bist in deinem Journal, ' . $_SESSION['name'] . '.';
         }
 
