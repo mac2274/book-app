@@ -7,12 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
         $email = $_POST['loginEmail'] ?? '';
         $pwd = $_POST['loginPwd'] ?? '';
 
-        if (empty($email) || empty($pwd)){
-            echo 'Bitte füllen Sie alle Felder aus.';
+        if (empty($email) || empty($pwd)) {
+            echo 'Bitte Email und Passwort eingeben.';
+        } else {
+            echo 'Login war erfolgreich! <br>';
+            echo '<strong>Hallo zurück, ' . $_SESSION['name'] . '!</strong><br>';
+            require '../index.html';
+            echo 'Du bist in deinem Journal, ' . $_SESSION['name'] . '.';
         }
 
         loginUser($email, $pwd);
     } catch (Exception $e) {
-
     }
 }

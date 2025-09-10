@@ -6,8 +6,8 @@ function emailExists($email)
 {
     global $mysqli;
 
-    # Doppelte Email s prüfen
-    $stmt = "SELECT email FROM user WHERE email=?";
+    # Doppelte Emails prüfen
+    $stmt = "SELECT id FROM user WHERE email=?";
     $stmt = $mysqli->prepare($stmt);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
@@ -62,8 +62,6 @@ function loginUser($email, $pwd)
             $_SESSION['email'] = $getRow['email'];
             $_SESSION['loginDone'] = true;
 
-            echo 'Login erfolgreich!';
-            echo 'Hallo zurück, '.$_SESSION['name'];
         }
     } else {
         echo 'Passwörter stimmen nicht überein.';

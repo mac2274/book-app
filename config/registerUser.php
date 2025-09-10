@@ -8,16 +8,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitRegisterUser'])
     $email = $_POST['email'] ?? '';
     $password = $_POST['pwd'];
 
+    if (empty($email) || empty($password)){
+        echo 'Bitte Email und Passwort eingeben.';
+    }
+
     if (emailExists($email)) {
-        echo 'Diese Email-Adresse wird bereits verwendet.';
+        echo 'Diese Email ist bereits in Gebrauch. Bitte logge dich ein.';
+        require '../pages/login.html';
     } else {
         registerUser($name, $surname, $email, $password);
+        echo 'Registerierung erfolgt<br>';
+        echo 'Jetzt einloggen: <br>';
+        require '../pages/login.html';
     }
 } else {
     echo 'Die Registrierung ist fehlgeschlagen.';
 }
 
-if ($email && $password) {
-    require '../pages/login.html';
-}
+
 ?>
