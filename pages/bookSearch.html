@@ -40,22 +40,41 @@
         </div>
     </form>
 
+    <div id="result"></div>
+
     <script>
+
+        let input = document.querySelector('#name');
+        let searchResult = document.querySelector('#result');
+        const searchURL = "https://www.googleapis.com/books/v1/volumes?q=";
+        const apiKey = 'AIzaSyAy-1B2AQ21mOqn4jjO0XujQ3S4vKZnDxA';
+
+        //1. async function mit fetch
         async function getBook(e) {
             e.preventDefault();
-            const url = "https://example.org/products.json";
+            // laut https://medium.com/@msbluemu/how-to-use-google-book-api-in-your-projects-e1e82a848c4f:
+            const searchTerm = input.value;
+            const url = `${searchURL}${searchTerm}&key=${apiKey}`;
+
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
                 }
 
-                const result = await response.json();
-                console.log(result);
+                const data = await response.json();
+                console.log(data);
+                //2. results zeigen
+                searchResult.innerHTML = '';
+                data.items.forEach(element => {
+                    searchResult.innerHTML = `<h3>${element.volumeInfo.title}</h3>`;
+                });
             } catch (error) {
                 console.error(error.message);
             }
         }
+
+        document.querySelector('form').addEventListener('submit', getBook);
     </script>
 </body>
 
