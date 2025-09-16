@@ -27,21 +27,21 @@
 
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
         <h2 class="text-4xl font-semibold mt-4">Buchsuche</h2>
-        <form action="" class="grid gap-y-4">
-            <div class="grid grid-cols-3 items-center">
+        <form action="" class="flex flex-col gap-y-4">
+            <div class="flex flex-row items-center gap-x-4">
                 <label for="title" class="text-xl">Titel</label>
                 <input type="text" id="name"
                     class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
             </div>
 
-            <div class="grid grid-cols-3 items-center">
+            <div class="flex justify-center">
                 <input type="submit" value="Suchen"
-                    class="col-start-2 border-2 border-transparent rounded-4xl py-3 px-6 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
+                    class="col-start-2 border-2 border-transparent rounded-4xl py-2 px-6 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
             </div>
         </form>
     </div>
 
-    <div id="result" class="flex flex-col justify-center gap-3"></div>
+    <div id="result" class="flex flex-col justify-center gap-3 mr-10 ml-10"></div>
 
     <script>
         let searchDiv = document.querySelector('#searchDiv');
@@ -49,17 +49,7 @@
         let searchResult = document.querySelector('#result');
         const searchURL = "https://www.googleapis.com/books/v1/volumes?q=";
 
-        // let button = document.querySelector('button');
-        // button.addEventListener('click', openDetails);
-
-        // function openDetails(e) {
-        //     e.preventDefault();
-        //     //Suche verkleinert anzeigen
-        //     searchDiv.classList.remove('flex-col');
-        //     searchDiv.classList.add('items-start');
-        // }
-
-        //1. async function mit fetch
+        // -> 1. async function mit fetch
         async function getBook(e) {
             e.preventDefault();
             const searchTerm = input.value;
@@ -74,52 +64,75 @@
                 const data = await response.json();
                 console.log(data);
 
-                //2. results zeigen
-                searchResult.classList.add('pt-150');
+                // -> 2. results zeigen
+                let searchDiv = document.querySelector('#searchDiv')
+                searchDiv.classList.add('absolute');
+                // Suche einzeilig machen 
+                searchDiv.classList.add('top-30');
+                searchDiv.classList.add('flex-row')
+                document.querySelector('h2').style.display = 'none';
+                document.querySelector('form').classList.remove('flex-col');
+                document.querySelector('form').classList.add('flex-row');
+                document.querySelector('form').classList.add('gap-x-4');
+                searchResult.classList.add('absolute');
+                searchResult.classList.add('top-60');
+
                 searchResult.innerHTML = '';
 
                 data.items.forEach(item => {
+                    const searchHeading = document.createElement('h4');
+                    searchHeading.classList.add('text-3xl');
+                    searchHeading.classList.add('x');
+                    searchHeading.innerHTML = 'Suchergebnis:';
+
                     searchResult.innerHTML += `
-                        <div class="flex flex-col justify-center">
-                            <div class="flex flex-col pb-4 mt-4">
-                                <div class="flex justify-center flex-row">
-                                    <p class="text-md italic font-semibold">Titel: </p>
-                                    <p class="pb-4">${item.volumeInfo.title}</p> 
-                                </div> 
-                                <div class="flex justify-center flex-row">
-                                    <p class="text-md italic font-semibold">Autor/in: </p>
-                                    <p class="pb-4">${item.volumeInfo.authors}</p>
-                                </div>
-                                <div class="flex justify-center flex-row">
-                                    <p class="text-md italic font-semibold">
-                                    </p<p class="pb-4">${item.volumeInfo.subtitle}</p>
-                                </div>    
+
+                        <div class="flex flex-col justify-center gap-y-2 pb-4 my-4">
+                            <p class="text-md font-semibold">Titel:
+                                <spnn class="italic pb-4 bookTitle">${item.volumeInfo.title}</span>
+                            </p> 
+                            
+                            <p class="text-md font-semibold">Autor/in: 
+                                <spnn class="italic pb-4 bookAuthor">${item.volumeInfo.authors}</span>
+                            </p>
+                            
+                            <p class="bookSubtile">${item.volumeInfo.subtitle}</p>
+
+                            <div class="insertDesc">
+                                <button type="button" data-description="${item.volumeInfo.description}"
+                                    class="text-md self-center font-semibold px-2 py-1 rounded-4xl border-1 hover:border-green-400 hover:bg-white btnDescription">
+                                    Beschreibung lesen
+                                </button>
+
+                                <div class="descriptionDiv text-left my-2"></div>    
                             </div>
-                            <div class="flex text-center flex-col items-center justify-center pb-4 mb-4">
-                                <button type="submit" class="text-md font-semibold pb-4">Beschreibung</button>
-                                <img class="w-50" src="${item.volumeInfo.imageLinks.thumbnail}">
-                            </div>
+
+                            <img class="pb-4 bookCover" src="${item.volumeInfo.imageLinks.thumbnail}">
+
+                            <input type="submit" value="Zu einer Liste hinzufügen" class="text-md self-center mb-4 font-semibold px-2 py-1 rounded-4xl border-1 hover:border-green-400 hover:bg-white">
                             <hr>
                         </div>`;
                 });
 
-                // // nur ein Buch anzeigen:
-                // const firstBook = data.items[0];
-                // searchResult.innerHTML = `
-                //     <div class="flex text-center flex-col pb-4">
-                //         <p class="text-md italic font-semibold">Titel: </p><p class="pb-4">${firstBook.volumeInfo.title}</p>
-                //         <p class="text-md italic font-semibold">Autor/in: </p><p class="pb-4">${firstBook.volumeInfo.authors}</p>
-                //         <p class="text-md italic font-semibold"></p<p class="pb-4">${firstBook.volumeInfo.subtitle}</p>    
-                //     </div>
-                //     <div class="flex text-center flex-col justify-items-center justify-center pb-4">
-                //         <p class="text-md font-semibold">Beschreibung: </p><p class="pb-4">${firstBook.volumeInfo.description}</p>
-                //         <img class="w-50" src="${firstBook.volumeInfo.imageLinks.thumbnail}">
-                //     </div>`;
-                ;
             } catch (error) {
                 console.error(error.message);
             }
         }
+
+        searchResult.addEventListener('click', (e) => {
+            if (e.target.classList.contains('btnDescription')){
+                openDescript(e.target);
+            }
+        });
+
+        function openDescript(btn) {
+            const bookDiv = btn.closest('.insertDesc');
+            const descriptionDiv = document.querySelector('.descriptionDiv');
+            const text = document.createElement('p');
+            text.textContent = btn.dataset.description;
+            descriptionDiv.appendChild(text);
+        }
+
 
         document.querySelector('form').addEventListener('submit', getBook);
 
