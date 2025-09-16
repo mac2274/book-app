@@ -124,7 +124,11 @@
                 console.error(error.message);
             }
         }
-        // Button der Beschreibung zeigen kann
+
+        // !!!!!! Probiere mal eine andere Version (Kopie!!) mit leeren Conatinern im HTML für weniger dynamisch generiertes HTML !!!!!!!
+        // und probier tailwind 
+
+        // Button um Beschreibung zu öffnen - !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 1. FRAGEN: Beschreibung wird nur im ersten Buch eingefügt...!!!!!!!!!!!!!
         function openDescript(btn) {
             const bookDiv = btn.parentElement;
             const descriptionDiv = document.querySelector('.descriptionDiv');
@@ -133,39 +137,53 @@
             descriptionDiv.appendChild(text);
         }
 
-        // Button der Daten in eine Liste einfügen kann
+        // Button um Daten in eine Liste einzufügen
         function selectList() {
             // Container für btns
             const btnDiv = document.createElement('div');
+            btnDiv.classList.add('btnDiv');
             btnDiv.classList.add('flex');
-            btnDiv.classList.add('flex-wrap');
-            // btnDiv.classList.add('border-1');
-            // btnDiv.classList.add('hover:bg-white');
-            //btnDiv.innerHTML = 'meine Bibliothek';
-            searchResult.closest(button);
+            btnDiv.classList.add('justify-center');
+            btnDiv.classList.add('gap-2');
+            btnDiv.classList.add('mb-8');
+            searchResult.appendChild(btnDiv);
 
             // Btn myBib erstellen
             const btnMyBib = document.createElement('button');
             btnMyBib.classList.add('myBook');
             btnMyBib.classList.add('rounded-4xl');
             btnMyBib.classList.add('border-1');
+            btnMyBib.classList.add('p-1');
             btnMyBib.classList.add('hover:bg-white');
             btnMyBib.innerHTML = 'meine Bibliothek';
-            searchResult.appendChild(btnDiv);
+            btnDiv.appendChild(btnMyBib);
 
             // Btn btnReadBooks erstellen
             const btnReadBooks = document.createElement('button');
-            btnReadBooks.classList.add('myBook');
+            btnReadBooks.classList.add('myReads');
             btnReadBooks.classList.add('rounded-4xl');
             btnReadBooks.classList.add('border-1');
+            btnReadBooks.classList.add('p-1');
             btnReadBooks.classList.add('hover:bg-white');
             btnReadBooks.innerHTML = 'gelesene Bücher';
-            searchResult.appendChild(btnDiv);
+            btnDiv.appendChild(btnReadBooks);
 
             // Btn btnFavs erstellen
             const btnFavs = document.createElement('button');
+            btnFavs.classList.add('myFavs');
+            btnFavs.classList.add('rounded-4xl');
+            btnFavs.classList.add('border-1');
+            btnFavs.classList.add('p-1');
+            btnFavs.classList.add('hover:bg-white');
+            btnFavs.innerHTML = 'Lieblingsbücher';
+            btnDiv.appendChild(btnFavs);
 
 
+            btnDiv.addEventListener('click', (e) => {
+                if (e.target.classList.contains('myFavs')) {
+                    console.log('Hallo!');
+                }
+            })
         }
 
         searchResult.addEventListener('click', async (e) => {
