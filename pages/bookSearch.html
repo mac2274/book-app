@@ -75,19 +75,23 @@
                 document.querySelector('form').classList.add('flex-row');
                 document.querySelector('form').classList.add('gap-x-4');
                 searchResult.classList.add('absolute');
-                searchResult.classList.add('top-60');
+                searchResult.classList.add('top-50');
 
                 searchResult.innerHTML = '';
 
+                // überschruift für Suchergebnis
+                const searchHeading = document.createElement('h4');
+                searchHeading.classList.add('text-3xl');
+                searchHeading.classList.add('self-start');
+                searchHeading.innerHTML = 'Suchergebnis:';
+                searchResult.appendChild(searchHeading);
                 data.items.forEach(item => {
-                    const searchHeading = document.createElement('h4');
-                    searchHeading.classList.add('text-3xl');
-                    searchHeading.classList.add('x');
-                    searchHeading.innerHTML = 'Suchergebnis:';
 
+
+                    // Suchergebmis
                     searchResult.innerHTML += `
 
-                        <div class="flex flex-col justify-center gap-y-2 pb-4 my-4">
+                        <div class="flex flex-col items-center gap-y-2 pb-4 my-4">
                             <p class="text-md font-semibold">Titel:
                                 <spnn class="italic pb-4 bookTitle">${item.volumeInfo.title}</span>
                             </p> 
@@ -100,7 +104,7 @@
 
                             <div class="insertDesc">
                                 <button type="button" data-description="${item.volumeInfo.description}"
-                                    class="text-md self-center font-semibold px-2 py-1 rounded-4xl border-1 hover:border-green-400 hover:bg-white btnDescription">
+                                    class="text-md font-semibold px-2 py-1 rounded-4xl border-1 hover:border-green-400 hover:bg-white btnDescription">
                                     Beschreibung lesen
                                 </button>
 
@@ -109,7 +113,9 @@
 
                             <img class="pb-4 bookCover" src="${item.volumeInfo.imageLinks.thumbnail}">
 
-                            <input type="submit" value="Zu einer Liste hinzufügen" class="text-md self-center mb-4 font-semibold px-2 py-1 rounded-4xl border-1 hover:border-green-400 hover:bg-white">
+                            <button type="submit" class="text-md mb-4 font-semibold px-2 py-1 rounded-4xl border-1 hover:border-green-400 hover:bg-white btnAddToLists">
+                                Zu einer Liste hinzufügen
+                            </button>
                             <hr>
                         </div>`;
                 });
@@ -118,20 +124,60 @@
                 console.error(error.message);
             }
         }
-
-        searchResult.addEventListener('click', (e) => {
-            if (e.target.classList.contains('btnDescription')){
-                openDescript(e.target);
-            }
-        });
-
+        // Button der Beschreibung zeigen kann
         function openDescript(btn) {
-            const bookDiv = btn.closest('.insertDesc');
+            const bookDiv = btn.parentElement;
             const descriptionDiv = document.querySelector('.descriptionDiv');
             const text = document.createElement('p');
             text.textContent = btn.dataset.description;
             descriptionDiv.appendChild(text);
         }
+
+        // Button der Daten in eine Liste einfügen kann
+        function selectList() {
+            // Container für btns
+            const btnDiv = document.createElement('div');
+            btnDiv.classList.add('flex');
+            btnDiv.classList.add('flex-wrap');
+            // btnDiv.classList.add('border-1');
+            // btnDiv.classList.add('hover:bg-white');
+            //btnDiv.innerHTML = 'meine Bibliothek';
+            searchResult.closest(button);
+
+            // Btn myBib erstellen
+            const btnMyBib = document.createElement('button');
+            btnMyBib.classList.add('myBook');
+            btnMyBib.classList.add('rounded-4xl');
+            btnMyBib.classList.add('border-1');
+            btnMyBib.classList.add('hover:bg-white');
+            btnMyBib.innerHTML = 'meine Bibliothek';
+            searchResult.appendChild(btnDiv);
+
+            // Btn btnReadBooks erstellen
+            const btnReadBooks = document.createElement('button');
+            btnReadBooks.classList.add('myBook');
+            btnReadBooks.classList.add('rounded-4xl');
+            btnReadBooks.classList.add('border-1');
+            btnReadBooks.classList.add('hover:bg-white');
+            btnReadBooks.innerHTML = 'gelesene Bücher';
+            searchResult.appendChild(btnDiv);
+
+            // Btn btnFavs erstellen
+            const btnFavs = document.createElement('button');
+
+
+        }
+
+        searchResult.addEventListener('click', async (e) => {
+            if (e.target.classList.contains('btnDescription')) {
+                openDescript(e.target);
+            }
+            if (e.target.classList.contains('btnAddToLists')) {
+                selectList(e.target)
+            }
+        });
+
+
 
 
         document.querySelector('form').addEventListener('submit', getBook);
