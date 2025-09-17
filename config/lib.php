@@ -67,3 +67,30 @@ function loginUser($email, $pwd)
         echo 'Passwörter stimmen nicht überein.';
     }
 }
+
+function saveToFavs(){
+    global $mysqli;
+    // POST auslesen
+    $data = json_decode(file_get_contents('php://input', true));
+
+    if (!$data) {
+        throw new Exception('Keine Daten erhalten:' . $data->error);
+    }
+    $title = $data['title'];
+    $author = $data['author'];
+    $subtitle = $data['subtitle'];
+    $description = $data['description'];
+    $cover = $data['cover'];
+    //$list = $data['list'];
+
+    $sql = 'INSERT INTO books_fav (title, author, subtitle, description, cover) VALUES(?,?,?,?,?)'; 
+    $stmt = $mysqli->prepare($sql);
+    if (!$stmt) {
+        throw new Exception('Fehler:' . $mysqli->error);
+    }
+    $stmt->bind_param('sssss', $title, $author, $subtitle, $description, $cover);
+    if (!$stmt->execute()) {
+        throw new Exception('Fehler: ' . $stmt->error);
+    }
+    return $stmt->affected_rows;
+}

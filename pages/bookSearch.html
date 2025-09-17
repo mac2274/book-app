@@ -137,6 +137,35 @@
             descriptionDiv.appendChild(text);
         }
 
+        //in DB speichern mit fetch
+        async function addToFavs() {
+            e.preventDefault();
+            try {
+                // speicherort angeben
+                const response = await fetch('saveFavs.php', {
+                    method: 'POST', // speichern mit POST
+                    headers: {
+                        'Content-Type': 'application/json' // als json speichern
+                    }, 
+                    body: JSON.stringify({ // Inhalt der json nennen
+                        title: item.volumeInfo.title,
+                        author: item.volumeInfo.author,
+                        subtitle: item.volumeInfo.subtitle,
+                        cover: item.volumeInfo.imageLinks?.thumbnail,
+                        list: "favs" // optional: kennzeichnen, dass es in Lieblingsbücher gehört
+                    })
+                });
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                const json = await response.json();
+                console.log(json);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+
         // Button um Daten in eine Liste einzufügen
         function selectList() {
             // Container für btns
@@ -182,32 +211,7 @@
             btnDiv.addEventListener('click', (e) => {
                 // bei click auf Lieblinfsbücher:
                 if (e.target.classList.contains('myFavs')) {
-                    //speichern in DB
-                    async function addToFavs() {
-                        e.preventDefault();
-                        try {
-                            const response = await fetch('saveFavs.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    title: item.volumeInfo.title,
-                                    author: item.volumeInfo.author,
-                                    subtitle: item.volumeInfo.subtitle,
-                                    cover: item.volumeInfo.imageLinks?.thumbnail,
-                                    list: "favs" // optional: kennzeichnen, dass es in Lieblingsbücher gehört
-                                })
-                            });
-                            if (!response.ok) {
-                                throw new Error(`Response status: ${response.status}`);
-                            }
-                            const json = await response.json();
-                            console.log(json);
-                        } catch (error) {
-                            console.error(error);
-                        }
-                    }
+                    addToFavs(book);
                 }
             })
         }
