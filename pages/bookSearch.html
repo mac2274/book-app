@@ -139,14 +139,13 @@
 
         //in DB speichern mit fetch
         async function addToFavs() {
-            e.preventDefault();
             try {
                 // speicherort angeben
                 const response = await fetch('saveFavs.php', {
                     method: 'POST', // speichern mit POST
                     headers: {
                         'Content-Type': 'application/json' // als json speichern
-                    }, 
+                    },
                     body: JSON.stringify({ // Inhalt der json nennen
                         title: item.volumeInfo.title,
                         author: item.volumeInfo.author,
@@ -206,16 +205,23 @@
             btnFavs.classList.add('hover:bg-white');
             btnFavs.innerHTML = 'Lieblingsbücher';
             btnDiv.appendChild(btnFavs);
+            //data-attribute für js-arbeit 
+            btnFavs.dataset.title = item.volumeInfo.title;
+            btnFavs.dataset.author = item.volumeInfo.authors;
+            btnFavs.dataset.subtitle = item.volumeInfo.subtitle;
+            btnFavs.dataset.description = item.volumeInfo.description;
+            btnFavs.dataset.cover = item.volumeInfo.imageLinks?.thumbnail;
 
             // Daten in DB einfügen
-            btnDiv.addEventListener('click', (e) => {
+            btnDiv.addEventListener('click', (e, items) => {
                 // bei click auf Lieblinfsbücher:
                 if (e.target.classList.contains('myFavs')) {
-                    addToFavs(book);
+                    addToFavs(item);
                 }
             })
         }
 
+        // eentlistener beim Klicken der btns
         searchResult.addEventListener('click', async (e) => {
             if (e.target.classList.contains('btnDescription')) {
                 openDescript(e.target);

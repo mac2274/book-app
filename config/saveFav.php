@@ -1,4 +1,20 @@
 <?php
+header('Content-Type: application/json');
 
 require_once 'config.db.php';
+require_once 'lib.php';
 
+try {
+    $affectedRows = saveToFavs($data);
+
+    echo json_encode([
+        'success:' => true,
+        'insertesRows' => $affectedRows
+    ]);
+} catch (Exception $e) {
+    http_response_code(400);
+    echo json_encode([
+        'success:' => false,
+        'message:' => $e->getMessage()    
+    ]);
+}

@@ -68,7 +68,7 @@ function loginUser($email, $pwd)
     }
 }
 
-function saveToFavs(){
+function saveToFavs($data){
     global $mysqli;
     // POST auslesen
     $data = json_decode(file_get_contents('php://input', true));
