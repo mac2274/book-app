@@ -49,124 +49,9 @@
         let searchResult = document.querySelector('#result');
         const searchURL = "https://www.googleapis.com/books/v1/volumes?q=";
 
-        // -> 1. async function mit fetch
-        async function getBook(e) {
-            e.preventDefault();
-            const searchTerm = input.value;
-            const url = `${searchURL}${searchTerm}`;
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`Response status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log(data);
-
-                // -> 2. results zeigen
-                let searchDiv = document.querySelector('#searchDiv')
-                searchDiv.classList.add('absolute');
-                // Suche einzeilig machen 
-                searchDiv.classList.add('top-30');
-                searchDiv.classList.add('flex-row')
-                document.querySelector('h2').style.display = 'none';
-                document.querySelector('form').classList.remove('flex-col');
-                document.querySelector('form').classList.add('flex-row');
-                document.querySelector('form').classList.add('gap-x-4');
-                searchResult.classList.add('absolute');
-                searchResult.classList.add('top-50');
-
-                searchResult.innerHTML = '';
-
-                // überschruift für Suchergebnis
-                const searchHeading = document.createElement('h4');
-                searchHeading.classList.add('text-3xl');
-                searchHeading.classList.add('self-start');
-                searchHeading.innerHTML = 'Suchergebnis:';
-                searchResult.appendChild(searchHeading);
-                data.items.forEach(item => {
-
-
-                    // Suchergebmis
-                    searchResult.innerHTML += `
-
-                        <div class="flex flex-col items-center gap-y-2 pb-4 my-4">
-                            <p class="text-md font-semibold">Titel:
-                                <spnn class="italic pb-4 bookTitle">${item.volumeInfo.title}</span>
-                            </p> 
-                            
-                            <p class="text-md font-semibold">Autor/in: 
-                                <spnn class="italic pb-4 bookAuthor">${item.volumeInfo.authors}</span>
-                            </p>
-                            
-                            <p class="bookSubtile">${item.volumeInfo.subtitle}</p>
-
-                            <div class="insertDesc">
-                                <button type="button" data-description="${item.volumeInfo.description}"
-                                    class="text-md font-semibold px-2 py-1 rounded-4xl border-1 hover:border-green-400 hover:bg-white btnDescription">
-                                    Beschreibung lesen
-                                </button>
-
-                                <div class="descriptionDiv text-left my-2"></div>    
-                            </div>
-
-                            <img class="pb-4 bookCover" src="${item.volumeInfo.imageLinks.thumbnail}">
-
-                            <button type="submit" class="text-md mb-4 font-semibold px-2 py-1 rounded-4xl border-1 hover:border-green-400 hover:bg-white btnAddToLists">
-                                Zu einer Liste hinzufügen
-                            </button>
-                            <hr>
-                        </div>`;
-                });
-
-            } catch (error) {
-                console.error(error.message);
-            }
-        }
-
-        // !!!!!! Probiere mal eine andere Version (Kopie!!) mit leeren Conatinern im HTML für weniger dynamisch generiertes HTML !!!!!!!
-        // und probier tailwind 
-
-        // Button um Beschreibung zu öffnen - !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 1. FRAGEN: Beschreibung wird nur im ersten Buch eingefügt...!!!!!!!!!!!!!
-        function openDescript(btn) {
-            const bookDiv = btn.parentElement;
-            const descriptionDiv = document.querySelector('.descriptionDiv');
-            const text = document.createElement('p');
-            text.textContent = btn.dataset.description;
-            descriptionDiv.appendChild(text);
-        }
-
-        //in DB speichern mit fetch
-        async function addToFavs() {
-            try {
-                // speicherort angeben
-                const response = await fetch('saveFavs.php', {
-                    method: 'POST', // speichern mit POST
-                    headers: {
-                        'Content-Type': 'application/json' // als json speichern
-                    },
-                    body: JSON.stringify({ // Inhalt der json nennen
-                        title: item.volumeInfo.title,
-                        author: item.volumeInfo.author,
-                        subtitle: item.volumeInfo.subtitle,
-                        cover: item.volumeInfo.imageLinks?.thumbnail,
-                        list: "favs" // optional: kennzeichnen, dass es in Lieblingsbücher gehört
-                    })
-                });
-                if (!response.ok) {
-                    throw new Error(`Response status: ${response.status}`);
-                }
-                const json = await response.json();
-                console.log(json);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
 
         // Button um Daten in eine Liste einzufügen
-        function selectList() {
+        function selectList(item) {
             // Container für btns
             const btnDiv = document.createElement('div');
             btnDiv.classList.add('btnDiv');
@@ -212,27 +97,128 @@
             btnFavs.dataset.description = item.volumeInfo.description;
             btnFavs.dataset.cover = item.volumeInfo.imageLinks?.thumbnail;
 
-            // Daten in DB einfügen
-            btnDiv.addEventListener('click', (e, items) => {
-                // bei click auf Lieblinfsbücher:
-                if (e.target.classList.contains('myFavs')) {
-                    addToFavs(item);
-                }
-            })
         }
 
-        // eentlistener beim Klicken der btns
-        searchResult.addEventListener('click', async (e) => {
-            if (e.target.classList.contains('btnDescription')) {
-                openDescript(e.target);
+        // -> 1. async function mit fetch
+        async function getBook(e) {
+            e.preventDefault();
+            const searchTerm = input.value;
+            const url = `${searchURL}${searchTerm}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log(data);
+
+                // -> 2. results zeigen
+                let searchDiv = document.querySelector('#searchDiv')
+                searchDiv.classList.add('absolute');
+                // Suche einzeilig machen 
+                searchDiv.classList.add('top-30');
+                searchDiv.classList.add('flex-row')
+                document.querySelector('h2').style.display = 'none';
+                document.querySelector('form').classList.remove('flex-col');
+                document.querySelector('form').classList.add('flex-row');
+                document.querySelector('form').classList.add('gap-x-4');
+                searchResult.classList.add('absolute');
+                searchResult.classList.add('top-50');
+
+                searchResult.innerHTML = '';
+
+                // überschruift für Suchergebnis
+                const searchHeading = document.createElement('h4');
+                searchHeading.classList.add('text-3xl');
+                searchHeading.classList.add('self-start');
+                searchHeading.innerHTML = 'Suchergebnis:';
+                searchResult.appendChild(searchHeading);
+
+                data.items.forEach(item => { // Zugriff auf die neu generierten Bücher/items
+                    const bookHTML = `
+                        <div class="flex flex-col items-center gap-y-2 pb-4 my-4 createdDiv">
+                            <p class="text-md font-semibold">Titel:
+                                <span class="italic pb-4 bookTitle">${item.volumeInfo.title}</span>
+                            </p> 
+                            
+                            <p class="text-md font-semibold">Autor/in: 
+                                <span class="italic pb-4 bookAuthor">${item.volumeInfo.authors}</span>
+                            </p>
+                            
+                            <p class="bookSubtile">${item.volumeInfo.subtitle}</p>
+
+                            <div class="insertDesc">
+                                <button type="button" data-description="${item.volumeInfo.description}"
+                                    class="text-md font-semibold px-2 py-1 rounded-4xl border-1 hover:border-green-400 hover:bg-white btnDescription">
+                                    Beschreibung lesen
+                                </button>
+
+                                <div class="descriptionDiv text-left my-2"></div>    
+                            </div>
+
+                            <img class="pb-4 bookCover" src="${item.volumeInfo.imageLinks.thumbnail}">
+
+                            <button type="submit" class="text-md mb-4 font-semibold px-2 py-1 rounded-4xl border-1 hover:border-green-400 hover:bg-white btnAddToLists">
+                                Zu einer Liste hinzufügen
+                            </button>
+                            <hr>
+                        </div>`;
+
+                    // Suchergebmis
+                    searchResult.innerHTML += bookHTML;
+
+                    const newBookDiv = searchResult.lastElementChild;
+
+                    const descBtn = newBookDiv.querySelector('.btnDescription');
+                    descBtn.addEventListener('click', () => {
+                        openDescript(item);
+                    })
+
+                });
+
+
+            } catch (error) {
+                console.error(error.message);
             }
-            if (e.target.classList.contains('btnAddToLists')) {
-                selectList(e.target)
+        }
+
+        // Button um Beschreibung zu öffnen - !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 1. FRAGEN: Beschreibung wird nur im ersten Buch eingefügt...!!!!!!!!!!!!!
+        function openDescript(btn) {
+            const bookDiv = btn.closest('.createdDiv');
+            const descriptionDiv = bookDiv.querySelector('.descriptionDiv');
+            const text = document.createElement('p');
+            text.textContent = btn.dataset.description;
+            descriptionDiv.appendChild(text);
+        }
+
+        //in DB speichern mit fetch
+        async function addToFavs() {
+            try {
+                // speicherort angeben
+                const response = await fetch('saveFavs.php', {
+                    method: 'POST', // speichern mit POST
+                    headers: {
+                        'Content-Type': 'application/json' // als json speichern
+                    },
+                    body: JSON.stringify({ // Inhalt der json nennen
+                        title: item.volumeInfo.title,
+                        author: item.volumeInfo.author,
+                        subtitle: item.volumeInfo.subtitle,
+                        cover: item.volumeInfo.imageLinks?.thumbnail,
+                        list: "favs" // optional: kennzeichnen, dass es in Lieblingsbücher gehört
+                    })
+                });
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                const json = await response.json();
+                console.log(json);
+            } catch (error) {
+                console.error(error);
             }
-        });
-
-
-
+        }
 
         document.querySelector('form').addEventListener('submit', getBook);
 
