@@ -71,11 +71,7 @@ function loginUser($email, $pwd)
 function saveToFavs($data){
     global $mysqli;
     // POST auslesen
-    $data = json_decode(file_get_contents('php://input', true));
 
-    if (!$data) {
-        throw new Exception('Keine Daten erhalten:' . $data->error);
-    }
     $title = $data['title'];
     $author = $data['author'];
     $subtitle = $data['subtitle'];

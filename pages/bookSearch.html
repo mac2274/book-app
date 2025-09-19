@@ -49,54 +49,25 @@
         let searchResult = document.querySelector('#result');
         const searchURL = "https://www.googleapis.com/books/v1/volumes?q=";
 
-
-        // Button um Daten in eine Liste einzufügen
-        function selectList(item) {
-            // Container für btns
-            const btnDiv = document.createElement('div');
-            btnDiv.classList.add('btnDiv');
-            btnDiv.classList.add('flex');
-            btnDiv.classList.add('justify-center');
-            btnDiv.classList.add('gap-2');
-            btnDiv.classList.add('mb-8');
-            searchResult.appendChild(btnDiv);
-
-            // Btn myBib erstellen
-            const btnMyBib = document.createElement('button');
-            btnMyBib.classList.add('myBook');
-            btnMyBib.classList.add('rounded-4xl');
-            btnMyBib.classList.add('border-1');
-            btnMyBib.classList.add('p-1');
-            btnMyBib.classList.add('hover:bg-white');
-            btnMyBib.innerHTML = 'meine Bibliothek';
-            btnDiv.appendChild(btnMyBib);
-
-            // Btn btnReadBooks erstellen
-            const btnReadBooks = document.createElement('button');
-            btnReadBooks.classList.add('myReads');
-            btnReadBooks.classList.add('rounded-4xl');
-            btnReadBooks.classList.add('border-1');
-            btnReadBooks.classList.add('p-1');
-            btnReadBooks.classList.add('hover:bg-white');
-            btnReadBooks.innerHTML = 'gelesene Bücher';
-            btnDiv.appendChild(btnReadBooks);
-
-            // Btn btnFavs erstellen
-            const btnFavs = document.createElement('button');
-            btnFavs.classList.add('myFavs');
-            btnFavs.classList.add('rounded-4xl');
-            btnFavs.classList.add('border-1');
-            btnFavs.classList.add('p-1');
-            btnFavs.classList.add('hover:bg-white');
-            btnFavs.innerHTML = 'Lieblingsbücher';
-            btnDiv.appendChild(btnFavs);
-            //data-attribute für js-arbeit 
-            btnFavs.dataset.title = item.volumeInfo.title;
-            btnFavs.dataset.author = item.volumeInfo.authors;
-            btnFavs.dataset.subtitle = item.volumeInfo.subtitle;
-            btnFavs.dataset.description = item.volumeInfo.description;
-            btnFavs.dataset.cover = item.volumeInfo.imageLinks?.thumbnail;
-
+         // // in Fav-liste (DB) speichern mit fetch
+        async function addToFavs(book) {
+            try {
+                // speicherort angeben
+                const response = await fetch('../config/saveFavs.php', {
+                    method: 'POST', // speichern mit POST
+                    headers: {
+                        'Content-Type': 'application/json' // als json speichern
+                    },
+                    body: JSON.stringify(book) // nimmt book-variable
+                });
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                const json = await response.json();
+                console.log(json);
+            } catch (error) {
+                console.error(error);
+            }
         }
 
         // -> 1. async function mit fetch
@@ -118,6 +89,7 @@
                 let searchDiv = document.querySelector('#searchDiv')
                 searchDiv.classList.add('absolute');
                 // Suche einzeilig machen 
+                searchDiv.classList.add('left-10');
                 searchDiv.classList.add('top-30');
                 searchDiv.classList.add('flex-row')
                 document.querySelector('h2').style.display = 'none';
@@ -137,88 +109,167 @@
                 searchResult.appendChild(searchHeading);
 
                 data.items.forEach(item => { // Zugriff auf die neu generierten Bücher/items
-                    const bookHTML = `
-                        <div class="flex flex-col items-center gap-y-2 pb-4 my-4 createdDiv">
-                            <p class="text-md font-semibold">Titel:
-                                <span class="italic pb-4 bookTitle">${item.volumeInfo.title}</span>
-                            </p> 
-                            
-                            <p class="text-md font-semibold">Autor/in: 
-                                <span class="italic pb-4 bookAuthor">${item.volumeInfo.authors}</span>
-                            </p>
-                            
-                            <p class="bookSubtile">${item.volumeInfo.subtitle}</p>
 
-                            <div class="insertDesc">
-                                <button type="button" data-description="${item.volumeInfo.description}"
-                                    class="text-md font-semibold px-2 py-1 rounded-4xl border-1 hover:border-green-400 hover:bg-white btnDescription">
-                                    Beschreibung lesen
-                                </button>
+                    // Container für Buchinfos (item)
+                    const bookDiv = document.createElement('div'); // 3. Variante
+                    bookDiv.classList.add('createdDiv');
+                    bookDiv.classList.add('flex');
+                    bookDiv.classList.add('flex-col');
+                    bookDiv.classList.add('items-center');
+                    bookDiv.classList.add('text-center');
+                    bookDiv.classList.add('gap-y-4');
+                    bookDiv.classList.add('my-4');
+                    searchResult.appendChild(bookDiv);
 
-                                <div class="descriptionDiv text-left my-2"></div>    
-                            </div>
+                    // Buchtitel
+                    const title = document.createElement('p');
+                    title.classList.add('bookTitle')
+                    title.textContent = `Buchtitel: ${item.volumeInfo.title}`;
+                    bookDiv.appendChild(title);
 
-                            <img class="pb-4 bookCover" src="${item.volumeInfo.imageLinks.thumbnail}">
+                    // Autor
+                    const author = document.createElement('p');
+                    author.classList.add('bookauthor');
+                    author.textContent = `Autor/innen: ${item.volumeInfo.authors?.join(', ')}`;
+                    bookDiv.appendChild(author);
 
-                            <button type="submit" class="text-md mb-4 font-semibold px-2 py-1 rounded-4xl border-1 hover:border-green-400 hover:bg-white btnAddToLists">
-                                Zu einer Liste hinzufügen
-                            </button>
-                            <hr>
-                        </div>`;
+                    // Subtitle
+                    const subtitle = document.createElement('p');
+                    subtitle.classList.add('bookSubtitle');
+                    subtitle.textContent = item.volumeInfo.subtitle ?? "";
+                    bookDiv.appendChild(subtitle);
 
-                    // Suchergebmis
-                    searchResult.innerHTML += bookHTML;
+                    // Beschreibung div+button
+                    const descriptDiv = document.createElement('div');
+                    bookDiv.appendChild(descriptDiv);
 
-                    const newBookDiv = searchResult.lastElementChild;
+                    // Button Beschreibung erzeugen
+                    const btnDescript = document.createElement('button');
+                    btnDescript.type = "button";
+                    btnDescript.classList.add('bookBtnDescript');
+                    btnDescript.classList.add('text-md');
+                    btnDescript.classList.add('font-semibold');
+                    btnDescript.classList.add('px-2');
+                    btnDescript.classList.add('py-1');
+                    btnDescript.classList.add('rounded-4xl');
+                    btnDescript.classList.add('border-1');
+                    btnDescript.classList.add('hover:border-green-400');
+                    btnDescript.classList.add('hover:bg-white');
+                    btnDescript.textContent = "Beschreibung lesen";
+                    descriptDiv.appendChild(btnDescript);
 
-                    const descBtn = newBookDiv.querySelector('.btnDescription');
-                    descBtn.addEventListener('click', () => {
-                        openDescript(item);
+                    // eventlistener für btnDescript
+                    btnDescript.addEventListener('click', () => {
+                        let descriptP = document.querySelector('.descriptionText');
+
+                        if (descriptP) {
+                            // wenn bereits da, wird es entfernt
+                            descriptP.remove();
+                        } else {
+                            // andernfalls wird es neugesetzt 
+                            const descriptP = document.createElement('p');
+                            descriptP.classList.add('descriptionText');
+                            descriptP.classList.add('px-10');
+                            descriptP.classList.add('py-4');
+                            descriptP.classList.add('transition');
+                            descriptP.classList.add('duration-300');
+                            descriptP.textContent = item.volumeInfo.description ?? "Keine Beschreibung vorhanden";
+                            descriptDiv.appendChild(descriptP);
+                        }
+                    });
+
+                    // Cover
+                    const cover = document.createElement('img');
+                    cover.classList.add('bookCover');
+                    cover.src = item.volumeInfo.imageLinks?.thumbnail;
+                    bookDiv.appendChild(cover);
+
+                    // Button addToList erzeugen
+                    const addToList = document.createElement('button');
+                    addToList.type = "button";
+                    addToList.classList.add('bookBtnDescript');
+                    addToList.classList.add('text-md');
+                    addToList.classList.add('font-semibold');
+                    addToList.classList.add('px-2');
+                    addToList.classList.add('py-1');
+                    addToList.classList.add('rounded-4xl');
+                    addToList.classList.add('border-1');
+                    addToList.classList.add('hover:border-green-400');
+                    addToList.classList.add('hover:bg-white');
+                    addToList.textContent = "zur Liste hinzufügen";
+                    bookDiv.appendChild(addToList);
+
+                    addToList.addEventListener('click', () => {
+                        // div für buttons
+                        const btnLists = document.createElement('div');
+                        btnLists.classList.add('flex')
+                        btnLists.classList.add('gap-x-2')
+                        bookDiv.appendChild(btnLists);
+                        // Favs-btn
+                        const btnFavs = document.createElement('button');
+                        btnFavs.classList.add('addToFavs');
+                        btnFavs.classList.add('text-md');
+                        btnFavs.classList.add('font-semibold');
+                        btnFavs.classList.add('px-2');
+                        btnFavs.classList.add('py-1');
+                        btnFavs.classList.add('rounded-4xl');
+                        btnFavs.classList.add('border-1');
+                        btnFavs.classList.add('hover:border-green-400');
+                        btnFavs.classList.add('hover:bg-white');
+                        btnFavs.textContent = 'Favouritenliste';
+                        btnLists.appendChild(btnFavs);
+
+                        // buchinfos im btnFavs speichern?
+                        btnFavs.dataset.title = item.volumeInfo.title;
+                        btnFavs.dataset.author = item.volumeInfo.authors?.join(", ") || "Unbekannt";
+
+                            // listener für addtoFavs
+                            btnFavs.addEventListener('click', () => {
+                                const book = {
+                                    title: btnFavs.dataset.title,
+                                    author: btnFavs.dataset.author
+                                }
+                                addToFavs(book);
+                            });
+
+                        // btn already read
+                        const btnOld = document.createElement('button');
+                        btnOld.classList.add('addToFavs');
+                        btnOld.classList.add('text-md');
+                        btnOld.classList.add('font-semibold');
+                        btnOld.classList.add('px-2');
+                        btnOld.classList.add('py-1');
+                        btnOld.classList.add('rounded-4xl');
+                        btnOld.classList.add('border-1');
+                        btnOld.classList.add('hover:border-green-400');
+                        btnOld.classList.add('hover:bg-white');
+                        btnOld.textContent = 'bereits gelesen';
+                        btnLists.appendChild(btnOld);
+                        // btn to be read
+                        const btnReads = document.createElement('button');
+                        btnReads.classList.add('addToFavs');
+                        btnReads.classList.add('text-md');
+                        btnReads.classList.add('font-semibold');
+                        btnReads.classList.add('px-2');
+                        btnReads.classList.add('py-1');
+                        btnReads.classList.add('rounded-4xl');
+                        btnReads.classList.add('border-1');
+                        btnReads.classList.add('hover:border-green-400');
+                        btnReads.classList.add('hover:bg-white');
+                        btnReads.textContent = 'Leseliste';
+                        btnLists.appendChild(btnReads);
                     })
 
-                });
-
+                    const seperator = document.createElement('hr');
+                    bookDiv.appendChild(seperator);
+                })
 
             } catch (error) {
                 console.error(error.message);
             }
         }
 
-        // Button um Beschreibung zu öffnen - !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 1. FRAGEN: Beschreibung wird nur im ersten Buch eingefügt...!!!!!!!!!!!!!
-        function openDescript(btn) {
-            const bookDiv = btn.closest('.createdDiv');
-            const descriptionDiv = bookDiv.querySelector('.descriptionDiv');
-            const text = document.createElement('p');
-            text.textContent = btn.dataset.description;
-            descriptionDiv.appendChild(text);
-        }
-
-        //in DB speichern mit fetch
-        async function addToFavs() {
-            try {
-                // speicherort angeben
-                const response = await fetch('saveFavs.php', {
-                    method: 'POST', // speichern mit POST
-                    headers: {
-                        'Content-Type': 'application/json' // als json speichern
-                    },
-                    body: JSON.stringify({ // Inhalt der json nennen
-                        title: item.volumeInfo.title,
-                        author: item.volumeInfo.author,
-                        subtitle: item.volumeInfo.subtitle,
-                        cover: item.volumeInfo.imageLinks?.thumbnail,
-                        list: "favs" // optional: kennzeichnen, dass es in Lieblingsbücher gehört
-                    })
-                });
-                if (!response.ok) {
-                    throw new Error(`Response status: ${response.status}`);
-                }
-                const json = await response.json();
-                console.log(json);
-            } catch (error) {
-                console.error(error);
-            }
-        }
+       
 
         document.querySelector('form').addEventListener('submit', getBook);
 
