@@ -75,7 +75,7 @@ function saveToFavs($data){
     $title = $data['title'];
     $author = $data['author'];
     $subtitle = $data['subtitle'];
-    $description = $data['description'];
+    $description = $data['descript'];
     $cover = $data['cover'];
     //$list = $data['list'];
 

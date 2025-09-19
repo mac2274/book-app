@@ -7,7 +7,6 @@ require_once 'lib.php';
 $data = json_decode(file_get_contents('php://input'), true);
 
 if (!$data) {
-    throw new Exception('Keine Daten erhalten:' . $data->error);
 }
 
 try {
