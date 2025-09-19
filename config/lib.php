@@ -90,3 +90,19 @@ function saveToFavs($data){
     }
     return $stmt->affected_rows;
 }
+
+function saveToDone($data){
+    global $mysqli;
+
+
+    $sql = 'INSERT INTO books_read (title, author, date) VALUES(?,?;?)';
+    $stmt = $mysqli->prepare($sql);
+    if (!$stmt) {
+        throw new Exception('Fehlermeldung: ' . $mysqli->error);
+    }
+    $stmt->bind_param('sss', $title, $author, $date);
+    if (!$stmt->execute()) {
+        throw new Exception('Fehlermeldung: ' . $stmt->error);
+    }
+    return $stmt->affected_rows;
+}

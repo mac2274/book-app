@@ -70,6 +70,25 @@
             }
         }
 
+        async function addToDone (book){
+            try {
+                const response = await fetch('../config/saveDoneReading.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/jsom'
+                    },
+                    body: JSON.stringify()
+                });
+                if (!response.ok){
+                    throw new Error('Response status: ${rsponse.status}');
+                }
+                const json = response.json();
+                console.log(json);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
         // -> 1. async function mit fetch
         async function getBook(e) {
             e.preventDefault();
@@ -228,7 +247,8 @@
 
                             // listener für addtoFavs
                             btnFavs.addEventListener('click', () => {
-                                const book = {
+                                // Daten aus Api in button speichern für php/db
+                                const book = { 
                                     title: btnFavs.dataset.title,
                                     author: btnFavs.dataset.author,
                                     subtitle: btnFavs.dataset.subtitle,
@@ -238,19 +258,32 @@
                                 addToFavs(book);
                             });
 
-                        // btn already read
-                        const btnOld = document.createElement('button');
-                        btnOld.classList.add('addToFavs');
-                        btnOld.classList.add('text-md');
-                        btnOld.classList.add('font-semibold');
-                        btnOld.classList.add('px-2');
-                        btnOld.classList.add('py-1');
-                        btnOld.classList.add('rounded-4xl');
-                        btnOld.classList.add('border-1');
-                        btnOld.classList.add('hover:border-green-400');
-                        btnOld.classList.add('hover:bg-white');
-                        btnOld.textContent = 'bereits gelesen';
-                        btnLists.appendChild(btnOld);
+                        // btn already read/done
+                        const btnDone = document.createElement('button');
+                        btnDone.classList.add('addToFavs');
+                        btnDone.classList.add('text-md');
+                        btnDone.classList.add('font-semibold');
+                        btnDone.classList.add('px-2');
+                        btnDone.classList.add('py-1');
+                        btnDone.classList.add('rounded-4xl');
+                        btnDone.classList.add('border-1');
+                        btnDone.classList.add('hover:border-green-400');
+                        btnDone.classList.add('hover:bg-white');
+                        btnDone.textContent = 'bereits gelesen';
+                        btnLists.appendChild(btnDone);
+
+                            // listener für already read
+                            btnDone.addEventListener('click', () => {
+                                const book = {
+                                    title: btnDone.dataset.title,
+                                    author: btnDone.dataset.author,
+                                    subtitle: btnDone.dataset.subtitle,
+                                    description: btnDone.dataset.description,
+                                    cover: btnDone.dataset.cover
+                                }
+                                addToDone(book);
+                            }) 
+                            
                         // btn to be read
                         const btnReads = document.createElement('button');
                         btnReads.classList.add('addToFavs');
