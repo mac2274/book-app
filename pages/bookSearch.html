@@ -49,7 +49,7 @@
         let searchResult = document.querySelector('#result');
         const searchURL = "https://www.googleapis.com/books/v1/volumes?q=";
 
-         // // in Fav-liste (DB) speichern mit fetch
+        // // in Fav-liste (DB) speichern mit fetch
         async function addToFavs(book) {
             try {
                 // speicherort angeben
@@ -70,8 +70,8 @@
             }
         }
 
-        // in doneRead-liste speichern
-        async function addToDone (book){
+        // in doneReading-liste speichern
+        async function addToDone(book) {
             try {
                 const response = await fetch('../config/saveDoneReading.php', {
                     method: 'POST',
@@ -80,7 +80,7 @@
                     },
                     body: JSON.stringify(book)
                 });
-                if (!response.ok){
+                if (!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
                 }
                 const json = response.json();
@@ -182,7 +182,7 @@
 
                     // eventlistener für btndescription
                     btndescription.addEventListener('click', () => {
-                        let descriptionP = document.querySelector('.descriptionionText');
+                        let descriptionP = document.querySelector('.descriptionText');
 
                         if (descriptionP) {
                             // wenn bereits da, wird es entfernt
@@ -190,7 +190,7 @@
                         } else {
                             // andernfalls wird es neugesetzt 
                             const descriptionP = document.createElement('p');
-                            descriptionP.classList.add('descriptionionText');
+                            descriptionP.classList.add('descriptionText');
                             descriptionP.classList.add('px-10');
                             descriptionP.classList.add('py-4');
                             descriptionP.classList.add('transition');
@@ -222,11 +222,20 @@
                     bookDiv.appendChild(addToList);
 
                     addToList.addEventListener('click', () => {
-                        // div für buttons
-                        const btnLists = document.createElement('div');
-                        btnLists.classList.add('flex')
-                        btnLists.classList.add('gap-x-2')
-                        bookDiv.appendChild(btnLists);
+                        // div für buttons und
+                        // dynamisch Buttonliste anzeigen und verstecken
+                        let btnLists = document.querySelector('.btnForLists');
+
+                        if (btnLists){
+                            btnLists.remove();
+                        } else {
+                            const btnLists = document.createElement('div');
+                            btnLists.classList.add('flex');
+                            btnLists.classList.add('gap-x-2');
+                           // btnLists.classList.add('btnForLists');
+                            bookDiv.appendChild(btnLists);
+                        }
+
                         // Favs-btn
                         const btnFavs = document.createElement('button');
                         btnFavs.classList.add('addToFavs');
@@ -246,20 +255,20 @@
                         btnFavs.dataset.author = item.volumeInfo.authors?.join(", ") || "Unbekannt";
                         btnFavs.dataset.subtitle = item.volumeInfo.subtitle ?? "";
                         btnFavs.dataset.description = item.volumeInfo.descriptionion ?? "Keine Beschreibung vorhanden";
-                        btnFavs.dataset.cover = item.volumeInfo.imageLinks?.thumbnail  
+                        btnFavs.dataset.cover = item.volumeInfo.imageLinks?.thumbnail
 
-                            // listener für addtoFavs
-                            btnFavs.addEventListener('click', () => {
-                                // Daten aus Api in button speichern für php/db
-                                const book = { 
-                                    title: btnFavs.dataset.title,
-                                    author: btnFavs.dataset.author,
-                                    subtitle: btnFavs.dataset.subtitle,
-                                    description: btnFavs.dataset.description,
-                                    cover: btnFavs.dataset.cover
-                                }
-                                addToFavs(book);
-                            });
+                        // listener für addtoFavs
+                        btnFavs.addEventListener('click', () => {
+                            // Daten aus Api in button speichern für php/db
+                            const book = {
+                                title: btnFavs.dataset.title,
+                                author: btnFavs.dataset.author,
+                                subtitle: btnFavs.dataset.subtitle,
+                                description: btnFavs.dataset.description,
+                                cover: btnFavs.dataset.cover
+                            }
+                            addToFavs(book);
+                        });
 
                         // btn already read/done
                         const btnDone = document.createElement('button');
@@ -275,18 +284,18 @@
                         btnDone.textContent = 'bereits gelesen';
                         btnLists.appendChild(btnDone);
 
-                        // buchinfos im btnDone speichern?
+                        // buchinfos im btnDone speichern aus php
                         btnDone.dataset.title = item.volumeInfo.title;
                         btnDone.dataset.author = item.volumeInfo.authors?.join(", ") || "Unbekannt";
 
-                            // listener für already read
-                            btnDone.addEventListener('click', () => {
-                                const book = {
-                                    title: btnDone.dataset.title,
-                                    author: btnDone.dataset.author
-                                }
-                                addToDone(book);
-                            }) 
+                        // listener für already read
+                        btnDone.addEventListener('click', () => {
+                            const book = {
+                                title: btnDone.dataset.title,
+                                author: btnDone.dataset.author
+                            }
+                            addToDone(book);
+                        })
 
                         // btn to be read
                         const btnReads = document.createElement('button');
@@ -312,7 +321,7 @@
             }
         }
 
-       
+
 
         document.querySelector('form').addEventListener('submit', getBook);
 
