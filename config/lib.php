@@ -68,7 +68,8 @@ function loginUser($email, $pwd)
     }
 }
 
-function saveToFavs($data){
+function saveToFavs($data)
+{
     global $mysqli;
     // POST auslesen
 
@@ -79,7 +80,7 @@ function saveToFavs($data){
     $cover = $data['cover'];
     //$list = $data['list'];
 
-    $sql = 'INSERT INTO books_fav (title, author, subtitle, description, cover) VALUES(?,?,?,?,?)'; 
+    $sql = 'INSERT INTO books_fav (title, author, subtitle, description, cover) VALUES(?,?,?,?,?)';
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehler:' . $mysqli->error);
@@ -91,7 +92,8 @@ function saveToFavs($data){
     return $stmt->affected_rows;
 }
 
-function saveToDone($data){
+function saveToDone($data)
+{
     global $mysqli;
 
     $title = $data['title'];
@@ -105,6 +107,28 @@ function saveToDone($data){
     $stmt->bind_param('ss', $title, $author);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
+    }
+    return $stmt->affected_rows;
+}
+
+function saveToReads($data)
+{
+    global $mysqli;
+
+    $title = $data['title'];
+    $author = $data['author'];
+    $subtitle = $data['subtitle'];
+    $description = $data['descript'];
+    $cover = $data['cover'];
+
+    $sql = "INSERT INTO books_to_read (title, author, subtitle, description, cover) VALUES(?,?,?,?,?)";
+    $stmt = $mysqli->prepare($sql);
+    if (!$stmt) {
+        throw new Exception('Fehlermeldung:' . $mysqli->error);
+    }
+    $stmt->bind_param('sssss', $title, $author, $subtitle, $description, $cover);
+    if (!$stmt->execute()){
+        throw new Exception('Fehlermeldung:' . $stmt->error);
     }
     return $stmt->affected_rows;
 }

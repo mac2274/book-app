@@ -76,7 +76,7 @@
                 const response = await fetch('../config/saveDoneReading.php', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/jsom'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(book)
                 });
@@ -89,6 +89,26 @@
                 console.error(error);
             }
         }
+
+        async function addToReads(book) {
+            try {
+                const response = await fetch('../config/saveToReads.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(book)
+
+                });
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                const json = response.json();
+                console.log(json);
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
         // -> 1. async function mit fetch
         async function getBook(e) {
@@ -146,7 +166,7 @@
                     title.classList.add('bookTitle');
                     title.classList.add('font-bold');
                     title.classList.add('italic');
-                    title.textContent = `Buchtitel: ${item.volumeInfo.title}`;
+                    title.textContent = `- Buchtitel: ${item.volumeInfo.title} -`;
                     bookDiv.appendChild(title);
 
                     // Autor
@@ -182,14 +202,14 @@
 
                     // eventlistener für btndescription
                     btndescription.addEventListener('click', () => {
-                        let descriptionP = document.querySelector('.descriptionText');
+                        let descriptionP = bookDiv.querySelector('.descriptionText');
 
                         if (descriptionP) {
                             // wenn bereits da, wird es entfernt
                             descriptionP.remove();
                         } else {
                             // andernfalls wird es neugesetzt 
-                            const descriptionP = document.createElement('p');
+                            descriptionP = document.createElement('p');
                             descriptionP.classList.add('descriptionText');
                             descriptionP.classList.add('px-10');
                             descriptionP.classList.add('py-4');
@@ -224,15 +244,15 @@
                     addToList.addEventListener('click', () => {
                         // div für buttons und
                         // dynamisch Buttonliste anzeigen und verstecken
-                        let btnLists = document.querySelector('.btnForLists');
+                        let btnLists = bookDiv.querySelector('.btnForLists');
 
-                        if (btnLists){
+                        if (btnLists) {
                             btnLists.remove();
                         } else {
-                            const btnLists = document.createElement('div');
+                            btnLists = document.createElement('div');
                             btnLists.classList.add('flex');
                             btnLists.classList.add('gap-x-2');
-                           // btnLists.classList.add('btnForLists');
+                            btnLists.classList.add('btnForLists');
                             bookDiv.appendChild(btnLists);
                         }
 
@@ -250,12 +270,12 @@
                         btnFavs.textContent = 'Favouritenliste';
                         btnLists.appendChild(btnFavs);
 
-                        // buchinfos im btnFavs speichern?
+                        // buchinfos im btnFavs speichern:
                         btnFavs.dataset.title = item.volumeInfo.title;
                         btnFavs.dataset.author = item.volumeInfo.authors?.join(", ") || "Unbekannt";
                         btnFavs.dataset.subtitle = item.volumeInfo.subtitle ?? "";
                         btnFavs.dataset.description = item.volumeInfo.descriptionion ?? "Keine Beschreibung vorhanden";
-                        btnFavs.dataset.cover = item.volumeInfo.imageLinks?.thumbnail
+                        btnFavs.dataset.cover = item.volumeInfo.imageLinks?.thumbnail;
 
                         // listener für addtoFavs
                         btnFavs.addEventListener('click', () => {
@@ -284,7 +304,7 @@
                         btnDone.textContent = 'bereits gelesen';
                         btnLists.appendChild(btnDone);
 
-                        // buchinfos im btnDone speichern aus php
+                        // buchinfos im btnDone speichern:
                         btnDone.dataset.title = item.volumeInfo.title;
                         btnDone.dataset.author = item.volumeInfo.authors?.join(", ") || "Unbekannt";
 
@@ -298,22 +318,39 @@
                         })
 
                         // btn to be read
-                        const btnReads = document.createElement('button');
-                        btnReads.classList.add('addToFavs');
-                        btnReads.classList.add('text-md');
-                        btnReads.classList.add('font-semibold');
-                        btnReads.classList.add('px-2');
-                        btnReads.classList.add('py-1');
-                        btnReads.classList.add('rounded-4xl');
-                        btnReads.classList.add('border-1');
-                        btnReads.classList.add('hover:border-green-400');
-                        btnReads.classList.add('hover:bg-white');
-                        btnReads.textContent = 'Leseliste';
-                        btnLists.appendChild(btnReads);
+                        const btnToRead = document.createElement('button');
+                        btnToRead.classList.add('addToFavs');
+                        btnToRead.classList.add('text-md');
+                        btnToRead.classList.add('font-semibold');
+                        btnToRead.classList.add('px-2');
+                        btnToRead.classList.add('py-1');
+                        btnToRead.classList.add('rounded-4xl');
+                        btnToRead.classList.add('border-1');
+                        btnToRead.classList.add('hover:border-green-400');
+                        btnToRead.classList.add('hover:bg-white');
+                        btnToRead.textContent = 'Leseliste';
+                        btnLists.appendChild(btnToRead);
+
+                        // buchinfos im to-read bttn speichern:
+                        btnToRead.dataset.title = item.volumeInfo.title;
+                        btnToRead.dataset.author = item.volumeInfo.authors?.join(", ") || "Unbekannt";
+                        btnToRead.dataset.subtitle = item.volumeInfo.subtitle ?? "";
+                        btnToRead.dataset.description = item.volumeInfo.descriptionion ?? "Keine Beschreibung vorhanden";
+                        btnToRead.dataset.cover = item.volumeInfo.imageLinks?.thumbnail;
+
+                        // eventlistener für ToRead
+                        btnToRead.addEventListener('click', () => {
+                            const book = {
+                                title: btnToRead.dataset.title,
+                                author: btnToRead.dataset.author,
+                                subtitle: btnToRead.dataset.subtitle,
+                                description: btnToRead.dataset.description,
+                                cover: btnToRead.dataset.cover
+                            }
+                            addToReads(book);
+                        })
                     })
 
-                    const seperator = document.createElement('hr');
-                    bookDiv.appendChild(seperator);
                 })
 
             } catch (error) {

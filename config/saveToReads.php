@@ -17,11 +17,10 @@ if (!$data) {
 }
 
 try {
-    $affectedRows = saveToFavs($data);
-
+    $affectedRows = saveToReads($data);
     echo json_encode([
         'success' => true,
-        'insertesRows' => $affectedRows
+        'insertedRows' => $affectedRows
     ]);
 } catch (Exception $e) {
     http_response_code(400);
@@ -30,3 +29,4 @@ try {
         'message' => $e->getMessage()
     ]);
 }
+ 
