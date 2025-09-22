@@ -94,13 +94,15 @@ function saveToFavs($data){
 function saveToDone($data){
     global $mysqli;
 
+    $title = $data['title'];
+    $author = $data['author'];
 
-    $sql = 'INSERT INTO books_read (title, author, date) VALUES(?,?;?)';
+    $sql = 'INSERT INTO books_read (title, author) VALUES(?,?)';
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('sss', $title, $author, $date);
+    $stmt->bind_param('ss', $title, $author);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }

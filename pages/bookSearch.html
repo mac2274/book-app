@@ -70,6 +70,7 @@
             }
         }
 
+        // in doneRead-liste speichern
         async function addToDone (book){
             try {
                 const response = await fetch('../config/saveDoneReading.php', {
@@ -77,10 +78,10 @@
                     headers: {
                         'Content-Type': 'application/jsom'
                     },
-                    body: JSON.stringify()
+                    body: JSON.stringify(book)
                 });
                 if (!response.ok){
-                    throw new Error('Response status: ${rsponse.status}');
+                    throw new Error(`Response status: ${response.status}`);
                 }
                 const json = response.json();
                 console.log(json);
@@ -141,8 +142,10 @@
                     searchResult.appendChild(bookDiv);
 
                     // Buchtitel
-                    const title = document.createElement('p');
-                    title.classList.add('bookTitle')
+                    const title = document.createElement('h5');
+                    title.classList.add('bookTitle');
+                    title.classList.add('font-bold');
+                    title.classList.add('italic');
                     title.textContent = `Buchtitel: ${item.volumeInfo.title}`;
                     bookDiv.appendChild(title);
 
@@ -272,18 +275,19 @@
                         btnDone.textContent = 'bereits gelesen';
                         btnLists.appendChild(btnDone);
 
+                        // buchinfos im btnDone speichern?
+                        btnDone.dataset.title = item.volumeInfo.title;
+                        btnDone.dataset.author = item.volumeInfo.authors?.join(", ") || "Unbekannt";
+
                             // listener für already read
                             btnDone.addEventListener('click', () => {
                                 const book = {
                                     title: btnDone.dataset.title,
-                                    author: btnDone.dataset.author,
-                                    subtitle: btnDone.dataset.subtitle,
-                                    description: btnDone.dataset.description,
-                                    cover: btnDone.dataset.cover
+                                    author: btnDone.dataset.author
                                 }
                                 addToDone(book);
                             }) 
-                            
+
                         // btn to be read
                         const btnReads = document.createElement('button');
                         btnReads.classList.add('addToFavs');
