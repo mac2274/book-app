@@ -54,7 +54,7 @@ function loginUser($email, $pwd)
 
     $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
+    if ($result->num_rows === 1) {
         $getRow = $result->fetch_assoc();
 
         if (password_verify($pwd, $getRow['pwd'])) {
@@ -118,7 +118,7 @@ function saveToReads($data)
     $title = $data['title'];
     $author = $data['author'];
     $subtitle = $data['subtitle'];
-    $description = $data['descript'];
+    $description = $data['description'];
     $cover = $data['cover'];
 
     $sql = "INSERT INTO books_to_read (title, author, subtitle, description, cover) VALUES(?,?,?,?,?)";
