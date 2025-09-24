@@ -9,11 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
         if (empty($email) || empty($pwd)) {
             echo 'Bitte Email und Passwort eingeben.';
         } else {
-            echo '<p class="text-center">Login war erfolgreich! <br>
-            <strong>Du bist in deinem Journal, ' . $_SESSION['name'] . '.<strong></p>';
+            loginUser($email, $pwd);
         }
 
-        loginUser($email, $pwd);
     } catch (Exception $e) {
         http_response_code(400);
         echo json_encode([
@@ -34,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <title>Document</title>
-    <link rel="icon" type="image/x-icon" href="src/img/bj-logo.png">
+    <link rel="icon" type="image/x-icon" href="/src/img/bj-logo.png">
 
 </head>
 
@@ -49,14 +47,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
                 <span>journal</span>
             </a>
         </h1>
-        </a>
     </header>
 
-    <div class="flex flex-col items-center justify-around pt-2">
-        <button href="../pages/bookSearch.html"
+    <div class="flex flex-col items-center">
+        <h2 class="text-3xl text-center font-semibold py-4 mb-4">
+            <?php if ($_SESSION['email'] === $_POST['loginEmail']){
+                echo 'Willkommen zurück <br>in deinem Book Journal, <em class="text-4xl">'.$_SESSION['name'].'</em>!';
+            } ?>
+        </h2>
+        <div class="flex flex-row gap-2 flex-wrap justify-center">
+            <a href="../pages/bookSearch.html"
             class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
             Weiter zur Buchsuche
-        </button>
+        </a>
+        <a href="../pages/bookShelf.html"
+            class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+            Zu deiner Bibliothek
+        </a>
+
+        <a href="../pages/.html"
+            class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+            wohin noch
+        </a>
+        <a href="../pages/.html"
+            class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+            eine Idee?
+        </a>
+        </div>
     </div>
 
 </body>

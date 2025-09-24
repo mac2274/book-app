@@ -17,8 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitRegisterUser'])
         require '../pages/login.html';
     } else {
         registerUser($name, $surname, $email, $password);
-        echo 'Registerierung erfolgt<br>';
-        echo 'Jetzt einloggen: <br>';
+        echo 'Registerierung erfolgt.<br>';
+        echo 'Jetzt hier einloggen.<br>';
         require '../pages/login.html';
     }
 } else {
