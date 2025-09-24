@@ -51,28 +51,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
 
     <div class="flex flex-col items-center">
         <h2 class="text-3xl text-center font-semibold py-4 mb-4">
-            <?php if ($_SESSION['email'] === $_POST['loginEmail']){
-                echo 'Willkommen zurück <br>in deinem Book Journal, <em class="text-4xl">'.$_SESSION['name'].'</em>!';
+            <?php if ($_SESSION['email'] === $_POST['loginEmail']) {
+                echo 'Willkommen zurück <br>in deinem Book Journal, <em class="text-4xl">' . $_SESSION['name'] . '</em>!';
             } ?>
         </h2>
         <div class="flex flex-row gap-2 flex-wrap justify-center">
             <a href="../pages/bookSearch.html"
-            class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
-            Weiter zur Buchsuche
-        </a>
-        <a href="../pages/bookShelf.html"
-            class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
-            Zu deiner Bibliothek
-        </a>
+                class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+                Weiter zur Buchsuche
+            </a>
+            <a href="../pages/bookShelf.html"
+                class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+                Zu deiner Bibliothek
+            </a>
 
-        <a href="../pages/.html"
-            class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
-            wohin noch
-        </a>
-        <a href="../pages/.html"
-            class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
-            eine Idee?
-        </a>
+            <a href="../pages/.html"
+                class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+                wohin noch
+            </a>
+            <a href="../pages/.html"
+                class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+                eine Idee?
+            </a>
         </div>
     </div>
 
