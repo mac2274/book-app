@@ -21,10 +21,9 @@ try {
 
     echo json_encode([
         'success' => true,
-        'insertesRows' => $affectedRows
+        'insertesRows' => $affectedRows,
+        'message' => 'Du hast das Buch zu deinen Favouriten hinzugefügt!'
     ]);
-
-    echo 'Du hast das Buch zu deinen Favouriten hinzugefügt!';
 } catch (Exception $e) {
     http_response_code(400);
     echo json_encode([

@@ -30,13 +30,12 @@
         <form action="" class="flex flex-col gap-y-4">
             <div class="flex flex-row items-center gap-x-4">
                 <label for="title" class="text-xl">Titel</label>
-                <input type="text" id="name"
-                    class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+                <input type="text" id="name" class="border-2 rounded-3xl p-2 focus:bg-white">
             </div>
 
             <div class="flex justify-center">
                 <input type="submit" value="Suchen"
-                    class="col-start-2 border-2 border-transparent rounded-4xl py-2 px-6 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
+                    class="border-2 border-transparent rounded-4xl py-2 px-6 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
             </div>
         </form>
     </div>
@@ -69,7 +68,6 @@
                 console.error(error);
             }
         }
-
         // in doneReading-liste speichern
         async function addToDone(book) {
             try {
@@ -141,14 +139,15 @@
 
                 searchResult.innerHTML = '';
 
-                // überschruift für Suchergebnis
+                // überschrift für Suchergebnis
                 const searchHeading = document.createElement('h4');
                 searchHeading.classList.add('text-3xl');
                 searchHeading.classList.add('self-start');
                 searchHeading.innerHTML = 'Suchergebnis:';
                 searchResult.appendChild(searchHeading);
 
-                data.items.forEach(item => { // Zugriff auf die neu generierten Bücher/items
+                data.items.forEach(item => {
+                    // Zugriff auf die neu generierten Bücher/items
 
                     // Container für Buchinfos (item)
                     const bookDiv = document.createElement('div'); // 3. Variante
@@ -191,11 +190,11 @@
                     btndescription.classList.add('bookBtndescription');
                     btndescription.classList.add('text-md');
                     btndescription.classList.add('font-semibold');
-                    btndescription.classList.add('px-2');
-                    btndescription.classList.add('py-1');
-                    btndescription.classList.add('rounded-4xl');
+                    btndescription.classList.add('p-2');
+                    btndescription.classList.add('rounded-3xl');
                     btndescription.classList.add('border-1');
-                    btndescription.classList.add('hover:border-green-400');
+                    btndescription.classList.add('hover:border-green-800');
+                    btndescription.classList.add('hover:text-green-800');
                     btndescription.classList.add('hover:bg-white');
                     btndescription.textContent = "Beschreibung lesen";
                     descriptionDiv.appendChild(btndescription);
@@ -232,12 +231,14 @@
                     addToList.classList.add('bookBtndescription');
                     addToList.classList.add('text-md');
                     addToList.classList.add('font-semibold');
-                    addToList.classList.add('px-2');
-                    addToList.classList.add('py-1');
-                    addToList.classList.add('rounded-4xl');
+                    addToList.classList.add('p-2');
+                    addToList.classList.add('rounded-3xl');
                     addToList.classList.add('border-1');
-                    addToList.classList.add('hover:border-green-400');
+                    addToList.classList.add('hover:border-green-800');
+                    addToList.classList.add('hover:text-green-800');
                     addToList.classList.add('hover:bg-white');
+                    addToList.classList.add('hover:transition');
+                    addToList.classList.add('duration-500');
                     addToList.textContent = "zur Liste hinzufügen";
                     bookDiv.appendChild(addToList);
 
@@ -261,12 +262,14 @@
                         btnFavs.classList.add('addToFavs');
                         btnFavs.classList.add('text-md');
                         btnFavs.classList.add('font-semibold');
-                        btnFavs.classList.add('px-2');
-                        btnFavs.classList.add('py-1');
-                        btnFavs.classList.add('rounded-4xl');
+                        btnFavs.classList.add('p-2');
+                        btnFavs.classList.add('rounded-3xl');
                         btnFavs.classList.add('border-1');
-                        btnFavs.classList.add('hover:border-green-400');
+                        btnFavs.classList.add('hover:border-green-800');
+                        btnFavs.classList.add('hover:text-green-800');
                         btnFavs.classList.add('hover:bg-white');
+                        btnFavs.classList.add('hover:transition');
+                        btnFavs.classList.add('duration-500');
                         btnFavs.textContent = 'Favouritenliste';
                         btnLists.appendChild(btnFavs);
 
@@ -274,7 +277,7 @@
                         btnFavs.dataset.title = item.volumeInfo.title;
                         btnFavs.dataset.author = item.volumeInfo.authors?.join(", ") || "Unbekannt";
                         btnFavs.dataset.subtitle = item.volumeInfo.subtitle ?? "";
-                        btnFavs.dataset.description = item.volumeInfo.descriptionion ?? "Keine Beschreibung vorhanden";
+                        btnFavs.dataset.description = item.volumeInfo.description ?? "Keine Beschreibung vorhanden";
                         btnFavs.dataset.cover = item.volumeInfo.imageLinks?.thumbnail;
 
                         // listener für addtoFavs
@@ -299,8 +302,11 @@
                         btnDone.classList.add('py-1');
                         btnDone.classList.add('rounded-4xl');
                         btnDone.classList.add('border-1');
-                        btnDone.classList.add('hover:border-green-400');
+                        btnDone.classList.add('hover:border-green-800');
+                        btnDone.classList.add('hover:text-green-800');
                         btnDone.classList.add('hover:bg-white');
+                        btnDone.classList.add('hover:transition');
+                        btnDone.classList.add('duration-500');
                         btnDone.textContent = 'bereits gelesen';
                         btnLists.appendChild(btnDone);
 
@@ -326,8 +332,11 @@
                         btnToRead.classList.add('py-1');
                         btnToRead.classList.add('rounded-4xl');
                         btnToRead.classList.add('border-1');
-                        btnToRead.classList.add('hover:border-green-400');
+                        btnToRead.classList.add('hover:border-green-800');
+                        btnToRead.classList.add('hover:text-green-800');
                         btnToRead.classList.add('hover:bg-white');
+                        btnToRead.classList.add('hover:transition');
+                        btnToRead.classList.add('duration-500');
                         btnToRead.textContent = 'Leseliste';
                         btnLists.appendChild(btnToRead);
 
@@ -335,7 +344,7 @@
                         btnToRead.dataset.title = item.volumeInfo.title;
                         btnToRead.dataset.author = item.volumeInfo.authors?.join(", ") || "Unbekannt";
                         btnToRead.dataset.subtitle = item.volumeInfo.subtitle ?? "";
-                        btnToRead.dataset.description = item.volumeInfo.descriptionion ?? "Keine Beschreibung vorhanden";
+                        btnToRead.dataset.description = item.volumeInfo.description ?? "Keine Beschreibung vorhanden";
                         btnToRead.dataset.cover = item.volumeInfo.imageLinks?.thumbnail;
 
                         // eventlistener für ToRead
