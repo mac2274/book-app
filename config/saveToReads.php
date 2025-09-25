@@ -20,6 +20,7 @@ try {
     $affectedRows = saveToReads($data);
     echo json_encode([
         'success' => true,
+        'message' => 'Das Buch wurde zu deiner noch-zu-lesende-Bücher - Liste hinzugefügt!',
         'insertedRows' => $affectedRows
     ]);
 } catch (Exception $e) {
