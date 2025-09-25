@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
 
     <div class="flex flex-col items-center">
         <h2 class="text-3xl text-center font-semibold py-4 mb-4">
-            <?php if ($_SESSION['email'] === $_POST['loginEmail']) {
+            <?php if ($_SESSION['name']) {
                 echo 'Willkommen zurück <br>in deinem Book Journal, <em class="text-4xl">' . $_SESSION['name'] . '</em>!';
             } ?>
         </h2>

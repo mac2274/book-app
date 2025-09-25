@@ -100,7 +100,14 @@
                 if (!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
                 }
-                const json = response.json();
+                const json = response.json(); // JSON aus PHP
+                
+                // Jetzt Rückmeldung an FE anzeigen
+                const msgDiv = document.querySelector('div');
+                msgDiv.classList.add('msgDiv');
+                msgDiv.textContent = result.message;
+                bookDiv.appendChild(msgDiv);
+
                 console.log(json);
             } catch (error) {
                 console.error(error);
