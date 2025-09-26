@@ -48,7 +48,7 @@
         const searchURL = "https://www.googleapis.com/books/v1/volumes?q=";
 
         // // in Fav-liste (DB) speichern mit fetch
-        async function addToFavs(book) {
+        async function addToFavs(book, bookDiv) {
             try {
                 // speicherort angeben
                 const response = await fetch('../config/saveFavs.php', {
@@ -80,7 +80,7 @@
                 if (!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
                 }
-                const json = response.json();
+                const json = await response.json();
                 // Rückmeldung nachSpeicherung
                 let msgContainer = bookDiv.querySelector('.savingMessage');
                 if (!msgContainer) {
@@ -89,7 +89,7 @@
                     bookDiv.appendChild(msgContainer);
                 }
                 msgContainer.textContent = json.message;
-                console.log(json);
+                console.log('Server-Antwort:',json);
             } catch (error) {
                 console.error(error);
                 //Fehlermeldung anzeigen
