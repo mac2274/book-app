@@ -68,7 +68,7 @@
             }
         }
         // in doneReading-liste speichern
-        async function addToDone(book) {
+        async function addToDone(book, bookDiv) {
             try {
                 const response = await fetch('../config/saveDoneReading.php', {
                     method: 'POST',
@@ -81,9 +81,25 @@
                     throw new Error(`Response status: ${response.status}`);
                 }
                 const json = response.json();
+                // Rückmeldung nachSpeicherung
+                let msgContainer = bookDiv.querySelector('.savingMessage');
+                if (!msgContainer) {
+                    msgContainer = document.createElement('div');
+                    msgContainer.className = ('savingMessage bg-green-800 border-green-300 rounded-3xl text-white p-3');
+                    bookDiv.appendChild(msgContainer);
+                }
+                msgContainer.textContent = json.message;
                 console.log(json);
             } catch (error) {
                 console.error(error);
+                //Fehlermeldung anzeigen
+                let msgContainer = bookDiv.querySelector('.savingMessage');
+                if (!msgContainer) {
+                    msgContainer = document.createElement('div');
+                    msgContainer.className = ('savingMessage bg-red-800 rounded-3xl text-white p-3');
+                    bookDiv.appendChild(msgContainer);
+                }
+                msgContainer.textContent = 'Fehler beim Speichern!';
             }
         }
 
@@ -100,20 +116,19 @@
                 if (!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
                 }
-                const json = await response.json(); // JSON aus PHP: json ist 'result' 
-
+                // JSON aus PHP: json ist das 'result' 
+                const json = await response.json();
                 // div für Rückmeldung nach Speicherung
                 let msgContainer = bookDiv.querySelector('.savingMessage');
                 if (!msgContainer) {
                     msgContainer = document.createElement('div');
-                    msgContainer.className = ('savingMessage bg-green-800 rounded-3xl text-white p-3');
+                    msgContainer.className = ('savingMessage bg-green-800 border-green-300 rounded-3xl text-white p-3');
                     bookDiv.appendChild(msgContainer);
                 }
-
+                // Nachricht von der Datei(PHP)
                 msgContainer.textContent = json.message;
 
                 console.log('Server-Antwort:', json);
-
             } catch (error) {
                 console.error(error);
 
@@ -340,7 +355,7 @@
                                 title: btnDone.dataset.title,
                                 author: btnDone.dataset.author
                             }
-                            addToDone(book);
+                            addToDone(book, bookDiv);
                         })
 
                         // btn to be read

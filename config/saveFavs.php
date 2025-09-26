@@ -18,7 +18,6 @@ if (!$data) {
 
 try {
     $affectedRows = saveToFavs($data);
-
     echo json_encode([
         'success' => true,
         'insertesRows' => $affectedRows,
