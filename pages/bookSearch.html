@@ -56,15 +56,31 @@
                     headers: {
                         'Content-Type': 'application/json' // als json speichern
                     },
-                    body: JSON.stringify(book) // nimmt book-variable
+                    body: JSON.stringify(book) // nimmt book-variable in string damit lesbar für php
                 });
                 if (!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
                 }
                 const json = await response.json();
-                console.log(json);
+                // Rückmeldung in div geben
+                let msgContainer = bookDiv.querySelector('.savingMessage');
+                if (!msgContainer) {
+                    msgContainer = document.createElement('div');
+                    msgContainer.className = ('savingMessage bg-green-800 border-orange-300 border-4 rounded-3xl text-white p-3');
+                    bookDiv.appendChild(msgContainer);
+                }
+                msgContainer.textContent = json.message;
+
+                console.log('Server-Antwort:', json);
             } catch (error) {
                 console.error(error);
+                let msgContainer = document.querySelector('.savingMessage');
+                if (!msgContainer) {
+                    msgContainer = document.createElement('savingMessage');
+                    msgContainer.className = ('savingMessage bg-green-800 border-orange-300 border-4 rounded-3xl text-white p-3');
+                    bookDiv.appendChild(msgContainer);
+                }
+                msgContainer.textContent = json.message;
             }
         }
         // in doneReading-liste speichern
@@ -85,7 +101,7 @@
                 let msgContainer = bookDiv.querySelector('.savingMessage');
                 if (!msgContainer) {
                     msgContainer = document.createElement('div');
-                    msgContainer.className = ('savingMessage bg-green-800 border-green-300 rounded-3xl text-white p-3');
+                    msgContainer.className = ('savingMessage bg-green-800 border-orange-300 border-4 rounded-3xl text-white p-3');
                     bookDiv.appendChild(msgContainer);
                 }
                 msgContainer.textContent = json.message;
@@ -122,7 +138,7 @@
                 let msgContainer = bookDiv.querySelector('.savingMessage');
                 if (!msgContainer) {
                     msgContainer = document.createElement('div');
-                    msgContainer.className = ('savingMessage bg-green-800 border-green-300 rounded-3xl text-white p-3');
+                    msgContainer.className = ('savingMessage bg-green-800 border-orange-300 border-4 rounded-3xl text-white p-3');
                     bookDiv.appendChild(msgContainer);
                 }
                 // Nachricht von der Datei(PHP)
@@ -325,7 +341,7 @@
                                 description: btnFavs.dataset.description,
                                 cover: btnFavs.dataset.cover
                             }
-                            addToFavs(book);
+                            addToFavs(book, bookDiv);
                         });
 
                         // btn already read/done
