@@ -1,3 +1,11 @@
+<?php
+session_start();
+require_once '../config/lib.php';
+
+// favouritenliste hinzufügen
+showFavs($data);
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 
@@ -27,6 +35,7 @@
 
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
         <h2 class="text-4xl font-semibold mt-4">Deine Favouriten</h2>
+        <ul id="favList" class=""></ul>
     </div>
 
     <!-- ----------------------- zurück-button  -->

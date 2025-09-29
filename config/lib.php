@@ -68,7 +68,7 @@ function loginUser($email, $pwd)
         }
     } else {
         return false; // Email gibt es nicht nicht
-    } 
+    }
 }
 
 function saveToFavs($data)
@@ -130,8 +130,28 @@ function saveToReads($data)
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
     $stmt->bind_param('sssss', $title, $author, $subtitle, $description, $cover);
-    if (!$stmt->execute()){
+    if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung:' . $stmt->error);
     }
     return $stmt->affected_rows;
+}
+
+function showFavs($data)
+{
+    global $mysqli;
+    $sql = "SELECT title, author FROM book_favs LIMIT 20";
+    $stmt = $mysqli->prepare($sql);
+    if (!$stmt) {
+        throw new Exception('Fehlermeldung:' . $mysqli->error);
+    }
+    if (!$stmt->execute()) {
+        throw new Exception('Fehlermeldung: ' . $stmt->error);
+    }
+    $result = $stmt->get_result();
+
+    echo '<ul>';
+    while ($row = $result->fetch_assoc()) {
+        echo '<li>' . htmlspecialchars($row) . '</li>';
+    }
+
 }
