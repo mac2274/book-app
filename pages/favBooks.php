@@ -1,9 +1,7 @@
 <?php
-session_start();
 require_once '../config/lib.php';
 
-// favouritenliste hinzufügen
-showFavs($data);
+
 ?>
 
 <!DOCTYPE html>
@@ -33,13 +31,20 @@ showFavs($data);
         </a>
     </header>
 
-    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
+    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-50">
         <h2 class="text-4xl font-semibold mt-4">Deine Favouriten</h2>
-        <ul id="favList" class=""></ul>
+        <ol id="favList" class="flex flex-col items-center list-decimal">
+            <?php showFavs() ?>
+        </ol>
     </div>
-
+ 
     <!-- ----------------------- zurück-button  -->
     <div class="flex w-full justify-end">
         <a href="../config/loginUser.php"
-            class="bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">zurück</a>
+            class="bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+            zurück</a>
     </div>
+
+ <script>
+    
+ </script>
