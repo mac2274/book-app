@@ -41,6 +41,11 @@
 
     <div id="result" class="flex flex-col justify-center gap-3 mr-10 ml-10"></div>
 
+            <!-- ----------------------- zurück-button  -->
+        <div class="flex w-full justify-end">
+            <a href="../config/loginUser.php" class="bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">zurück</a>
+        </div>
+
     <script>
         let searchDiv = document.querySelector('#searchDiv');
         let input = document.querySelector('#name');
@@ -409,8 +414,6 @@
                             }
                             addToReads(book, bookDiv);
                         })
-
-
                     })
                 })
 

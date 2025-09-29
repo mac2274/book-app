@@ -2,16 +2,20 @@
 require_once 'lib.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
+    $email = $_POST['loginEmail'] ?? '';
+    $pwd = $_POST['loginPwd'] ?? '';
+
+    if (empty($email) || empty($pwd)) {
+        echo 'Bitte Email und Passwort eingeben.';
+        exit;
+    }
+
     try {
-        $email = $_POST['loginEmail'] ?? '';
-        $pwd = $_POST['loginPwd'] ?? '';
-
-        if (empty($email) || empty($pwd)) {
-            echo 'Bitte Email und Passwort eingeben.';
+        if (loginUser($email, $pwd)) {
+            echo 'Erfolgreich euingeloggt.';
         } else {
-            loginUser($email, $pwd);
+            echo 'Ein Feld ist falsch ausgefüllt';
         }
-
     } catch (Exception $e) {
         http_response_code(400);
         echo json_encode([
