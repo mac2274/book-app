@@ -62,10 +62,13 @@ function loginUser($email, $pwd)
             $_SESSION['email'] = $getRow['email'];
             $_SESSION['loginDone'] = true;
 
+            return true;
+        } else {
+            return false; // passwörter stimmen nicht überein
         }
     } else {
-        echo 'Passwörter stimmen nicht überein.';
-    }
+        return false; // Email gibt es nicht nicht
+    } 
 }
 
 function saveToFavs($data)
