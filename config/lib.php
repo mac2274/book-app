@@ -179,3 +179,32 @@ function showFavs()
             </li>';
     }
 }
+
+function showDoneReading()
+{
+    global $mysqli;
+    $sql = "SELECT * FROM books_read LIMIT 20";
+    $stmt = $mysqli->prepare($sql);
+    if (!$stmt) {
+        throw new Exception('Fehlermeldung:' . $mysqli->error);
+    }
+    if (!$stmt->execute()) {
+        throw new Exception('Fehlermeldung: ' . $stmt->error);
+    }
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        echo '<li class="pt-8 listContainer py-4">
+                <div class="flex flex-col items-center py-4"> 
+                    <div class="flex flex-row">
+                        <p class="text-center">
+                            <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titek') . '</span>
+                            <span class="text-sm"> - ' . htmlspecialchars($row['author'] ?? 'Unbekannt'). '</span>
+                        </p>
+                    </div>
+                </div>    
+                <hr>
+            </li>';
+    }
+
+}
