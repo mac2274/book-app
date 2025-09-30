@@ -162,7 +162,7 @@ function showFavs()
         // echo $row['2'].'3-autors<br>';
         //echo print_r($rows);
         echo '<li class="pt-8 listContainer">
-                <div class="flex flex-col items-center py-4"> 
+                <div class="flex flex-col items-center"> 
                     <div class="flex flex-row">
                         <p class="text-center">
                             <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row[4] . '">

@@ -33,7 +33,7 @@ require_once '../config/lib.php';
 
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-80 h-full">
         <h2 class="text-4xl font-semibold mt-4">Deine Favouriten</h2>
-        <ol class="favList list-decimal list-outside pl-6">
+        <ol class="favList list-decimal list-outside w-screen px-8">
             <?php showFavs() ?>
         </ol>
     </div>
@@ -56,7 +56,7 @@ require_once '../config/lib.php';
                     revealDescript = document.createElement("div");
                     let descript = button.dataset.desc; // holt die Beschreibung
                     revealDescript.textContent = descript;
-                    revealDescript.className = "revealDiv pt-2", "text-sm";
+                    revealDescript.className = "revealDiv pt-4 text-sm";
                     button.parentElement.appendChild(revealDescript);
                 }
             });
