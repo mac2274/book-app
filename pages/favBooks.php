@@ -31,13 +31,13 @@ require_once '../config/lib.php';
         </a>
     </header>
 
-    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-50">
+    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-80 h-full">
         <h2 class="text-4xl font-semibold mt-4">Deine Favouriten</h2>
-        <ol id="favList" class="flex flex-col items-center list-decimal">
+        <ol class="favList list-decimal list-outside pl-6">
             <?php showFavs() ?>
         </ol>
     </div>
- 
+
     <!-- ----------------------- zurück-button  -->
     <div class="flex w-full justify-end">
         <a href="../config/loginUser.php"
@@ -45,6 +45,20 @@ require_once '../config/lib.php';
             zurück</a>
     </div>
 
- <script>
-    
- </script>
+    <script>
+        document.querySelectorAll(".reveal_more").forEach(button => {
+            button.addEventListener("click", () => {
+                let revealDescript = document.querySelector('.revealDiv');
+
+                if (revealDescript) {
+                    revealDescript.remove();
+                } else {
+                    revealDescript = document.createElement("div");
+                    let descript = button.dataset.desc; // holt die Beschreibung
+                    revealDescript.textContent = descript;
+                    revealDescript.className = "revealDiv pt-2", "text-sm";
+                    button.parentElement.appendChild(revealDescript);
+                }
+            });
+        });
+    </script>

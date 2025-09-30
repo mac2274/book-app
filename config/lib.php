@@ -150,17 +150,32 @@ function showFavs()
     $result = $stmt->get_result();
 
     // variablen lassen sich nicht in htmlspecialchars einfügen, ohne dass der inhalt nicht angezeigt wird
-    $title = $row['title'] ?? 'Kein Titel vorhanden';
-    $author = $row['author'] ?? 'Unbekannt';
-    $description = $row['description'] ?? 'Keine Bescreiben vorhanden.';
+    // $title = $row['title'] ?? 'Kein Titel vorhanden';
+    // $author = $row['author'] ?? 'Unbekannt';
+    // $description = $row['description'] ?? 'Keine Bescreiben vorhanden.';
 
     $rows = $result->fetch_all();
+
     foreach ($rows as $row) {
-        echo '<li class="flex items-center"><p class="pt-4">
-                <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . htmlspecialchars($description) . '">
-                    <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titel vorhanden') . '</span>
-                </button> 
-                <span class="text-sm"> - ' . htmlspecialchars($row['author'] ?? 'Unbekannt') . '</span>
-            </p></li>';
+        // echo $row['0'].'1-ol<br>';
+        // echo $row['1'].'2-titel<br>';
+        // echo $row['2'].'3-autors<br>';
+        //echo print_r($rows);
+        echo '<li class="pt-8 listContainer">
+                <div class="flex flex-col items-center py-4"> 
+                    <div class="flex flex-row">
+                        <p class="text-center">
+                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row[4] . '">
+                                <span class="italic text-xl">' . $row[1] . '</span>
+                            </button> 
+                            <span class="text-sm"> - ' . $row[2] . '</span>
+                        </p>
+                    </div>
+                    <div class="flex pt-4">
+                        <img class="flex p-2 items-center" src="' . $row[5] . '" alt="Cover des Buchs">
+                    </div>
+                </div>    
+                <hr>
+            </li>';
     }
 }
