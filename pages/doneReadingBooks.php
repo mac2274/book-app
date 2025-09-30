@@ -31,7 +31,7 @@ require_once '../config/lib.php';
 
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-80 h-full">
         <h2 class="text-4xl font-semibold mt-4">Deine bereits gelesenen Bücher</h2>
-        <ol class="doneReadingBooks list-decimal list-outside w-screen px-8">
+        <ol class="doneReadingBooks list-decimal list-outside w-xl px-8">
             <?php showDoneReading() ?>
         </ol>
     </div>
@@ -43,20 +43,4 @@ require_once '../config/lib.php';
             zurück</a>
     </div>
 
-    <script>
-        document.querySelectorAll(".reveal_more").forEach(button => {
-            button.addEventListener("click", () => {
-                let revealDescript = document.querySelector('.revealDiv');
-
-                if (revealDescript) {
-                    revealDescript.remove();
-                } else {
-                    revealDescript = document.createElement("div");
-                    let descript = button.dataset.desc; // holt die Beschreibung
-                    revealDescript.textContent = descript;
-                    revealDescript.className = "revealDiv pt-4 text-sm";
-                    button.parentElement.appendChild(revealDescript);
-                }
-            });
-        });
-    </script>
+    

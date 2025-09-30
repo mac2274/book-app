@@ -154,25 +154,25 @@ function showFavs()
     // $author = $row['author'] ?? 'Unbekannt';
     // $description = $row['description'] ?? 'Keine Bescreiben vorhanden.';
 
-    $rows = $result->fetch_all();
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
 
     foreach ($rows as $row) {
         // echo $row['0'].'1-ol<br>';
         // echo $row['1'].'2-titel<br>';
         // echo $row['2'].'3-autors<br>';
         //echo print_r($rows);
-        echo '<li class="pt-8 listContainer">
+        echo '<li class="listContainer p-4">
                 <div class="flex flex-col items-center"> 
                     <div class="flex flex-row">
                         <p class="text-center">
-                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row[4] . '">
-                                <span class="italic text-xl">' . $row[1] . '</span>
+                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
+                                <span class="italic text-xl">' . $row['title'] . '</span>
                             </button> 
-                            <span class="text-sm"> - ' . $row[2] . '</span>
+                            <span class="text-sm"> - ' . $row['author'] . '</span>
                         </p>
                     </div>
-                    <div class="flex pt-4">
-                        <img class="flex p-2 items-center" src="' . $row[5] . '" alt="Cover des Buchs">
+                    <div class="flex pt-4 pb-4">
+                        <img class="flex p-2 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
                     </div>
                 </div>    
                 <hr>
@@ -194,12 +194,12 @@ function showDoneReading()
     $result = $stmt->get_result();
 
     while ($row = $result->fetch_assoc()) {
-        echo '<li class="pt-8 listContainer py-4">
+        echo '<li class="listContainer px-8">
                 <div class="flex flex-col items-center py-4"> 
                     <div class="flex flex-row">
                         <p class="text-center">
                             <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titek') . '</span>
-                            <span class="text-sm"> - ' . htmlspecialchars($row['author'] ?? 'Unbekannt'). '</span>
+                            <span class="text-sm"> - ' . htmlspecialchars($row['author'] ?? 'Unbekannt') . '</span>
                         </p>
                     </div>
                 </div>    
@@ -207,4 +207,36 @@ function showDoneReading()
             </li>';
     }
 
+}
+
+function showToRead()
+{
+    global $mysqli;
+    $sql = "SELECT * FROM books_to_read LIMIT 20";
+    $stmt = $mysqli->prepare($sql);
+    if (!$stmt) {
+        throw new Exception('Fehlermeldung:' . $mysqli->error);
+    }
+    if (!$stmt->execute()) {
+        throw new Exception('Fehlermeldung: ' . $stmt->error);
+    }
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        echo '<li class="listContainer p-4">
+                <div class="flex flex-col items-center"> 
+                    <div class="flex flex-row">
+                        <p class="text-center">
+                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
+                                <span class="italic text-xl">' . $row['title'] . '</span>
+                            </button> 
+                            <span class="text-sm"> - ' . $row['author'] . '</span>
+                        </p>
+                    </div>
+                    <div class="flex pt-4 pb-4">
+                        <img class="flex p-2 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
+                    </div>
+                </div>    
+                <hr>
+            </li>';
+    }
 }

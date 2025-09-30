@@ -11,7 +11,7 @@ require_once '../config/lib.php';
     <link href="../src/output.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <title>Favouriten</title>
+    <title>Leseliste</title>
     <link rel="icon" type="image/x-icon" href="/src/img/bj-logo.png">
 </head>
 
@@ -30,15 +30,15 @@ require_once '../config/lib.php';
     </header>
 
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-80 h-full">
-        <h2 class="text-4xl font-semibold mt-4">Deine Favouriten</h2>
+        <h2 class="text-4xl font-semibold mt-4">Deine Leseliste</h2>
         <ol class="favList list-decimal list-outside w-xl px-8">
-            <?php showFavs() ?>
+            <?php showToRead() ?>
         </ol>
     </div>
 
     <!-- ----------------------- zurück-button  -->
     <div class="flex w-full justify-end">
-        <a href="../config/loginUser.php"
+        <a href="../pages/bookShelf.html"
             class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
             zurück</a>
     </div>
