@@ -1,5 +1,6 @@
 <?php
 require_once '../../config/lib.php';
+//require_once '../../config/saveDoneReading.php';
 ?>
 
 <!DOCTYPE html>
@@ -29,12 +30,18 @@ require_once '../../config/lib.php';
         </a>
     </header>
 
-    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-80 h-full">
+    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 my-80 mt-150 h-full">
         <h2 class="text-4xl font-semibold mt-4">Deine bereits gelesenen Bücher</h2>
         <ol class="doneReadingBooks list-decimal list-outside w-xl px-8">
             <?php showDoneReading() ?>
         </ol>
+
+        <button
+            class="showMore mb-10 border-teal-600 border-2 text-teal-600 rounded-4xl p-2 hover:bg-teal-600 hover:text-white hover:transition duration-500">
+            mehr anzeigen</button>
     </div>
+
+
 
     <!-- ----------------------- zurück-button  -->
     <div class="flex w-full justify-end">
@@ -43,4 +50,35 @@ require_once '../../config/lib.php';
             zurück</a>
     </div>
 
-    
+    <script>
+        const doneContainer = document.querySelector('.doneReadingBooks');
+        const btnShowMore = document.querySelector('.showMore');
+        const limit = 10;
+        const offset = 0;
+
+        async function showMoreBooks() {
+            //const url = "saveDoneReading.php";
+            try {
+                const response = await fetch(`saveDoneReading.php?limit=${limit}&offset=${offset}`); // Verwenden der php-Datei!
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+
+                const books = await response.json();
+                console.log(books);
+
+                books.forEach(book => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<span>${book['title']}</span>`;
+                    doneContainer.appendChild(li);
+                });
+
+                offset += limit;
+
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+        btnShowMore.addEventListener('click', showMoreBooks);
+    </script>

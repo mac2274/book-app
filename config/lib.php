@@ -183,7 +183,7 @@ function showFavs()
 function showDoneReading()
 {
     global $mysqli;
-    $sql = "SELECT * FROM books_read LIMIT 10 OFFSET 0";
+    $sql = "SELECT * FROM books_read LIMIT 20";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
@@ -199,29 +199,26 @@ function showDoneReading()
                     <div class="flex flex-row">
                         <p class="text-center">
                             <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titek') . '</span>
-                            <span class="text-sm"> - ' . htmlspecialchars($row['author'] ?? 'Unbekannt') . '</span>
+                            <span class="text-sm"> - ' . htmlspecialchars($row['author'] ?? 'Unbekannt'). '</span>
                         </p>
                     </div>
                 </div>    
                 <hr>
             </li>';
-        echo ;
-
     }
 
 }
 
-function showToRead()
-{
+function showToRead(){
     global $mysqli;
     $sql = "SELECT * FROM books_to_read LIMIT 20";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
-        throw new Exception('Fehlermeldung:' . $mysqli->error);
+         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
-    }
+    } 
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
         echo '<li class="listContainer p-4">
