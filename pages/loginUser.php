@@ -1,5 +1,5 @@
 <?php
-require_once 'lib.php';
+require_once '../config/lib.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     $email = $_POST['loginEmail'] ?? '';
@@ -60,20 +60,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
             } ?>
         </h2>
         <div class="flex flex-row gap-2 flex-wrap justify-center">
-            <a href="../pages/bookSearch.html"
+            <a href="./bookSearch.html"
                 class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                 Weiter zur Buchsuche
             </a>
-            <a href="../pages/bookShelf.html"
+            <a href="./bookShelf.html"
                 class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                 Zu deiner Bibliothek
             </a>
 
-            <a href="../pages/.html"
+            <a href="./.html"
                 class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                 wohin noch
             </a>
-            <a href="../pages/.html"
+            <a href="./.html"
                 class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                 eine Idee?
             </a>

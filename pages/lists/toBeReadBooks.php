@@ -1,5 +1,5 @@
 <?php
-require_once '../config/lib.php';
+require_once '../../config/lib.php';
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +38,7 @@ require_once '../config/lib.php';
 
     <!-- ----------------------- zurück-button  -->
     <div class="flex w-full justify-end">
-        <a href="../pages/bookShelf.html"
+        <a href="../../bookShelf.html"
             class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
             zurück</a>
     </div>
