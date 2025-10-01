@@ -183,7 +183,7 @@ function showFavs()
 function showDoneReading()
 {
     global $mysqli;
-    $sql = "SELECT * FROM books_read LIMIT 20";
+    $sql = "SELECT * FROM books_read LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
@@ -199,26 +199,26 @@ function showDoneReading()
                     <div class="flex flex-row">
                         <p class="text-center">
                             <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titek') . '</span>
-                            <span class="text-sm"> - ' . htmlspecialchars($row['author'] ?? 'Unbekannt'). '</span>
+                            <span class="text-sm"> - ' . htmlspecialchars($row['author'] ?? 'Unbekannt') . '</span>
                         </p>
                     </div>
                 </div>    
                 <hr>
             </li>';
     }
-
 }
 
-function showToRead(){
+function showToRead()
+{
     global $mysqli;
     $sql = "SELECT * FROM books_to_read LIMIT 20";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
-         throw new Exception('Fehlermeldung:' . $mysqli->error);
+        throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
-    } 
+    }
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
         echo '<li class="listContainer p-4">
@@ -238,4 +238,26 @@ function showToRead(){
                 <hr>
             </li>';
     }
+}
+
+function getDoneReading($limit, $offset)
+{
+    global $mysqli;
+
+    $sql = "SELECT * FROM books_read LIMIT ? OFFSET ?";
+    $stmt = $mysqli->prepare($sql);
+    if (!$stmt) {
+        throw new Exception('Fehlermeldung:' . $mysqli->error);
+    }
+    $stmt->bind_param('ii', $limit, $offset);
+    if (!$stmt->execute()){
+        throw new Exception('Fehlermeldung: '. $stmt->error);
+    }
+    $result = $stmt->get_result();
+    $rows = []; // Array erstellen zum Befüllen
+
+    while ($row = $result->fetch_assoc()){
+        $rows[] = $row; // fügt daten ins neue Array ein
+    }
+    return $rows; // Wiedergabe des Arrays
 }

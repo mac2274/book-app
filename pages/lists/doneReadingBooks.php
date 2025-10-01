@@ -38,7 +38,8 @@ require_once '../../config/lib.php';
 
         <button
             class="showMore mb-10 border-teal-600 border-2 text-teal-600 rounded-4xl p-2 hover:bg-teal-600 hover:text-white hover:transition duration-500">
-            mehr anzeigen</button>
+            mehr anzeigen
+        </button>
     </div>
 
 
@@ -53,13 +54,14 @@ require_once '../../config/lib.php';
     <script>
         const doneContainer = document.querySelector('.doneReadingBooks');
         const btnShowMore = document.querySelector('.showMore');
-        const limit = 10;
-        const offset = 0;
+        
+        let limit = 10;
+        let offset = 0;
 
         async function showMoreBooks() {
             //const url = "saveDoneReading.php";
             try {
-                const response = await fetch(`saveDoneReading.php?limit=${limit}&offset=${offset}`); // Verwenden der php-Datei!
+                const response = await fetch(`../../config/getDoneReading.php?limit=${limit}&offset=${offset}`); // Verwenden der php-Datei!
                 if (!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
                 }
