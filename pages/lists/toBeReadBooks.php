@@ -12,15 +12,15 @@ require_once '../../config/lib.php';
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <title>Leseliste</title>
-    <link rel="icon" type="image/x-icon" href="/src/img/bj-logo.png">
+    <link rel="icon" type="image/x-icon" href="../../src/img/bj-logo.png">
 </head>
 
 <body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
     <header class="absolute top-4 left-4 flex w-40 gap-x-4 items-center">
-        <img class="flex w-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
+        <img class="flex w-20 rounded-2xl" src="../../src/img/bj-logo.png" alt="logo">
 
         <h1 class="flex flex-col uppercase tracking-wide text-2xl leading-none font-bold">
-            <a href="../index.html">
+            <a href="../../index.html">
                 <span>Book</span>
                 <span>loving</span>
                 <span>journal</span>
@@ -38,7 +38,7 @@ require_once '../../config/lib.php';
 
     <!-- ----------------------- zurück-button  -->
     <div class="flex w-full justify-end">
-        <a href="../../bookShelf.html"
+        <a href="../../pages/bookShelf.html"
             class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
             zurück</a>
     </div>

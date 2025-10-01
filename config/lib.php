@@ -183,7 +183,7 @@ function showFavs()
 function showDoneReading()
 {
     global $mysqli;
-    $sql = "SELECT * FROM books_read LIMIT 20";
+    $sql = "SELECT * FROM books_read LIMIT 10 OFFSET 0";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
@@ -205,6 +205,8 @@ function showDoneReading()
                 </div>    
                 <hr>
             </li>';
+        echo ;
+
     }
 
 }
