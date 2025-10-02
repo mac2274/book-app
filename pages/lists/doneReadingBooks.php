@@ -36,15 +36,14 @@ require_once '../../config/lib.php';
             <?php showDoneReading() ?>
         </ol>
 
+        <!-- ------------------ Button für weitere Bücher -->
         <button
             class="showMore mb-10 border-teal-600 border-2 text-teal-600 rounded-4xl p-2 hover:bg-teal-600 hover:text-white hover:transition duration-500">
             mehr anzeigen
         </button>
     </div>
 
-
-
-    <!-- ----------------------- zurück-button  -->
+    <!-- ----------------------- zurück-button  ------------->
     <div class="flex w-full justify-end">
         <a href="../../pages/bookShelf.html"
             class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">

@@ -4,7 +4,7 @@ require_once '../config/lib.php';
 
 header('Content-Type: application/json');
 
-$limit = $_GET['limit'] ?? 10;
+$limit = $_GET['limit'] ?? 20;
 $offset = $_GET['offset'] ?? 10;
 
 try {

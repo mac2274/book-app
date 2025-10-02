@@ -163,8 +163,8 @@ function showFavs()
         //echo print_r($rows);
         echo '<li class="listContainer p-4">
                 <div class="flex flex-col items-center"> 
-                    <div class="flex flex-row">
-                        <p class="text-center">
+                    <div>
+                        <p class="flex flex-col text-center">
                             <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
                                 <span class="italic text-xl">' . $row['title'] . '</span>
                             </button> 
@@ -196,8 +196,8 @@ function showDoneReading()
     while ($row = $result->fetch_assoc()) {
         echo '<li class="listContainer px-8">
                 <div class="flex flex-col items-center py-4"> 
-                    <div class="flex flex-row">
-                        <p class="text-center">
+                    <div>
+                        <p class="flex flex-col text-center">
                             <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titek') . '</span>
                             <span class="text-sm"> - ' . htmlspecialchars($row['author'] ?? 'Unbekannt') . '</span>
                         </p>
@@ -223,8 +223,8 @@ function showToRead()
     while ($row = $result->fetch_assoc()) {
         echo '<li class="listContainer p-4">
                 <div class="flex flex-col items-center"> 
-                    <div class="flex flex-row">
-                        <p class="text-center">
+                    <div>
+                        <p class="flex flex-col text-center">
                             <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
                                 <span class="italic text-xl">' . $row['title'] . '</span>
                             </button> 
@@ -250,13 +250,13 @@ function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per But
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
     $stmt->bind_param('ii', $limit, $offset);
-    if (!$stmt->execute()){
-        throw new Exception('Fehlermeldung: '. $stmt->error);
+    if (!$stmt->execute()) {
+        throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
     $result = $stmt->get_result();
     $rows = []; // Array erstellen zum Befüllen
 
-    while ($row = $result->fetch_assoc()){
+    while ($row = $result->fetch_assoc()) {
         $rows[] = $row; // fügt daten ins neue Array ein
     }
     return $rows; // Wiedergabe des Arrays
