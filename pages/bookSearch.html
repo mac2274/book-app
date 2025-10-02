@@ -22,6 +22,11 @@
                 <span>journal</span>
             </a>
         </h1>
+
+        <!-- logout-button -->
+        <a href="../php/logout.php"
+            class="logoutBtn fixed top-4 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+
     </header>
 
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
@@ -41,10 +46,12 @@
 
     <div id="result" class="flex flex-col justify-center gap-3 mr-10 ml-10"></div>
 
-            <!-- ----------------------- zurück-button  -->
-        <div class="flex w-full justify-end">
-            <a href="../pages/loginUser.php" class="bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">zurück</a>
-        </div>
+    <!-- ----------------------- zurück-button  -->
+    <div class="flex w-full justify-end">
+        <a href="../pages/loginUser.php"
+            class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+            zurück</a>
+    </div>
 
     <script>
         let searchDiv = document.querySelector('#searchDiv');
@@ -110,7 +117,7 @@
                     bookDiv.appendChild(msgContainer);
                 }
                 msgContainer.textContent = json.message;
-                console.log('Server-Antwort:',json);
+                console.log('Server-Antwort:', json);
             } catch (error) {
                 console.error(error);
                 //Fehlermeldung anzeigen
@@ -211,8 +218,7 @@
 
                     // Buchtitel
                     const title = document.createElement('h5');
-                    title.className('bookTitle');
-                    title.className = 'font-bold italic';
+                    title.className = 'bookTitle font-bold italic';
                     title.textContent = `- Buchtitel: ${item.volumeInfo.title} -`;
                     bookDiv.appendChild(title);
 
@@ -277,9 +283,7 @@
                             btnLists.remove();
                         } else {
                             btnLists = document.createElement('div');
-                            btnLists.classList.add('flex');
-                            btnLists.classList.add('gap-x-2');
-                            btnLists.classList.add('btnForLists');
+                            btnLists.className = 'btnForLists flex gap-x-2';
                             bookDiv.appendChild(btnLists);
                         }
 

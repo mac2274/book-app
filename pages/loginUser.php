@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
 
     try {
         if (loginUser($email, $pwd)) {
-            echo 'Erfolgreich euingeloggt.';
+            // echo 'Erfolgreich eingeloggt.';
         } else {
             echo 'Ein Feld ist falsch ausgefüllt';
         }
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <title>Book Journal</title>
-    <link rel="icon" type="image/x-icon" href="/src/img/bj-logo.png">
+    <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 
 </head>
 
@@ -51,6 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
                 <span>journal</span>
             </a>
         </h1>
+
+        <!-- logout-button -->
+        <a href="../php/logout.php" class="logoutBtn fixed top-4 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a> 
     </header>
 
     <div class="flex flex-col items-center">

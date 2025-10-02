@@ -28,6 +28,11 @@ require_once '../../config/lib.php';
             </a>
         </h1>
         </a>
+
+        <!-- logout-button -->
+        <a href="../php/logout.php"
+            class="logoutBtn fixed top-4 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+
     </header>
 
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 my-80 mt-150 h-full">
@@ -53,7 +58,7 @@ require_once '../../config/lib.php';
     <script>
         const doneContainer = document.querySelector('.doneReadingBooks');
         const btnShowMore = document.querySelector('.showMore');
-        
+
         let limit = 10;
         let offset = 0;
 
