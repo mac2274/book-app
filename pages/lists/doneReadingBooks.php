@@ -61,7 +61,7 @@ require_once '../../config/lib.php';
         async function showMoreBooks() {
             //const url = "saveDoneReading.php";
             try {
-                const response = await fetch(`../../config/getDoneReading.php?limit=${limit}&offset=${offset}`); // Verwenden der php-Datei!
+                const response = await fetch(`../../php/getDoneReading.php?limit=${limit}&offset=${offset}`); // Verwenden der php-Datei!
                 if (!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
                 }
