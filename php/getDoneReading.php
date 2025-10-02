@@ -5,10 +5,10 @@ require_once 'lib.php';
 header('Content-Type: application/json');
 
 $limit = $_GET['limit'] ?? 10;
-$offset = $_GET['offset'] ?? 0;
+$offset = $_GET['offset'] ?? 10;
 
 try {
-    // funktion wird aufgerufen
+    // funktion zum Abruf neuer Bücher wird aufgerufen
     $books = getDoneReading((int)$limit, (int)$offset);
     echo json_encode($books);
     // echo print_r($books);

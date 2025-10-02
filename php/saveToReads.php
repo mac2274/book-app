@@ -4,6 +4,7 @@ header('Content-Type: application/json');
 require_once 'config.db.php';
 require_once 'lib.php';
 
+// hier werden Daten vom FE (JS) geholt
 $data = json_decode(file_get_contents('php://input'), true);
 
 // wenn keine Daten enthalten:
@@ -17,7 +18,7 @@ if (!$data) {
 }
 
 try {
-    $affectedRows = saveToReads($data);
+    $affectedRows = saveToReads($data); // Funktion zum Speichern der Bücher in toBeRead
     echo json_encode([
         'success' => true,
         'message' => 'Du hast das Buch in deine noch-zu-lesende-Bücher-Liste hinzugefügt!',

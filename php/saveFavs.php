@@ -4,23 +4,25 @@ header('Content-Type: application/json');
 require_once 'config.db.php';
 require_once 'lib.php';
 
+// hier werden Daten vom FE (JS) geholt
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (!$data){
+// wenn keine Daten enthalten:
+if (!$data) {
     http_response_code(400);
-    echo json_encode([ 
+    echo json_encode([
         'success' => false,
-        'message' => 'Keine Daten empfangen.'
-    ]); 
+        'message' => 'Keine Dateien empfangen'
+    ]);
+    exit;
 }
 
 try {
-    $affectedRows = saveToDone($data);
-
-    echo json_encode([ // was macht encode hier?
+    $affectedRows = saveToFavs($data); // Funktion zum Speichern der Bücher in Favs
+    echo json_encode([
         'success' => true,
-        'message' => 'Du hast das Buch in deine bereits-gelesen-Liste hinzugefügt!',
-        'insertedRows' => $affectedRows
+        'insertesRows' => $affectedRows,
+        'message' => 'Du hast das Buch zu deinen Favouriten hinzugefügt!'
     ]);
 } catch (Exception $e) {
     http_response_code(400);

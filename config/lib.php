@@ -240,7 +240,7 @@ function showToRead()
     }
 }
 
-function getDoneReading($limit, $offset)
+function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per Button-Klick
 {
     global $mysqli;
 
