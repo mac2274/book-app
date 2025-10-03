@@ -63,7 +63,7 @@
         async function addToFavs(book, bookDiv) {
             try {
                 // speicherort angeben
-                const response = await fetch('../config/saveFavs.php', {
+                const response = await fetch('../php/saveFavs.php', {
                     method: 'POST', // speichern mit POST
                     headers: {
                         'Content-Type': 'application/json' // als json speichern
@@ -74,11 +74,12 @@
                     throw new Error(`Response status: ${response.status}`);
                 }
                 const json = await response.json();
+
                 // Rückmeldung in div geben
                 let msgContainer = bookDiv.querySelector('.savingMessage');
                 if (!msgContainer) {
                     msgContainer = document.createElement('div');
-                    msgContainer.className = ('savingMessage bg-green-800 border-orange-300 border-4 rounded-3xl text-white p-3');
+                    msgContainer.className = ('savingMessage bg-green-800 border-4 rounded-3xl text-white p-3');
                     bookDiv.appendChild(msgContainer);
                 }
                 msgContainer.textContent = json.message;
@@ -88,17 +89,17 @@
                 console.error(error);
                 let msgContainer = document.querySelector('.savingMessage');
                 if (!msgContainer) {
-                    msgContainer = document.createElement('savingMessage');
-                    msgContainer.className = ('savingMessage bg-green-800 border-orange-300 border-4 rounded-3xl text-white p-3');
+                    msgContainer = document.createElement('div');
+                    msgContainer.className = ('savingMessage bg-red-800 border-4 rounded-3xl text-white p-3');
                     bookDiv.appendChild(msgContainer);
                 }
-                msgContainer.textContent = json.message;
+                msgContainer.textContent = 'Fehler beim Speichern!';
             }
         }
         // in doneReading-liste speichern
         async function addToDone(book, bookDiv) {
             try {
-                const response = await fetch('../config/saveDoneReading.php', {
+                const response = await fetch('../php/saveDoneReading.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -109,11 +110,12 @@
                     throw new Error(`Response status: ${response.status}`);
                 }
                 const json = await response.json();
+
                 // Rückmeldung nachSpeicherung
                 let msgContainer = bookDiv.querySelector('.savingMessage');
                 if (!msgContainer) {
                     msgContainer = document.createElement('div');
-                    msgContainer.className = ('savingMessage bg-green-800 border-orange-300 border-4 rounded-3xl text-white p-3');
+                    msgContainer.className = ('savingMessage bg-green-800 border-4 rounded-3xl text-white p-3');
                     bookDiv.appendChild(msgContainer);
                 }
                 msgContainer.textContent = json.message;
@@ -133,7 +135,7 @@
 
         async function addToReads(book, bookDiv) {
             try {
-                const response = await fetch('../config/saveToReads.php', {
+                const response = await fetch('../php/saveToReads.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -146,11 +148,12 @@
                 }
                 // JSON aus PHP: json ist das 'result' 
                 const json = await response.json();
+
                 // div für Rückmeldung nach Speicherung
                 let msgContainer = bookDiv.querySelector('.savingMessage');
                 if (!msgContainer) {
                     msgContainer = document.createElement('div');
-                    msgContainer.className = ('savingMessage bg-green-800 border-orange-300 border-4 rounded-3xl text-white p-3');
+                    msgContainer.className = ('savingMessage bg-green-800 border-4 rounded-3xl text-white p-3');
                     bookDiv.appendChild(msgContainer);
                 }
                 // Nachricht von der Datei(PHP)
@@ -188,18 +191,14 @@
 
                 // -> 2. results zeigen
                 let searchDiv = document.querySelector('#searchDiv')
-                searchDiv.classList.add('absolute');
                 // Suche einzeilig machen 
-                searchDiv.classList.add('left-10');
-                searchDiv.classList.add('top-30');
-                searchDiv.classList.add('flex-row')
+                searchDiv.className = 'absolute left-10 top-30 flex-row';
                 document.querySelector('h2').style.display = 'none';
                 document.querySelector('form').classList.remove('flex-col');
                 document.querySelector('form').classList.add('flex-row');
                 document.querySelector('form').classList.add('gap-x-4');
                 searchResult.classList.add('absolute');
                 searchResult.classList.add('top-50');
-
                 searchResult.innerHTML = '';
 
                 // überschrift für Suchergebnis
@@ -322,19 +321,21 @@
                         // buchinfos im btnDone speichern:
                         btnDone.dataset.title = item.volumeInfo.title;
                         btnDone.dataset.author = item.volumeInfo.authors?.join(", ") || "Unbekannt";
+                        btnDone.dataset.cover = item.volumeInfo.imageLinks.thumbnail;
 
                         // listener für already read
                         btnDone.addEventListener('click', () => {
                             const book = {
                                 title: btnDone.dataset.title,
-                                author: btnDone.dataset.author
+                                author: btnDone.dataset.author,
+                                cover: btnDone.dataset.cover
                             }
                             addToDone(book, bookDiv);
                         })
 
                         // btn to be read
                         const btnToRead = document.createElement('button');
-                        btnToRead.classList.add('addToBeRead text-md font-semibold p-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white');
+                        btnToRead.className = 'addToBeRead text-md font-semibold p-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white';
                         btnToRead.textContent = 'Leseliste';
                         btnLists.appendChild(btnToRead);
 

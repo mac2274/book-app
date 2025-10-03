@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json');
 
-require_once '../config.db.php';
-require_once '../lib.php';
+require_once '../config/config.db.php';
+require_once '../config/lib.php';
 
 // hier werden Daten vom FE (JS) geholt
 $data = json_decode(file_get_contents('php://input'), true);

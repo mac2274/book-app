@@ -6,12 +6,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     $pwd = $_POST['loginPwd'] ?? '';
 
     if (empty($email) ) {
-        header('Location: ./login.php?error=' . urlencode('Bitte Email eingeben.'));
+        header('Location: ./login.php?error=' . urlencode('Bitte Email eingeben.')); // keine message nötig wegen required
         exit;
     }
 
     if (empty($pwd)) {
-        header('Location: ./login.php?error=' . urlencode('Bitte Passwort einfügen.'));
+        header('Location: ./login.php?error=' . urlencode('Bitte Passwort einfügen.')); // keine message nötig wegen required
         exit;
     }
 
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
             header('Location: ./loginUser.php?success=' . urlencode('Erfolgreich eingeloggt.'));
             exit;
         } else { 
-            header('Location: ./login.php?error=' . urlencode('Ein Feld ist falsch ausgefüllt'));
+            header('Location: ./login.php?error=' . urlencode('Die Engaben stimmen nicht ganz ...'));
             exit;
         }
     } catch (Exception $e) {

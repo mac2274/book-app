@@ -37,7 +37,7 @@ require_once '../../config/lib.php';
 
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 my-80 mt-150 h-full">
         <h2 class="text-4xl font-semibold mt-4">Deine bereits gelesenen Bücher</h2>
-        <ol class="doneReadingBooks list-decimal list-outside w-xl px-8">
+        <ol class="doneReadingList list-decimal list-outside w-xl px-8">
             <?php showDoneReading() ?>
         </ol>
 
@@ -56,14 +56,13 @@ require_once '../../config/lib.php';
     </div>
 
     <script>
-        const doneContainer = document.querySelector('.doneReadingBooks');
+        const doneContainer = document.querySelector('.doneReadingList');
         const btnShowMore = document.querySelector('.showMore');
 
         let limit = 10;
-        let offset = 0;
+        let offset = 10;
 
         async function showMoreBooks() {
-            //const url = "saveDoneReading.php";
             try {
                 const response = await fetch(`../../php/getDoneReading.php?limit=${limit}&offset=${offset}`); // Verwenden der php-Datei!
                 if (!response.ok) {
@@ -75,7 +74,16 @@ require_once '../../config/lib.php';
 
                 books.forEach(book => {
                     const li = document.createElement('li');
-                    li.innerHTML = `<span>${book['title']}</span>`;
+                    li.className = 'listContainer px-8'
+                    li.innerHTML = `<div class="flex flex-row gap-x-4 justify-between items-center py-4">
+                                        <p class="flex flex-col text-center w-100">
+                                            <span class="italic text-xl">${book.title}</span>
+                                            <span class="text-sm">${book.author}</span>
+                                        </p>
+                                    
+                                        <img class="flex p-2 items-center" src="${book.cover}" alt="Cover von ${book.title}">
+                                    </div>
+                                    <hr>`;
                     doneContainer.appendChild(li);
                 });
 

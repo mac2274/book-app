@@ -101,13 +101,14 @@ function saveToDone($data)
 
     $title = $data['title'];
     $author = $data['author'];
+    $cover = $data['cover'];
 
-    $sql = 'INSERT INTO books_read (title, author) VALUES(?,?)';
+    $sql = 'INSERT INTO books_read (title, author, cover) VALUES(?,?,?)';
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('ss', $title, $author);
+    $stmt->bind_param('sss', $title, $author, $cover);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -149,18 +150,10 @@ function showFavs()
     }
     $result = $stmt->get_result();
 
-    // variablen lassen sich nicht in htmlspecialchars einfügen, ohne dass der inhalt nicht angezeigt wird
-    // $title = $row['title'] ?? 'Kein Titel vorhanden';
-    // $author = $row['author'] ?? 'Unbekannt';
-    // $description = $row['description'] ?? 'Keine Bescreiben vorhanden.';
-
     $rows = $result->fetch_all(MYSQLI_ASSOC);
 
     foreach ($rows as $row) {
-        // echo $row['0'].'1-ol<br>';
-        // echo $row['1'].'2-titel<br>';
-        // echo $row['2'].'3-autors<br>';
-        //echo print_r($rows);
+
         echo '<li class="listContainer p-4">
                 <div class="flex flex-col items-center"> 
                     <div>
@@ -195,13 +188,12 @@ function showDoneReading()
 
     while ($row = $result->fetch_assoc()) {
         echo '<li class="listContainer px-8">
-                <div class="flex flex-col items-center py-4"> 
-                    <div>
-                        <p class="flex flex-col text-center">
-                            <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titek') . '</span>
-                            <span class="text-sm"> - ' . htmlspecialchars($row['author'] ?? 'Unbekannt') . '</span>
-                        </p>
-                    </div>
+                <div class="flex flex-row gap-x-4 justify-between items-center py-4"> 
+                    <p class="flex flex-col text-center">
+                        <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titel') . '</span>
+                        <span class="text-sm">' . htmlspecialchars($row['author'] ?? 'Unbekannt') . '</span>
+                    </p>
+                    <img src="' . htmlspecialchars($row['cover']) . '">
                 </div>    
                 <hr>
             </li>';
@@ -211,7 +203,7 @@ function showDoneReading()
 function showToRead()
 {
     global $mysqli;
-    $sql = "SELECT * FROM books_to_read LIMIT 20";
+    $sql = "SELECT * FROM books_to_read LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
@@ -257,7 +249,28 @@ function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per But
     $rows = []; // Array erstellen zum Befüllen
 
     while ($row = $result->fetch_assoc()) {
-        $rows[] = $row; // fügt daten ins neue Array ein
+        $rows[] = $row;
+    }
+    return $rows; // Wiedergabe des Arrays
+}
+
+function getFavs($limit, $offset) {
+    global $mysqli;
+    
+    $sql = "SELECT * FROM books_fav LIMIT ? OFFSET ?";
+    $stmt = $mysqli->prepare($sql);
+    if (!$stmt) {
+        throw new Exception('Fehlermeldung:' . $mysqli->error);
+    }
+    $stmt->bind_param('ii', $limit, $offset);
+    if (!$stmt->execute()) {
+        throw new Exception('Fehlermeldung: ' . $stmt->error);
+    }
+    $result = $stmt->get_result();
+    $rows = []; // Array erstellen zum Befüllen
+
+    while ($row = $result->fetch_assoc()) {
+        $rows[] = $row;
     }
     return $rows; // Wiedergabe des Arrays
 }
