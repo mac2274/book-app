@@ -5,16 +5,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     $email = $_POST['loginEmail'] ?? '';
     $pwd = $_POST['loginPwd'] ?? '';
 
-    if (empty($email) || empty($pwd)) {
-        echo 'Bitte Email und Passwort eingeben.';
+    if (empty($email) ) {
+        header('Location: ./login.php?error=' . urlencode('Bitte Email eingeben.'));
+        exit;
+    }
+
+    if (empty($pwd)) {
+        header('Location: ./login.php?error=' . urlencode('Bitte Passwort einfügen.'));
         exit;
     }
 
     try {
         if (loginUser($email, $pwd)) {
-            // echo 'Erfolgreich eingeloggt.';
-        } else {
-            echo 'Ein Feld ist falsch ausgefüllt';
+            header('Location: ./loginUser.php?success=' . urlencode('Erfolgreich eingeloggt.'));
+            exit;
+        } else { 
+            header('Location: ./login.php?error=' . urlencode('Ein Feld ist falsch ausgefüllt'));
+            exit;
         }
     } catch (Exception $e) {
         http_response_code(400);
@@ -59,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     <div class="flex flex-col items-center">
         <h2 class="text-3xl text-center font-semibold py-4 mb-4">
             <?php if ($_SESSION['name']) {
-                echo 'Willkommen zurück <br>in deinem Book Journal, <em class="text-4xl">' . $_SESSION['name'] . '</em>!';
+                echo 'Willkommen zurück <br>in deinem Book Journal, <br> <em class="text-4xl">' . $_SESSION['name'] . '</em>!';
             } ?>
         </h2>
         <div class="flex flex-row gap-2 flex-wrap justify-center">

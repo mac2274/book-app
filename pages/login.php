@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+$error = $_GET['error'] ?? '';
+$success = $_GET['success'] ?? '';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,15 +33,25 @@
     </header>
 
     <h2 class="text-2xl font-semibold">Login</h2>
+
+    <!-- Login-Message geben -->
+    <?php if ($error): ?>
+        <p class="text-red-500 font-bold"><?= htmlspecialchars($error) ?> </p>
+    <?php endif; ?>
+
+    <?php if ($success): ?>
+        <p class="text-red-500 font-bold"><?= htmlspecialchars($success) ?></p>
+    <?php endif; ?>
+
     <form action="../pages/loginUser.php" method="POST" class="grid gap-y-4">
         <div class="grid grid-cols-3 items-center">
             <label for="loginEmail" class="text-xl">Email</label>
-            <input type="email" id="loginEmail" name="loginEmail"
+            <input type="email" id="loginEmail" name="loginEmail" required
                 class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
         </div>
         <div class="grid grid-cols-3 items-center">
             <label for="loginPwd" class="text-xl">Password</label>
-            <input type="password" id="loginPwd" name="loginPwd"
+            <input type="password" id="loginPwd" name="loginPwd" required
                 class="col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
         </div>
         <div class="grid grid-cols-3 items-center">
@@ -42,6 +59,7 @@
                 class="col-start-2 border-2 border-transparent rounded-3xl p-2 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
         </div>
     </form>
+
     <p>Noch nicht registriert? Dann <a href="register.html" class="underline">registriere</a> dich jetzt hier!</p>
 </body>
 
