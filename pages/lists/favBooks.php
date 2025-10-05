@@ -62,6 +62,22 @@ require_once '../../config/lib.php';
         let limit = 10;
         let offset = 10;
 
+        // header wird weiß beim vertikalen Scrollen
+        function scrollDown() {
+            if (window.scrollY > 50) {
+
+                // headerSttus muss das div drüber sein
+                headerStatus.classList.add('bg-white');
+                headerStatus.classList.add('top-0');
+                headerStatus.classList.add('h-28');
+                headerStatus.classList.add('transition');
+                headerStatus.classList.add('duration-500');
+            } else {
+                headerStatus.classList.remove('bg-white');
+            }
+        }
+
+        // beim Klick werden weitere Büchere aus der db angezeigt
         async function showMoreBooks() {
             try {
                 const response = await fetch(`../../php/getFavs.php?limit=${limit}&offset=${offset}`); // Verwenden der php-Datei!
@@ -95,24 +111,8 @@ require_once '../../config/lib.php';
             }
         }
 
-        function scrollDown() {
-            if (window.scrollY > 50) {
 
-                // headerSttus muss das div drüber sein
-                headerStatus.classList.add('bg-white');
-                headerStatus.classList.add('top-0');
-                headerStatus.classList.add('h-28');
-                headerStatus.classList.add('transition');
-                headerStatus.classList.add('duration-500');
-            } else {
-                headerStatus.classList.remove('bg-white');
-            }
-        }
-
-        window.addEventListener('scroll', scrollDown);
-        btnShowMore.addEventListener('click', showMoreBooks);
-
-
+        // beim Klick wird eine vorhandene Beschreibung angezeigt
         document.querySelectorAll(".reveal_more").forEach(button => {
             button.addEventListener("click", () => {
                 let revealDescript = document.querySelector('.revealDiv');
@@ -129,5 +129,11 @@ require_once '../../config/lib.php';
             });
         });
 
+        window.addEventListener('scroll', scrollDown);
+        btnShowMore.addEventListener('click', showMoreBooks);
 
     </script>
+
+</body>
+
+</html>

@@ -63,6 +63,7 @@ require_once '../../config/lib.php';
         let limit = 10;
         let offset = 10;
 
+        // header wird weiß beim vertikalen Scrollen
         function scrollDown() {
             if (window.scrollY > 50) {
 
@@ -77,6 +78,7 @@ require_once '../../config/lib.php';
             }
         }
 
+        // beim Klick werden weitere Büchere aus der db angezeigt
         async function showMoreBooks() {
             try {
                 const response = await fetch(`../../php/getDoneReading.php?limit=${limit}&offset=${offset}`); // Verwenden der php-Datei!
@@ -111,3 +113,8 @@ require_once '../../config/lib.php';
         window.addEventListener('scroll', scrollDown);
         btnShowMore.addEventListener('click', showMoreBooks);
     </script>
+
+
+</body>
+
+</html>

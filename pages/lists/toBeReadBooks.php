@@ -62,6 +62,7 @@ require_once '../../config/lib.php';
         let limit = 10;
         let offset = 10;
 
+        // header wird weiß beim vertikalen Scrollen
         function scrollDown() {
             if (window.scrollY > 50) {
                 headerStatus.classList.add('bg-white');
@@ -74,6 +75,7 @@ require_once '../../config/lib.php';
             }
         }
 
+        // beim Klick werden weitere Büchere aus der db angezeigt
         async function showMoreBooks() {
             try {
                 const response = await fetch(`../../php/getToBeRead.php?limit=${limit}&offset=${offset}`); // fetch der PHP-Datei! 
@@ -81,10 +83,10 @@ require_once '../../config/lib.php';
                     throw new Error(`Response status: ${response.status}`);
                 }
 
-                const result = await response.json();
-                console.log(result);
+                const books = await response.json();
+                console.log(books);
 
-                result.forEach(book => {
+                books.forEach(book => {
                     const li = document.createElement('li');
                     li.className = 'listContainer p-4';
                     li.innerHTML = `<div class="flex flex-col items-center gap-x-4">
@@ -101,11 +103,13 @@ require_once '../../config/lib.php';
                 });
 
                 offset += limit;
+
             } catch (error) {
                 console.error(error.message);
             }
         }
 
+        // beim Klick wird eine vorhandene Beschreibung angezeigt
         document.querySelectorAll(".reveal_more").forEach(button => {
             button.addEventListener("click", () => {
                 let revealDescript = document.querySelector('.revealDiv');
@@ -125,3 +129,7 @@ require_once '../../config/lib.php';
         window.addEventListener('scroll', scrollDown);
         btnShowMore.addEventListener('click', showMoreBooks());
     </script>
+
+
+</body>
+</html>
