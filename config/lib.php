@@ -140,7 +140,7 @@ function saveToReads($data)
 function showFavs()
 {
     global $mysqli;
-    $sql = "SELECT * FROM books_fav LIMIT 20";
+    $sql = "SELECT * FROM books_fav LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
