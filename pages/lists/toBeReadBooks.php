@@ -36,9 +36,15 @@ require_once '../../config/lib.php';
 
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-80 h-full">
         <h2 class="text-4xl font-semibold mt-4">Deine Leseliste</h2>
-        <ol class="favList list-decimal list-outside w-xl px-8">
+        <ol class="toBeReadList list-decimal list-outside w-xl px-8">
             <?php showToRead() ?>
         </ol>
+
+        <!-- ------------------ Button für weitere Bücher -->
+        <button
+            class="showMore mb-10 border-teal-600 border-2 text-teal-600 rounded-4xl p-2 hover:bg-teal-600 hover:text-white hover:transition duration-500">
+            mehr anzeigen
+        </button>
     </div>
 
     <!-- ----------------------- zurück-button  -->
@@ -50,6 +56,11 @@ require_once '../../config/lib.php';
 
     <script>
         const headerStatus = document.querySelector('header');
+        const toReadList = document.querySelector('.toBeReadList');
+        const btnShowMore = document.querySelector('.showMore');
+
+        let limit = 10;
+        let offset = 10;
 
         function scrollDown() {
             if (window.scrollY > 50) {
@@ -62,7 +73,38 @@ require_once '../../config/lib.php';
                 headerStatus.classList.remove('bg-white');
             }
         }
-        
+
+        async function showMoreBooks() {
+            try {
+                const response = await fetch(`getToRead.php?limit=${limit}+offset=${offset}`); // fetch der PHP-Datei! 
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                const result = await response.json;
+                console.log(result);
+
+                result.forEach(book => {
+                    const li = document.createElement('li');
+                    li.className = 'listContainer p-4';
+                    li.innerHTML = `<div class="flex flex-col items-center gap-x-4">
+                                        <p class="flex flex-col text-center">
+                                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
+                                                <span class="italic text-xl">${book.title}</span>
+                                            </button> 
+                                            <span class="text-sm"> - ${book.author} </span>
+                                        </p>
+                                        <img class="flex  pt-4 pb-8 items-center" src="${book.cover}" alt="Cover von ${book.title}">
+                                    </div>
+                                    <hr>`;
+                    toReadList.appendChild(li);
+                });
+
+                offset += limit;
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
         document.querySelectorAll(".reveal_more").forEach(button => {
             button.addEventListener("click", () => {
                 let revealDescript = document.querySelector('.revealDiv');
@@ -80,5 +122,5 @@ require_once '../../config/lib.php';
         });
 
         window.addEventListener('scroll', scrollDown);
-
-</script>
+        btnShowMore.addEventListener('click', showMoreBooks());
+    </script>

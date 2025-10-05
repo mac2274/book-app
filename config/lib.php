@@ -156,17 +156,13 @@ function showFavs()
 
         echo '<li class="listContainer p-4">
                 <div class="flex flex-col items-center"> 
-                    <div>
-                        <p class="flex flex-col text-center">
-                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
-                                <span class="italic text-xl">' . $row['title'] . '</span>
-                            </button> 
-                            <span class="text-sm"> - ' . $row['author'] . '</span>
-                        </p>
-                    </div>
-                    <div class="flex pt-4 pb-4">
-                        <img class="flex p-2 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
-                    </div>
+                    <p class="flex flex-col text-center">
+                        <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
+                            <span class="italic text-xl">' . $row['title'] . '</span>
+                        </button> 
+                        <span class="text-sm"> - ' . $row['author'] . '</span>
+                    </p>
+                    <img class="flex pt-4 pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
                 </div>    
                 <hr>
             </li>';
@@ -193,7 +189,7 @@ function showDoneReading()
                         <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titel') . '</span>
                         <span class="text-sm">' . htmlspecialchars($row['author'] ?? 'Unbekannt') . '</span>
                     </p>
-                    <img src="' . htmlspecialchars($row['cover']) . '">
+                    <img class=" pt-4 pb-8 " src="' . htmlspecialchars($row['cover']) . '">
                 </div>    
                 <hr>
             </li>';
@@ -215,16 +211,14 @@ function showToRead()
     while ($row = $result->fetch_assoc()) {
         echo '<li class="listContainer p-4">
                 <div class="flex flex-col items-center"> 
-                    <div>
-                        <p class="flex flex-col text-center">
-                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
-                                <span class="italic text-xl">' . $row['title'] . '</span>
-                            </button> 
-                            <span class="text-sm"> - ' . $row['author'] . '</span>
-                        </p>
-                    </div>
-                    <div class="flex pt-4 pb-4">
-                        <img class="flex p-2 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
+                    <p class="flex flex-col text-center">
+                        <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
+                            <span class="italic text-xl">' . $row['title'] . '</span>
+                        </button> 
+                        <span class="text-sm"> - ' . $row['author'] . '</span>
+                    </p>
+                    <div class="flex">
+                        <img class="flex pt-4 pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
                     </div>
                 </div>    
                 <hr>
@@ -254,9 +248,10 @@ function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per But
     return $rows; // Wiedergabe des Arrays
 }
 
-function getFavs($limit, $offset) {
+function getFavs($limit, $offset)
+{
     global $mysqli;
-    
+
     $sql = "SELECT * FROM books_fav LIMIT ? OFFSET ?";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {

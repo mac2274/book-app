@@ -89,14 +89,13 @@ require_once '../../config/lib.php';
 
                 books.forEach(book => {
                     const li = document.createElement('li');
-                    li.className = 'listContainer px-8'
+                    li.className = 'listContainer px-8';
                     li.innerHTML = `<div class="flex flex-row gap-x-4 justify-between items-center py-4">
-                                        <p class="flex flex-col text-center w-100">
+                                        <p class="flex flex-col text-center w-100 pb-4">
                                             <span class="italic text-xl">${book.title}</span>
                                             <span class="text-sm">${book.author}</span>
                                         </p>
-                                    
-                                        <img class="flex p-2 items-center" src="${book.cover}" alt="Cover von ${book.title}">
+                                        <img class="flex pt-4 pb-8 items-center" src="${book.cover}" alt="Cover von ${book.title}">
                                     </div>
                                     <hr>`;
                     doneContainer.appendChild(li);
