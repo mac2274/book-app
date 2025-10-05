@@ -269,3 +269,24 @@ function getFavs($limit, $offset)
     }
     return $rows; // Wiedergabe des Arrays
 }
+
+function getToBeread(){
+    global $mysqli;
+
+    $sql = "SELECT * FROM books_to_read LIMIT ? OFFSET ?";
+    $stmt = $mysqli->prepare($sql);
+    if(!$stmt){
+        throw new Exception('Fehlermeldung: ' . $mysqli->error);
+    }
+    $stmt->bind_param('ii', $limit, $offset);
+    if(!$stmt){
+        throw new Exception('Fehlermedung: ' . $stmt->error);
+    }
+    $result = $stmt->get_result();
+    $rows = [];
+
+    while($row = $result->fetch_assoc()){
+        $rows[] = $row;
+    }
+    return $rows;
+}
