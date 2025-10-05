@@ -76,11 +76,12 @@ require_once '../../config/lib.php';
 
         async function showMoreBooks() {
             try {
-                const response = await fetch(`getToRead.php?limit=${limit}+offset=${offset}`); // fetch der PHP-Datei! 
+                const response = await fetch(`../../php/getToBeRead.php?limit=${limit}&offset=${offset}`); // fetch der PHP-Datei! 
                 if (!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
                 }
-                const result = await response.json;
+
+                const result = await response.json();
                 console.log(result);
 
                 result.forEach(book => {
@@ -88,7 +89,7 @@ require_once '../../config/lib.php';
                     li.className = 'listContainer p-4';
                     li.innerHTML = `<div class="flex flex-col items-center gap-x-4">
                                         <p class="flex flex-col text-center">
-                                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
+                                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="'${book.description}'">
                                                 <span class="italic text-xl">${book.title}</span>
                                             </button> 
                                             <span class="text-sm"> - ${book.author} </span>

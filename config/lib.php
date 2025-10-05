@@ -270,7 +270,7 @@ function getFavs($limit, $offset)
     return $rows; // Wiedergabe des Arrays
 }
 
-function getToBeread(){
+function getToBeRead($limit, $offset){
     global $mysqli;
 
     $sql = "SELECT * FROM books_to_read LIMIT ? OFFSET ?";
@@ -279,7 +279,7 @@ function getToBeread(){
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
     $stmt->bind_param('ii', $limit, $offset);
-    if(!$stmt){
+    if(!$stmt->execute()){
         throw new Exception('Fehlermedung: ' . $stmt->error);
     }
     $result = $stmt->get_result();
