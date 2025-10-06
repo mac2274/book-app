@@ -1,5 +1,5 @@
 <?php
-require_once 'lib.php';
+require_once '../config/lib.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitRegisterUser'])) {
 
@@ -8,21 +8,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitRegisterUser'])
     $email = $_POST['email'] ?? '';
     $password = $_POST['pwd'];
 
-    if (empty($email) || empty($password)){
-        echo 'Bitte Email und Passwort eingeben.';
-    }
-
-    if (emailExists($email)) {
-        echo 'Diese Email ist bereits in Gebrauch. Bitte logge dich ein.';
-        require '../pages/login.html';
+    if (empty($email) || empty($password)) {
+        echo '<p class"text-red-500">Bitte Email und Passwort eingeben. </p>';
+        require '../pages/register.html';
+    } elseif (emailExists($email)) {
+        echo '<p class"text-red-500">Diese Email ist bereits in Gebrauch. Bitte wähle eine andere aus. </p>';
+        require '../pages/register.html';
     } else {
         registerUser($name, $surname, $email, $password);
-        echo 'Registerierung erfolgt.<br>';
-        echo 'Jetzt hier einloggen.<br>';
-        require '../pages/login.html';
+        header('Location: ../pages/login.php');
     }
 } else {
-    echo 'Die Registrierung ist fehlgeschlagen.';
+    echo '<p class"text-red-500">Die Registrierung ist fehlgeschlagen.</p>';
 }
 
 

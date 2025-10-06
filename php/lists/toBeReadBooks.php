@@ -29,7 +29,7 @@ require_once '../../config/lib.php';
             </h1>
 
             <!-- logout-button -->
-            <a href="../php/logout.php"
+            <a href="../../php/logout.php"
                 class="logoutBtn fixed top-4 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
         </div>
     </header>
@@ -127,7 +127,7 @@ require_once '../../config/lib.php';
         });
 
         window.addEventListener('scroll', scrollDown);
-        btnShowMore.addEventListener('click', showMoreBooks());
+        btnShowMore.addEventListener('click', showMoreBooks);
     </script>
 
 

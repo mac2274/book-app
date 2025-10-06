@@ -36,14 +36,14 @@ $success = $_GET['success'] ?? '';
 
     <!-- Login-Message geben -->
     <?php if ($error): ?>
-        <p class="text-red-500 font-bold"><?= htmlspecialchars($error) ?> </p>
+        <p class="text-red-500"><?= htmlspecialchars($error) ?> </p>
     <?php endif; ?>
 
     <?php if ($success): ?>
-        <p class="text-red-500 font-bold"><?= htmlspecialchars($success) ?></p>
+        <p class="text-green-500"><?= htmlspecialchars($success) ?></p>
     <?php endif; ?>
 
-    <form action="../pages/loginUser.php" method="POST" class="grid gap-y-4">
+    <form action="./home.php" method="POST" class="grid gap-y-4">
         <div class="grid grid-cols-3 items-center">
             <label for="loginEmail" class="text-xl">Email</label>
             <input type="email" id="loginEmail" name="loginEmail" required
