@@ -1,27 +1,18 @@
-<?php
+da<?php
 require_once '../config/lib.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     $email = $_POST['loginEmail'] ?? '';
     $pwd = $_POST['loginPwd'] ?? '';
 
-    if (empty($email) ) {
-        header('Location: ./login.php?error=' . urlencode('Bitte Email eingeben.')); // keine message nötig wegen required
-        exit;
-    }
-
-    if (empty($pwd)) {
-        header('Location: ./login.php?error=' . urlencode('Bitte Passwort einfügen.')); // keine message nötig wegen required
-        exit;
-    }
 
     try {
         if (loginUser($email, $pwd)) {
             header('Location: ./home.php?success=' . urlencode('Erfolgreich eingeloggt.'));
             exit;
         } else { 
-            header('Location: ./home.php?error=' . urlencode('Die Engaben stimmen nicht ganz ...'));
-            exit;
+            header('Location: ./login.php?error=' . urlencode('Die Engaben stimmen nicht ganz ...'));
+          exit;
         }
     } catch (Exception $e) {
         http_response_code(400);

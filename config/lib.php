@@ -42,7 +42,7 @@ function loginUser($email, $pwd)
 {
     global $mysqli;
 
-    $sql = "SELECT name, email, pwd FROM user WHERE email=?";
+    $sql = "SELECT id, name, email, pwd FROM user WHERE email=?";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Datenbankfehler: ' . $mysqli->error);
@@ -59,7 +59,7 @@ function loginUser($email, $pwd)
 
         if (password_verify($pwd, $getRow['pwd'])) {
             $_SESSION['name'] = $getRow['name'];
-            $_SESSION['email'] = $getRow['email'];
+            $_SESSION['userId'] = $getRow['id'];
             $_SESSION['loginDone'] = true;
 
             return true;
@@ -76,19 +76,25 @@ function saveToFavs($data)
     global $mysqli;
     // POST auslesen
 
+
+    // Prüfen, ob User eingeloggt ist
+    if (!isset($_SESSION['userId'])) {
+        throw new Exception('User ist nicht eingeloggt.');
+    }
+    $userId = $_SESSION['userId']; // wenn eingeloggt, wird die userId genutzt für die Speicherung in listen des Users
+
     $title = $data['title'];
     $author = $data['author'];
     $subtitle = $data['subtitle'];
     $description = $data['description'];
     $cover = $data['cover'];
-    //$list = $data['list'];
 
-    $sql = 'INSERT INTO books_fav (title, author, subtitle, description, cover) VALUES(?,?,?,?,?)';
+    $sql = 'INSERT INTO books_fav (title, author, subtitle, description, cover, userId) VALUES(?,?,?,?,?,?)';
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehler:' . $mysqli->error);
     }
-    $stmt->bind_param('sssss', $title, $author, $subtitle, $description, $cover);
+    $stmt->bind_param('sssssi', $title, $author, $subtitle, $description, $cover, $userId);
     if (!$stmt->execute()) {
         throw new Exception('Fehler: ' . $stmt->error);
     }
@@ -270,22 +276,23 @@ function getFavs($limit, $offset)
     return $rows; // Wiedergabe des Arrays
 }
 
-function getToBeRead($limit, $offset){
+function getToBeRead($limit, $offset)
+{
     global $mysqli;
 
     $sql = "SELECT * FROM books_to_read LIMIT ? OFFSET ?";
     $stmt = $mysqli->prepare($sql);
-    if(!$stmt){
+    if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
     $stmt->bind_param('ii', $limit, $offset);
-    if(!$stmt->execute()){
+    if (!$stmt->execute()) {
         throw new Exception('Fehlermedung: ' . $stmt->error);
     }
     $result = $stmt->get_result();
     $rows = [];
 
-    while($row = $result->fetch_assoc()){
+    while ($row = $result->fetch_assoc()) {
         $rows[] = $row;
     }
     return $rows;

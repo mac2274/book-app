@@ -18,12 +18,16 @@ if (!$data) {
 }
 
 try {
+    if (isset($_SESSION['userId'])) {
+        $userId = $_SESSION['userId'];
+    }
     $affectedRows = saveToFavs($data); // Funktion zum Speichern der Bücher in Favs
     echo json_encode([
         'success' => true,
         'insertesRows' => $affectedRows,
         'message' => 'Du hast das Buch zu deinen Favouriten hinzugefügt!'
     ]);
+
 } catch (Exception $e) {
     http_response_code(400);
     echo json_encode([
