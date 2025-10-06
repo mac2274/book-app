@@ -1,5 +1,5 @@
 <?php
-require_once '../../config/lib.php';
+require_once '../config/lib.php';
 ?>
 
 <!DOCTYPE html>
@@ -8,20 +8,20 @@ require_once '../../config/lib.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../../src/output.css" rel="stylesheet">
+    <link href="../src/output.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <title>Leseliste</title>
-    <link rel="icon" type="image/x-icon" href="../../src/img/bj-logo.png">
+    <title>Bereits gelesene Bücher</title>
+    <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
 
 <body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
     <header class="fixed top-0 p-4 w-full">
         <div class="absolute flex w-40 gap-x-4 items-center">
-            <img class="flex w-20 rounded-2xl" src="../../src/img/bj-logo.png" alt="logo">
+            <img class="flex w-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
 
             <h1 class="flex flex-col uppercase tracking-wide text-2xl leading-none font-bold">
-                <a href="../../index.html">
+                <a href="../index.html">
                     <span>Book</span>
                     <span>loving</span>
                     <span>journal</span>
@@ -29,15 +29,15 @@ require_once '../../config/lib.php';
             </h1>
 
             <!-- logout-button -->
-            <a href="../../php/logout.php"
+            <a href="../php/logout.php"
                 class="logoutBtn fixed top-4 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
         </div>
     </header>
 
-    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-80 h-full">
-        <h2 class="text-4xl font-semibold mt-4">Deine Leseliste</h2>
-        <ol class="toBeReadList list-decimal list-outside w-xl px-8">
-            <?php showToRead() ?>
+    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 my-80 h-full">
+        <h2 class="text-4xl font-semibold mt-4">Deine bereits gelesenen Bücher</h2>
+        <ol class="doneReadingList list-decimal list-outside w-xl px-8">
+            <?php showDoneReading() ?>
         </ol>
 
         <!-- ------------------ Button für weitere Bücher -->
@@ -47,16 +47,16 @@ require_once '../../config/lib.php';
         </button>
     </div>
 
-    <!-- ----------------------- zurück-button  -->
+    <!-- ----------------------- zurück-button  ------------->
     <div class="flex w-full justify-end">
-        <a href="../../pages/bookShelf.html"
+        <a href="../pages/bookShelf.html"
             class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
             zurück</a>
     </div>
 
     <script>
         const headerStatus = document.querySelector('header');
-        const toReadList = document.querySelector('.toBeReadList');
+        const doneContainer = document.querySelector('.doneReadingList');
         const btnShowMore = document.querySelector('.showMore');
 
         let limit = 10;
@@ -65,6 +65,8 @@ require_once '../../config/lib.php';
         // header wird weiß beim vertikalen Scrollen
         function scrollDown() {
             if (window.scrollY > 50) {
+
+                // headerSttus muss das div drüber sein
                 headerStatus.classList.add('bg-white');
                 headerStatus.classList.add('top-0');
                 headerStatus.classList.add('h-28');
@@ -78,7 +80,7 @@ require_once '../../config/lib.php';
         // beim Klick werden weitere Büchere aus der db angezeigt
         async function showMoreBooks() {
             try {
-                const response = await fetch(`../../php/getToBeRead.php?limit=${limit}&offset=${offset}`); // fetch der PHP-Datei! 
+                const response = await fetch(`./getDoneReading.php?limit=${limit}&offset=${offset}`); // Verwenden der php-Datei!
                 if (!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
                 }
@@ -88,18 +90,16 @@ require_once '../../config/lib.php';
 
                 books.forEach(book => {
                     const li = document.createElement('li');
-                    li.className = 'listContainer p-4';
-                    li.innerHTML = `<div class="flex flex-col items-center gap-x-4">
-                                        <p class="flex flex-col text-center">
-                                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="'${book.description}'">
-                                                <span class="italic text-xl">${book.title}</span>
-                                            </button> 
-                                            <span class="text-sm"> - ${book.author} </span>
+                    li.className = 'listContainer px-8';
+                    li.innerHTML = `<div class="flex flex-row gap-x-4 justify-between items-center py-4">
+                                        <p class="flex flex-col text-center w-100 pb-4">
+                                            <span class="italic text-xl">${book.title}</span>
+                                            <span class="text-sm">${book.author}</span>
                                         </p>
-                                        <img class="flex  pt-4 pb-8 items-center" src="${book.cover}" alt="Cover von ${book.title}">
+                                        <img class="flex pt-4 pb-8 items-center" src="${book.cover}" alt="Cover von ${book.title}">
                                     </div>
                                     <hr>`;
-                    toReadList.appendChild(li);
+                    doneContainer.appendChild(li);
                 });
 
                 offset += limit;
@@ -109,27 +109,11 @@ require_once '../../config/lib.php';
             }
         }
 
-        // beim Klick wird eine vorhandene Beschreibung angezeigt
-        document.querySelectorAll(".reveal_more").forEach(button => {
-            button.addEventListener("click", () => {
-                let revealDescript = document.querySelector('.revealDiv');
-
-                if (revealDescript) {
-                    revealDescript.remove();
-                } else {
-                    revealDescript = document.createElement("div");
-                    let descript = button.dataset.desc; // holt die Beschreibung
-                    revealDescript.textContent = descript;
-                    revealDescript.className = "revealDiv pt-4 text-sm";
-                    button.parentElement.appendChild(revealDescript);
-                }
-            });
-        });
-
         window.addEventListener('scroll', scrollDown);
         btnShowMore.addEventListener('click', showMoreBooks);
     </script>
 
 
 </body>
+
 </html>

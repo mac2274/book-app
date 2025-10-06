@@ -17,10 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
 
     try {
         if (loginUser($email, $pwd)) {
-            header('Location: ./loginUser.php?success=' . urlencode('Erfolgreich eingeloggt.'));
+            header('Location: ./home.php?success=' . urlencode('Erfolgreich eingeloggt.'));
             exit;
         } else { 
-            header('Location: ./login.php?error=' . urlencode('Die Engaben stimmen nicht ganz ...'));
+            header('Location: ./home.php?error=' . urlencode('Die Engaben stimmen nicht ganz ...'));
             exit;
         }
     } catch (Exception $e) {
