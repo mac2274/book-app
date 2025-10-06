@@ -76,7 +76,6 @@ function saveToFavs($data)
     global $mysqli;
     // POST auslesen
 
-
     // Prüfen, ob User eingeloggt ist
     if (!isset($_SESSION['userId'])) {
         throw new Exception('User ist nicht eingeloggt.');
@@ -105,16 +104,22 @@ function saveToDone($data)
 {
     global $mysqli;
 
+    // Prüfen, ob User eingeloggt ist
+    if (!isset($_SESSION['userId'])) {
+        throw new Exception('User ist nicht eingeloggt.');
+    }
+    $userId = $_SESSION['userId']; // wenn eingeloggt, wird die userId genutzt für die Speicherung in listen des Users
+
     $title = $data['title'];
     $author = $data['author'];
     $cover = $data['cover'];
 
-    $sql = 'INSERT INTO books_read (title, author, cover) VALUES(?,?,?)';
+    $sql = 'INSERT INTO books_read (title, author, cover, userId) VALUES(?,?,?,?)';
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('sss', $title, $author, $cover);
+    $stmt->bind_param('sss', $title, $author, $cover, $userId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -125,18 +130,24 @@ function saveToReads($data)
 {
     global $mysqli;
 
+    // Prüfen, ob User eingeloggt ist
+    if (!isset($_SESSION['userId'])) {
+        throw new Exception('User ist nicht eingeloggt.');
+    }
+    $userId = $_SESSION['userId']; // wenn eingeloggt, wird die userId genutzt für die Speicherung in listen des Users
+
     $title = $data['title'];
     $author = $data['author'];
     $subtitle = $data['subtitle'];
     $description = $data['description'];
     $cover = $data['cover'];
 
-    $sql = "INSERT INTO books_to_read (title, author, subtitle, description, cover) VALUES(?,?,?,?,?)";
+    $sql = "INSERT INTO books_to_read (title, author, subtitle, description, cover, userId) VALUES(?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('sssss', $title, $author, $subtitle, $description, $cover);
+    $stmt->bind_param('sssss', $title, $author, $subtitle, $description, $cover, $userId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung:' . $stmt->error);
     }

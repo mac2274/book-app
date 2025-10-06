@@ -1,4 +1,4 @@
-da<?php
+<?php
 require_once '../config/lib.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {

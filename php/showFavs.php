@@ -1,5 +1,8 @@
 <?php
 require_once '../config/lib.php';
+
+var_dump($_SESSION);
+
 ?>
 
 <!DOCTYPE html>
