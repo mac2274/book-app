@@ -158,7 +158,7 @@ function showFavs()
 {
     global $mysqli;
     $userId = $_SESSION['userId'];
-    $sql = "SELECT * FROM books_fav LIMIT 10";
+    $sql = "SELECT * FROM books_fav WHERE userID=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
@@ -222,7 +222,7 @@ function showToRead()
 {
     global $mysqli;
     $userId = $_SESSION['userId'];
-    $sql = "SELECT * FROM books_to_read LIMIT 10";
+    $sql = "SELECT * FROM books_to_read WHERE userID=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);

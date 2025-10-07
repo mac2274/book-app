@@ -74,6 +74,7 @@ require_once '../config/lib.php';
                 headerStatus.classList.add('h-28');
                 headerStatus.classList.add('transition');
                 headerStatus.classList.add('duration-500');
+                headerStatus.classList.add('opacity-90');
             } else {
                 headerStatus.classList.remove('bg-white');
             }

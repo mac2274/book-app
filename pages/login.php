@@ -6,7 +6,7 @@ $success = $_GET['success'] ?? '';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@ $success = $_GET['success'] ?? '';
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <title>Login</title>
-    <link rel="icon" type="image/x-icon" href="/src/img/bj-logo.png">
+    <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
 
 <body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
