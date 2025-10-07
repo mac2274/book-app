@@ -5,14 +5,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     $email = $_POST['loginEmail'] ?? '';
     $pwd = $_POST['loginPwd'] ?? '';
 
-
     try {
         if (loginUser($email, $pwd)) {
             header('Location: ./home.php?success=' . urlencode('Erfolgreich eingeloggt.'));
             exit;
-        } else { 
+        } else {
             header('Location: ./login.php?error=' . urlencode('Die Engaben stimmen nicht ganz ...'));
-          exit;
+            exit;
         }
     } catch (Exception $e) {
         http_response_code(400);
@@ -51,7 +50,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
         </h1>
 
         <!-- logout-button -->
-        <a href="../php/logout.php" class="logoutBtn fixed top-4 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a> 
+        <div class="fixed top-4 right-4 flex flex-col items-center">
+            <p class="mb-2">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
+
+            <a href="../php/logout.php"
+                class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+        </div>
     </header>
 
     <div class="flex flex-col items-center">
@@ -61,11 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
             } ?>
         </h2>
         <div class="flex flex-row gap-2 flex-wrap justify-center">
-            <a href="./bookSearch.html"
+            <a href="./bookSearch.php"
                 class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                 Weiter zur Buchsuche
             </a>
-            <a href="./bookShelf.html"
+            <a href="./bookShelf.php"
                 class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                 Zu deiner Bibliothek
             </a>
@@ -80,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
             </a>
         </div>
     </div>
-    
+
 
 </body>
 

@@ -18,7 +18,6 @@ function emailExists($email)
     $result = $stmt->get_result();
     return $result->num_rows > 0;
 }
-
 function registerUser($name, $surname, $email, $password)
 {
     global $mysqli;
@@ -37,7 +36,6 @@ function registerUser($name, $surname, $email, $password)
 
     return $stmt->affected_rows;
 }
-
 function loginUser($email, $pwd)
 {
     global $mysqli;
@@ -70,7 +68,6 @@ function loginUser($email, $pwd)
         return false; // Email gibt es nicht nicht
     }
 }
-
 function saveToFavs($data)
 {
     global $mysqli;
@@ -99,7 +96,6 @@ function saveToFavs($data)
     }
     return $stmt->affected_rows;
 }
-
 function saveToDone($data)
 {
     global $mysqli;
@@ -125,7 +121,6 @@ function saveToDone($data)
     }
     return $stmt->affected_rows;
 }
-
 function saveToReads($data)
 {
     global $mysqli;
@@ -153,7 +148,6 @@ function saveToReads($data)
     }
     return $stmt->affected_rows;
 }
-
 function showFavs()
 {
     global $mysqli;
@@ -176,8 +170,9 @@ function showFavs()
         echo '<li class="listContainer p-4">
                 <div class="flex flex-col items-center"> 
                     <p class="flex flex-col text-center">
-                        <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
-                            <span class="italic text-xl">' . $row['title'] . '</span>
+                    <span class="font-bold text-sm italic text-xl">- ' . $row['title'] . ' -</span>
+                        <button type="button" class="reveal_more my-4 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition hover:ease-in-out hover:duration-500" data-desc="' . $row['description'] . '">
+                            Beschreibung  
                         </button> 
                         <span class="text-sm"> - ' . $row['author'] . '</span>
                     </p>
@@ -187,12 +182,11 @@ function showFavs()
             </li>';
     }
 }
-
 function showDoneReading()
 {
     global $mysqli;
-    $userId = $_SESSION['userId']; 
-    
+    $userId = $_SESSION['userId'];
+
     $sql = "SELECT * FROM books_read WHERE userID=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
@@ -217,7 +211,6 @@ function showDoneReading()
             </li>';
     }
 }
-
 function showToRead()
 {
     global $mysqli;
@@ -236,7 +229,7 @@ function showToRead()
         echo '<li class="listContainer p-4">
                 <div class="flex flex-col items-center"> 
                     <p class="flex flex-col text-center">
-                        <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
+                        <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
                             <span class="italic text-xl">' . $row['title'] . '</span>
                         </button> 
                         <span class="text-sm"> - ' . $row['author'] . '</span>
@@ -249,7 +242,6 @@ function showToRead()
             </li>';
     }
 }
-
 function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per Button-Klick
 {
     global $mysqli;
@@ -271,7 +263,6 @@ function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per But
     }
     return $rows; // Wiedergabe des Arrays
 }
-
 function getFavs($limit, $offset)
 {
     global $mysqli;
@@ -293,7 +284,6 @@ function getFavs($limit, $offset)
     }
     return $rows; // Wiedergabe des Arrays
 }
-
 function getToBeRead($limit, $offset)
 {
     global $mysqli;

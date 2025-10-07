@@ -1,7 +1,5 @@
 <?php
 require_once '../config/lib.php';
-
-
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +21,7 @@ require_once '../config/lib.php';
             <img class="flex w-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
 
             <h1 class="flex flex-col uppercase tracking-wide text-2xl leading-none font-bold">
-                <a href="../index.html">
+                <a href="../pages/home.php">
                     <span>Book</span>
                     <span>loving</span>
                     <span>journal</span>
@@ -31,8 +29,12 @@ require_once '../config/lib.php';
             </h1>
 
             <!-- logout-button -->
-            <a href="../php/logout.php"
-                class="logoutBtn fixed top-4 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+            <div class="fixed top-4 right-4 flex flex-col items-center">
+                <p class="mb-2">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
+
+                <a href="../php/logout.php"
+                    class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+            </div>
         </div>
     </header>
 
@@ -51,7 +53,7 @@ require_once '../config/lib.php';
 
     <!-- ----------------------- zurück-button  -->
     <div class="flex w-full justify-end">
-        <a href="../pages/bookShelf.html"
+        <a href="../pages/bookShelf.php"
             class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
             zurück</a>
     </div>

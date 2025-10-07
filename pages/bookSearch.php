@@ -1,3 +1,8 @@
+<?php
+require_once '../config/lib.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 
@@ -16,7 +21,7 @@
         <img class="flex w-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
 
         <h1 class="flex flex-col uppercase tracking-wide text-2xl leading-none font-bold">
-            <a href="../index.html">
+            <a href="../pages/home.php">
                 <span>Book</span>
                 <span>loving</span>
                 <span>journal</span>
@@ -24,9 +29,12 @@
         </h1>
 
         <!-- logout-button -->
-        <a href="../php/logout.php"
-            class="logoutBtn fixed top-4 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+        <div class="fixed top-4 right-4 flex flex-col items-center">
+            <p class="mb-2">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
 
+            <a href="../php/logout.php"
+                class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+        </div>
     </header>
 
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
@@ -240,7 +248,7 @@
                     // Button Beschreibung erzeugen
                     const btndescription = document.createElement('button');
                     btndescription.type = "button";
-                    btndescription.className = 'bookBtndescription text-md font-semibold p-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white';
+                    btndescription.className = 'bookBtndescription text-md py-1 px-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white';
                     btndescription.textContent = "Beschreibung lesen";
                     descriptionDiv.appendChild(btndescription);
 
@@ -269,7 +277,7 @@
                     // Button addToList erzeugen
                     const addToList = document.createElement('button');
                     addToList.type = "button";
-                    addToList.className = 'bookBtndescription text-md font-semibold p-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white hover:transition duration-500';
+                    addToList.className = 'bookBtndescription text-md  py-1 px-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white hover:transition duration-500';
                     addToList.textContent = "zur Liste hinzufügen";
                     bookDiv.appendChild(addToList);
 
@@ -288,7 +296,7 @@
 
                         // Favs-btn
                         const btnFavs = document.createElement('button');
-                        btnFavs.className = 'addToFavs text-md font-semibold p-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white';
+                        btnFavs.className = 'addToFavs text-md  py-1 px-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white';
                         btnFavs.textContent = 'Favouritenliste';
                         btnLists.appendChild(btnFavs);
 
@@ -314,7 +322,7 @@
 
                         // btn already read/done
                         const btnDone = document.createElement('button');
-                        btnDone.className = ('addToDoneReading text-md font-semibold p-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white');
+                        btnDone.className = ('addToDoneReading text-md  py-1 px-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white');
                         btnDone.textContent = 'bereits gelesen';
                         btnLists.appendChild(btnDone);
 
@@ -335,7 +343,7 @@
 
                         // btn to be read
                         const btnToRead = document.createElement('button');
-                        btnToRead.className = 'addToBeRead text-md font-semibold p-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white';
+                        btnToRead.className = 'addToBeRead text-md  py-1 px-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white';
                         btnToRead.textContent = 'Leseliste';
                         btnLists.appendChild(btnToRead);
 
