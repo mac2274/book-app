@@ -119,7 +119,7 @@ function saveToDone($data)
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('sss', $title, $author, $cover, $userId);
+    $stmt->bind_param('sssi', $title, $author, $cover, $userId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -147,7 +147,7 @@ function saveToReads($data)
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('sssss', $title, $author, $subtitle, $description, $cover, $userId);
+    $stmt->bind_param('sssssi', $title, $author, $subtitle, $description, $cover, $userId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung:' . $stmt->error);
     }
@@ -157,11 +157,13 @@ function saveToReads($data)
 function showFavs()
 {
     global $mysqli;
+    $userId = $_SESSION['userId'];
     $sql = "SELECT * FROM books_fav LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
+    $stmt->bind_param('i', $userId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -189,11 +191,14 @@ function showFavs()
 function showDoneReading()
 {
     global $mysqli;
-    $sql = "SELECT * FROM books_read LIMIT 10";
+    $userId = $_SESSION['userId']; 
+    
+    $sql = "SELECT * FROM books_read WHERE userID=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
+    $stmt->bind_param('i', $userId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -216,11 +221,13 @@ function showDoneReading()
 function showToRead()
 {
     global $mysqli;
+    $userId = $_SESSION['userId'];
     $sql = "SELECT * FROM books_to_read LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
+    $stmt->bind_param('i', $userId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -308,3 +315,4 @@ function getToBeRead($limit, $offset)
     }
     return $rows;
 }
+
