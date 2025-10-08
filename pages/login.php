@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+$error = $_GET['error'] ?? NULL;
 ?>
 
 <!DOCTYPE html>
@@ -34,10 +36,6 @@ session_start();
     <!-- Login-Message geben -->
     <?php if ($error): ?>
         <p class="text-red-500"><?= htmlspecialchars($error) ?> </p>
-    <?php endif; ?>
-
-    <?php if ($success): ?>
-        <p class="text-green-500"><?= htmlspecialchars($success) ?></p>
     <?php endif; ?>
 
     <form action="./home.php" method="POST" class="grid gap-y-4">
