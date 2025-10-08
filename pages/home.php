@@ -1,38 +1,13 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 require_once '../config/lib.php';
 
-$userId = $_SESSION['userId'] ?? null;
+$userId = $_SESSION['userId'] ?? NULL;
 if (!$userId) {
     header('Location: ./login.php?error=' . urlencode('Bitte zuerst einloggen.'));
     exit;
 }
 
-$error = $_GET['error'] ?? '';
-$success = $_GET['success'] ?? '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
-    $email = $_POST['loginEmail'] ?? '';
-    $pwd = $_POST['loginPwd'] ?? '';
-
-    try {
-        if (loginUser($email, $pwd)) {
-            header('Location: ./home.php?success=' . urlencode('Erfolgreich eingeloggt.'));
-            exit;
-        } else {
-            header('Location: ./login.php?error=' . urlencode('Die Engaben stimmen nicht ganz ...'));
-            exit;
-        }
-    } catch (Exception $e) {
-        http_response_code(400);
-        echo json_encode([
-            'success' => false,
-            'message' => $e->getMessage()
-        ]);
-    }
-}
+$success = $_GET['success'] ?? 'Erfolgreich eingeloggt!';
 
 ?>
 
@@ -71,6 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     </header>
 
     <div class="flex flex-col items-center">
+        <?php if($success): ?>
+            <p><?= htmlspecialchars($success); ?></p>
+        <?php endif; ?>
         <h2 class="text-3xl text-center font-semibold py-4 mb-4">
             <?php if ($_SESSION['name']) {
                 echo 'Willkommen zurück <br>in deinem Book Journal, <br> <em class="text-4xl">' . $_SESSION['name'] . '</em>!';

@@ -55,6 +55,10 @@ function loginUser($email, $pwd)
     if ($result->num_rows === 1) {
         $getRow = $result->fetch_assoc();
 
+        // var_dump($getRow['pwd']);
+        // var_dump($pwd);
+        // var_dump(password_verify($pwd, $getRow['pwd']));
+
         if (password_verify($pwd, $getRow['pwd'])) {
             $_SESSION['name'] = $getRow['name'];
             $_SESSION['userId'] = $getRow['id'];
@@ -62,9 +66,11 @@ function loginUser($email, $pwd)
 
             return true;
         } else {
+            echo 'hallo1';
             return false; // passwörter stimmen nicht überein
         }
     } else {
+        echo 'hallo2';
         return false; // Email gibt es nicht nicht
     }
 }

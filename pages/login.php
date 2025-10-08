@@ -1,7 +1,29 @@
 <?php
 session_start();
 
-$error = $_GET['error'] ?? NULL;
+$error = $_GET['error'] ?? '';
+$success = $_GET['success'] ?? '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
+    $email = $_POST['loginEmail'] ?? '';
+    $pwd = $_POST['loginPwd'] ?? '';
+
+    try {
+        if (loginUser($email, $pwd)) {
+            header('Location: ./home.php?success=' . urlencode('Erfolgreich eingeloggt.'));
+            exit;
+        } else {
+            header('Location: ./login.php?error=' . urlencode('Die Engaben stimmen nicht ganz ...'));
+            exit;
+        }
+    } catch (Exception $e) {
+        http_response_code(400);
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage()
+        ]);
+    }
+}
 ?>
 
 <!DOCTYPE html>
