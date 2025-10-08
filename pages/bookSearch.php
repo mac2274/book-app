@@ -1,6 +1,5 @@
 <?php
 require_once '../config/lib.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -40,9 +39,10 @@ require_once '../config/lib.php';
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
         <h2 class="text-4xl font-semibold mt-4">Buchsuche</h2>
         <form action="" class="flex flex-col gap-y-4">
+            <!--------------------------------------------------------- keine action nötig? -->
             <div class="flex flex-row items-center gap-x-4">
                 <label for="title" class="text-xl">Titel</label>
-                <input type="text" id="name" class="border-2 rounded-3xl p-2 focus:bg-white">
+                <input type="text" id="name" class="border-2 rounded-3xl p-2 focus:bg-white" required>
             </div>
 
             <div class="flex justify-center">

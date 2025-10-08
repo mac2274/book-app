@@ -1,8 +1,5 @@
 <?php
 session_start();
-
-$error = $_GET['error'] ?? '';
-$success = $_GET['success'] ?? '';
 ?>
 
 <!DOCTYPE html>

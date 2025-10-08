@@ -1,5 +1,17 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 require_once '../config/lib.php';
+
+$userId = $_SESSION['userId'] ?? null;
+if (!$userId) {
+    header('Location: ./login.php?error=' . urlencode('Bitte zuerst einloggen.'));
+    exit;
+}
+
+$error = $_GET['error'] ?? '';
+$success = $_GET['success'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     $email = $_POST['loginEmail'] ?? '';
