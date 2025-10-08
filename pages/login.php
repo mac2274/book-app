@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once '../config/lib.php';
 
 $error = $_GET['error'] ?? '';
 $success = $_GET['success'] ?? '';
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
         <p class="text-red-500"><?= htmlspecialchars($error) ?> </p>
     <?php endif; ?>
 
-    <form action="./home.php" method="POST" class="grid gap-y-4">
+    <form action="" method="POST" class="grid gap-y-4">
         <div class="grid grid-cols-3 items-center">
             <label for="loginEmail" class="text-xl">Email</label>
             <input type="email" id="loginEmail" name="loginEmail" required
