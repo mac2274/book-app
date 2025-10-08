@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once '../config/lib.php';
 ?>
 
@@ -10,7 +10,6 @@ require_once '../config/lib.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../src/output.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
     <title>Bücherregal</title>
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
@@ -26,14 +25,14 @@ require_once '../config/lib.php';
                 <span>journal</span>
             </a>
         </h1>
-        </a>
 
         <!-- logout-button -->
         <div class="fixed top-4 right-4 flex flex-col items-center">
-            <p class="mb-2">Eingeloggt als 
+            <p class="mb-2">Eingeloggt als
                 <span class="font-bold">
-                    <?php echo $_SESSION['name']; ?> 
-                </span></p>
+                    <?php echo $_SESSION['name']; ?>
+                </span>
+            </p>
 
             <a href="../php/logout.php"
                 class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>

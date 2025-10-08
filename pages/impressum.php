@@ -1,14 +1,18 @@
+<?php
+require_once '../config/lib.php';
+?>
+
 <!DOCTYPE html>
 <html lang="'de">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+    <link href="../src/output.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Datenschutz</title>
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
-
 
 <body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
     <header class="absolute top-4 left-4 flex w-40 gap-x-4 items-center">
@@ -21,7 +25,6 @@
                 <span>journal</span>
             </a>
         </h1>
-        </a>
 
         <!-- logout-button -->
         <div class="fixed top-4 right-4 flex flex-col items-center">
@@ -37,7 +40,7 @@
     </header>
 
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
-        <h2 class="text-4xl font-semibold mt-4">Dein Bücherregal</h2>
+        <h2 class="text-4xl font-semibold mt-4">Impressum</h2>
     </div>
 </body>
 

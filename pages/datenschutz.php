@@ -8,6 +8,7 @@ require_once '../config/lib.php';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../src/output.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Datenschutz</title>
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
@@ -35,7 +36,7 @@ require_once '../config/lib.php';
     </header>
 
     <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
-        <h2 class="text-4xl font-semibold mt-4">Dein Bücherregal</h2>
+        <h2 class="text-4xl font-semibold mt-4">Datenschutz</h2>
     </div>
 </body>
 
