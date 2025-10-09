@@ -4,8 +4,8 @@ require_once '../config/lib.php';
 
 header('Content-Type: application/json');
 
-$limit = $_GET['limit'] ?? 10;
-$offset = $_GET['offset'] ?? 10;
+$limit = (int)($_GET['limit'] ?? 10);
+$offset = (int)($_GET['offset'] ?? 10);
 
 try {
     $books = getFavs($limit, $offset);

@@ -157,7 +157,10 @@ function saveToReads($data)
 function showFavs()
 {
     global $mysqli;
+
+    // $userId aus login nehmen, um Userlisten zu zeigen  
     $userId = $_SESSION['userId'];
+
     $sql = "SELECT * FROM books_fav WHERE userID=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
@@ -176,11 +179,11 @@ function showFavs()
         echo '<li class="listContainer p-4">
                 <div class="flex flex-col items-center"> 
                     <p class="flex flex-col text-center">
-                    <span class="font-bold text-sm italic text-xl">- ' . $row['title'] . ' -</span>
+                    <span class="font-bold text-sm italic text-xl"> ' . $row['title'] . ' </span>
                         <button type="button" class="reveal_more my-4 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition hover:ease-in-out hover:duration-500" data-desc="' . $row['description'] . '">
                             Beschreibung  
                         </button> 
-                        <span class="text-sm"> - ' . $row['author'] . '</span>
+                        <span class="text-sm"> - ' . $row['author'] . ' - </span>
                     </p>
                     <img class="flex pt-4 pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
                 </div>    
@@ -191,6 +194,8 @@ function showFavs()
 function showDoneReading()
 {
     global $mysqli;
+
+    // $userId aus login nehmen, um Userlisten zu zeigen  
     $userId = $_SESSION['userId'];
 
     $sql = "SELECT * FROM books_read WHERE userID=? LIMIT 10";
@@ -209,7 +214,7 @@ function showDoneReading()
                 <div class="flex flex-row gap-x-4 justify-between items-center py-4"> 
                     <p class="flex flex-col text-center">
                         <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titel') . '</span>
-                        <span class="text-sm">' . htmlspecialchars($row['author'] ?? 'Unbekannt') . '</span>
+                        <span class="text-sm">- ' . htmlspecialchars($row['author'] ?? 'Unbekannt') . ' - </span>
                     </p>
                     <img class=" pt-4 pb-8 " src="' . htmlspecialchars($row['cover']) . '">
                 </div>    
@@ -220,7 +225,10 @@ function showDoneReading()
 function showToRead()
 {
     global $mysqli;
+
+    // $userId aus login nehmen, um Userlisten zu zeigen  
     $userId = $_SESSION['userId'];
+    
     $sql = "SELECT * FROM books_to_read WHERE userID=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
@@ -238,7 +246,7 @@ function showToRead()
                         <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
                             <span class="italic text-xl">' . $row['title'] . '</span>
                         </button> 
-                        <span class="text-sm"> - ' . $row['author'] . '</span>
+                        <span class="text-sm"> - ' . $row['author'] . ' - </span>
                     </p>
                     <div class="flex">
                         <img class="flex pt-4 pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
@@ -272,6 +280,9 @@ function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per But
 function getFavs($limit, $offset)
 {
     global $mysqli;
+
+    $limit = (int)$limit;
+    $offset = (int)$offset;
 
     $sql = "SELECT * FROM books_fav LIMIT ? OFFSET ?";
     $stmt = $mysqli->prepare($sql);

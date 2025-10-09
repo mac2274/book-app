@@ -17,7 +17,7 @@ require_once '../config/lib.php';
 
 <body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
     <header class="fixed top-0 p-4 w-full">
-        <div class="absolute flex w-40 gap-x-4 items-center">
+        <div class="absolute flex w-40 items-center">
             <img class="flex w-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
 
             <h1 class="flex flex-col uppercase tracking-wide text-2xl leading-none font-bold">
@@ -33,12 +33,12 @@ require_once '../config/lib.php';
                 <p class="mb-2">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
 
                 <a href="../php/logout.php"
-                    class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+                    class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">Ausloggen</a>
             </div>
         </div>
     </header>
 
-    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-80 h-full">
+    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-80 pb-10 h-full">
         <h2 class="text-4xl font-semibold mt-4">Deine Favouriten</h2>
         <ol class="favList list-decimal list-outside w-xl px-8">
             <?php showFavs() ?>
@@ -46,7 +46,7 @@ require_once '../config/lib.php';
 
         <!-- ------------------ Button für weitere Bücher -->
         <button
-            class="showMore mb-10 border-teal-600 border-2 text-teal-600 rounded-4xl p-2 hover:bg-teal-600 hover:text-white hover:transition duration-500">
+            class="showMore mb-10 border-teal-600 border-2 text-teal-600 rounded-4xl p-2 hover:bg-teal-600 hover:text-white  duration-500">
             mehr anzeigen
         </button>
     </div>
@@ -54,7 +54,7 @@ require_once '../config/lib.php';
     <!-- ----------------------- zurück-button  -->
     <div class="flex w-full justify-end">
         <a href="../pages/bookShelf.php"
-            class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+            class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">
             zurück</a>
     </div>
 
@@ -63,7 +63,7 @@ require_once '../config/lib.php';
         const favContainer = document.querySelector('.favList');
         const btnShowMore = document.querySelector('.showMore');
 
-        let limit = 10;
+        const limit = 10;
         let offset = 10;
 
         // header wird weiß beim vertikalen Scrollen
@@ -96,12 +96,13 @@ require_once '../config/lib.php';
                 books.forEach(book => {
                     const li = document.createElement('li');
                     li.className = 'listContainer p-4';
-                    li.innerHTML = `<div class="flex flex-col items-center gap-x-4">
+                    li.innerHTML = `<div class="flex flex-col items-center ">
                                         <p class="flex flex-col text-center">
-                                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
-                                                <span class="italic text-xl">${book.title}</span>
+                                            <span class="font-bold italic text-xl">${book.title}</span>
+                                            <button type="button" class="reveal_more my-4 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:ease-in-out hover:duration-500" data-desc="${book.description}">
+                                                Beschreibung
                                             </button> 
-                                            <span class="text-sm"> - ${book.author} </span>
+                                            <span class="text-sm"> - ${book.author} - </span>
                                         </p>
                                         <img class="flex  pt-4 pb-8 items-center" src="${book.cover}" alt="Cover von ${book.title}">
                                     </div>
@@ -118,20 +119,22 @@ require_once '../config/lib.php';
 
 
         // beim Klick wird eine vorhandene Beschreibung angezeigt
-        document.querySelectorAll(".reveal_more").forEach(button => {
-            button.addEventListener("click", () => {
-                let revealDescript = document.querySelector('.revealDiv');
+        // document.querySelectorAll(".reveal_more").forEach(button => {
+        //     button.addEventListener("click", () => {
+        document.addEventListener('click', (event) => {
+            const button = event.target.closest('.reveal_more');
+            let revealDescript = document.querySelector('.revealDiv');
 
-                if (revealDescript) {
-                    revealDescript.remove();
-                } else {
-                    revealDescript = document.createElement("div");
-                    let descript = button.dataset.desc; // holt die Beschreibung
-                    revealDescript.textContent = descript;
-                    revealDescript.className = "revealDiv pt-4 text-sm";
-                    button.parentElement.appendChild(revealDescript);
-                }
-            });
+            if (revealDescript) {
+                revealDescript.remove();
+            } else {
+                revealDescript = document.createElement("div");
+                let descript = button.dataset.desc; // holt die Beschreibung
+                revealDescript.textContent = descript;
+                revealDescript.className = "revealDiv pt-4 text-sm";
+                button.parentElement.appendChild(revealDescript);
+            }
+      
         });
 
         window.addEventListener('scroll', scrollDown);
