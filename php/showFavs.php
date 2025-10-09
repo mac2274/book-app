@@ -33,7 +33,7 @@ require_once '../config/lib.php';
                 <p class="mb-2">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
 
                 <a href="../php/logout.php"
-                    class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">Ausloggen</a>
+                    class="logoutBtn justify-self-right bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">Ausloggen</a>
             </div>
         </div>
     </header>
@@ -46,7 +46,7 @@ require_once '../config/lib.php';
 
         <!-- ------------------ Button für weitere Bücher -->
         <button
-            class="showMore mb-10 border-teal-600 border-2 text-teal-600 rounded-4xl p-2 hover:bg-teal-600 hover:text-white  duration-500">
+            class="showMore mb-10 border-teal-600 border-1 text-teal-600 rounded-4xl p-2 hover:bg-teal-600 hover:text-white  duration-500">
             mehr anzeigen
         </button>
     </div>
@@ -54,7 +54,7 @@ require_once '../config/lib.php';
     <!-- ----------------------- zurück-button  -->
     <div class="flex w-full justify-end">
         <a href="../pages/bookShelf.php"
-            class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">
+            class="backButton fixed bottom-4 bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">
             zurück</a>
     </div>
 
@@ -120,9 +120,7 @@ require_once '../config/lib.php';
         }
 
         document.addEventListener('click', (event) => {
-            const button = event.target.closest('.reveal_more');
-            if (!button) return; // bricht ab, wenn kein Button gemeint ist
-
+            const button = event.target.closest(".reveal_more");
             let revealDescript = document.querySelector('.revealDiv');
 
             if (revealDescript) {

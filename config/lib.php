@@ -277,7 +277,7 @@ function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per But
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('iii', $limit, $offset, $userId);
+    $stmt->bind_param('iii', $userId, $limit, $offset);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -303,7 +303,7 @@ function getFavs($limit, $offset)
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('iii', $limit, $offset, $userId);
+    $stmt->bind_param('iii', $userId, $limit, $offset);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -326,7 +326,7 @@ function getToBeRead($limit, $offset)
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('iii', $limit, $offset, $userId);
+    $stmt->bind_param('iii',  $userId, $limit, $offset);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermedung: ' . $stmt->error);
     }

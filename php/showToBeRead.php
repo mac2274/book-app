@@ -120,8 +120,6 @@ require_once '../config/lib.php';
         // beim Klick wird eine vorhandene Beschreibung angezeigt
         document.addEventListener("click", (event) => {
             const button = event.target.closest('.reveal_more');
-            if (!button) return; // bricht ab, wenn kein Button gemeint ist
-
             let revealDescript = document.querySelector('.revealDiv');
 
             if (revealDescript) {

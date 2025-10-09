@@ -63,15 +63,6 @@ $success = $_GET['success'] ?? 'Erfolgreich eingeloggt!';
                 class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                 Zu deiner Bibliothek
             </a>
-
-            <a href="./.html"
-                class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
-                wohin noch
-            </a>
-            <a href="./.html"
-                class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
-                eine Idee?
-            </a>
         </div>
     </div>
 
