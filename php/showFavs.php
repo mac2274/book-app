@@ -17,7 +17,7 @@ require_once '../config/lib.php';
 
 <body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
     <header class="fixed top-0 p-4 w-full">
-        <div class="absolute flex w-40 items-center">
+        <div class="absolute flex w-40 gap-x-4 items-center">
             <img class="flex w-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
 
             <h1 class="flex flex-col uppercase tracking-wide text-2xl leading-none font-bold">
@@ -96,15 +96,17 @@ require_once '../config/lib.php';
                 books.forEach(book => {
                     const li = document.createElement('li');
                     li.className = 'listContainer p-4';
-                    li.innerHTML = `<div class="flex flex-col items-center ">
+                    li.innerHTML = `<div class="flex flex-col items-center">
                                         <p class="flex flex-col text-center">
                                             <span class="font-bold italic text-xl">${book.title}</span>
+                                            <span class="text-sm"> - ${book.author} - </span>
+                                        </p>
+                                        <div class="flex flex-col items-center">
                                             <button type="button" class="reveal_more my-4 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:ease-in-out hover:duration-500" data-desc="${book.description}">
                                                 Beschreibung
                                             </button> 
-                                            <span class="text-sm"> - ${book.author} - </span>
-                                        </p>
-                                        <img class="flex  pt-4 pb-8 items-center" src="${book.cover}" alt="Cover von ${book.title}">
+                                        </div>
+                                        <img class="flex pt-4 pb-8 items-center" src="${book.cover}" alt="Cover von ${book.title}">
                                     </div>
                                     <hr>`;
                     favContainer.appendChild(li);
@@ -117,24 +119,21 @@ require_once '../config/lib.php';
             }
         }
 
-
-        // beim Klick wird eine vorhandene Beschreibung angezeigt
-        // document.querySelectorAll(".reveal_more").forEach(button => {
-        //     button.addEventListener("click", () => {
         document.addEventListener('click', (event) => {
             const button = event.target.closest('.reveal_more');
+            if (!button) return; // bricht ab, wenn kein Button gemeint ist
+
             let revealDescript = document.querySelector('.revealDiv');
 
             if (revealDescript) {
                 revealDescript.remove();
             } else {
                 revealDescript = document.createElement("div");
-                let descript = button.dataset.desc; // holt die Beschreibung
-                revealDescript.textContent = descript;
+                let descript = button.dataset.desc ?? "";
+                if (!descript.trim()) descript = "Keine Beschreibung vorhanden."; revealDescript.textContent = descript;
                 revealDescript.className = "revealDiv pt-4 text-sm";
                 button.parentElement.appendChild(revealDescript);
             }
-      
         });
 
         window.addEventListener('scroll', scrollDown);

@@ -177,14 +177,16 @@ function showFavs()
     foreach ($rows as $row) {
 
         echo '<li class="listContainer p-4">
-                <div class="flex flex-col items-center"> 
+                <div class="flex flex-col justify-center items-center"> 
                     <p class="flex flex-col text-center">
-                    <span class="font-bold text-sm italic text-xl"> ' . $row['title'] . ' </span>
-                        <button type="button" class="reveal_more my-4 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition hover:ease-in-out hover:duration-500" data-desc="' . $row['description'] . '">
-                            Beschreibung  
-                        </button> 
+                        <span class="font-bold text-sm italic text-xl"> ' . $row['title'] . ' </span>
                         <span class="text-sm"> - ' . $row['author'] . ' - </span>
                     </p>
+                    <div class="flex flex-col items-center">
+                        <button type="button" class="reveal_more my-4 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition hover:ease-in-out hover:duration-500" data-desc="' . $row['description'] . '">
+                            Beschreibung  
+                        </button>
+                    </div>     
                     <img class="flex pt-4 pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
                 </div>    
                 <hr>
@@ -216,6 +218,11 @@ function showDoneReading()
                         <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titel') . '</span>
                         <span class="text-sm">- ' . htmlspecialchars($row['author'] ?? 'Unbekannt') . ' - </span>
                     </p>
+                    <div class="flex flex-col items-center">
+                        <button type="button" class="reveal_more my-4 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition hover:ease-in-out hover:duration-500" data-desc="' . $row['description'] . '">
+                            Beschreibung  
+                        </button>
+                    </div> 
                     <img class=" pt-4 pb-8 " src="' . htmlspecialchars($row['cover']) . '">
                 </div>    
                 <hr>
@@ -228,7 +235,7 @@ function showToRead()
 
     // $userId aus login nehmen, um Userlisten zu zeigen  
     $userId = $_SESSION['userId'];
-    
+
     $sql = "SELECT * FROM books_to_read WHERE userID=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
@@ -243,11 +250,14 @@ function showToRead()
         echo '<li class="listContainer p-4">
                 <div class="flex flex-col items-center"> 
                     <p class="flex flex-col text-center">
-                        <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
-                            <span class="italic text-xl">' . $row['title'] . '</span>
-                        </button> 
+                        <span class="italic text-xl">' . $row['title'] . '</span>
                         <span class="text-sm"> - ' . $row['author'] . ' - </span>
                     </p>
+                    <div class="flex flex-col items-center">
+                        <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
+                            Beschreibung
+                        </button> 
+                    </div>
                     <div class="flex">
                         <img class="flex pt-4 pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
                     </div>
@@ -259,13 +269,15 @@ function showToRead()
 function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per Button-Klick
 {
     global $mysqli;
+    // $userId aus login nehmen, um Userlisten zu zeigen  
+    $userId = $_SESSION['userId'];
 
-    $sql = "SELECT * FROM books_read LIMIT ? OFFSET ?";
+    $sql = "SELECT * FROM books_read WHERE userId=? LIMIT ? OFFSET ?";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('ii', $limit, $offset);
+    $stmt->bind_param('iii', $limit, $offset, $userId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -280,16 +292,18 @@ function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per But
 function getFavs($limit, $offset)
 {
     global $mysqli;
+    // $userId aus login nehmen, um Userlisten zu zeigen  
+    $userId = $_SESSION['userId'];
 
-    $limit = (int)$limit;
-    $offset = (int)$offset;
+    $limit = (int) $limit;
+    $offset = (int) $offset;
 
-    $sql = "SELECT * FROM books_fav LIMIT ? OFFSET ?";
+    $sql = "SELECT * FROM books_fav WHERE userId=? LIMIT ? OFFSET ?";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('ii', $limit, $offset);
+    $stmt->bind_param('iii', $limit, $offset, $userId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -303,14 +317,16 @@ function getFavs($limit, $offset)
 }
 function getToBeRead($limit, $offset)
 {
-    global $mysqli;
+    global $mysqli;    
+    // $userId aus login nehmen, um Userlisten zu zeigen  
+    $userId = $_SESSION['userId'];
 
-    $sql = "SELECT * FROM books_to_read LIMIT ? OFFSET ?";
+    $sql = "SELECT * FROM books_to_read WHERE userId=? LIMIT ? OFFSET ?";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('ii', $limit, $offset);
+    $stmt->bind_param('iii', $limit, $offset, $userId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermedung: ' . $stmt->error);
     }

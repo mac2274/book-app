@@ -95,12 +95,15 @@ require_once '../config/lib.php';
                     const li = document.createElement('li');
                     li.className = 'listContainer p-4';
                     li.innerHTML = `<div class="flex flex-col items-center gap-x-4">
-                                        <p class="flex flex-col text-center">
-                                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="${book.description}">
-                                                <span class="italic text-xl">${book.title}</span>
-                                            </button> 
-                                            <span class="text-sm"> - ${book.author} </span>
+                                        <p class="flex flex-col text-center"> 
+                                            <span class="italic text-xl">${book.title}</span>
+                                            <span class="text-sm">- ${book.author} -</span>
                                         </p>
+                                        <div class="flex flex-col items-center">
+                                            <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-3 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="${book.description}">
+                                                Beschreibung
+                                            </button>
+                                        </div>
                                         <img class="flex  pt-4 pb-8 items-center" src="${book.cover}" alt="Cover von ${book.title}">
                                     </div>
                                     <hr>`;
@@ -115,20 +118,21 @@ require_once '../config/lib.php';
         }
 
         // beim Klick wird eine vorhandene Beschreibung angezeigt
-        document.querySelectorAll(".reveal_more").forEach(button => {
-            button.addEventListener("click", () => {
-                let revealDescript = document.querySelector('.revealDiv');
+        document.addEventListener("click", (event) => {
+            const button = event.target.closest('.reveal_more');
+            if (!button) return; // bricht ab, wenn kein Button gemeint ist
 
-                if (revealDescript) {
-                    revealDescript.remove();
-                } else {
-                    revealDescript = document.createElement("div");
-                    let descript = button.dataset.desc; // holt die Beschreibung
-                    revealDescript.textContent = descript;
-                    revealDescript.className = "revealDiv pt-4 text-sm";
-                    button.parentElement.appendChild(revealDescript);
-                }
-            });
+            let revealDescript = document.querySelector('.revealDiv');
+
+            if (revealDescript) {
+                revealDescript.remove();
+            } else {
+                revealDescript = document.createElement("div");
+                let descript = button.dataset.desc ?? 'Keine Beschreibung vorhanden';// holt die Beschreibung
+                revealDescript.textContent = descript;
+                revealDescript.className = "revealDiv pt-4 text-sm";
+                button.parentElement.appendChild(revealDescript);
+            }
         });
 
         window.addEventListener('scroll', scrollDown);
