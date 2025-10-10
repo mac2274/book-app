@@ -66,12 +66,11 @@ require_once '../config/lib.php';
             if (window.scrollY > 50) {
 
                 // headerSttus muss das div drüber sein
-                headerStatus.classList.add('bg-white');
+                headerStatus.style.backgroundColor = "oklch(97% 0.001 106.424)"; // oklich-color
                 headerStatus.classList.add('top-0');
                 headerStatus.classList.add('h-28');
                 headerStatus.classList.add('transition');
                 headerStatus.classList.add('duration-500');
-                headerStatus.classList.add('z-10000');
                 headerStatus.classList.add('opacity-90');
             } else {
                 headerStatus.classList.remove('bg-white');

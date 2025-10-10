@@ -60,7 +60,7 @@ require_once '../config/lib.php';
         <div id="result" class="flex flex-col items-center gap-3"></div>
 
         <!-- ----------------------- zurück-button  -->
-        <div class="flex w-full justify-end">
+        <div class="hidden w-full justify-end">
             <a href="../pages/home.php"
                 class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
                 zurück</a>
@@ -90,6 +90,7 @@ require_once '../config/lib.php';
         // header wird weiß beim vertikalen Scrollen
         const headerStatus = document.querySelector('header');
 
+        // Beim scrollDown wird der header weiß
         function scrollDown() {
             if (window.scrollY > 40) {
 
@@ -104,6 +105,16 @@ require_once '../config/lib.php';
                 headerStatus.classList.remove('bg-white');
             }
         }
+
+        // beim scrollDown erscheint zurück-Button
+        window.addEventListener('scroll', () => {
+            const backButton = document.querySelector('.backButton');
+
+            if (window.scrollY > 10) {
+                backButton.style.display = 'flex';
+            }
+        })
+
         // // in Fav-liste (DB) speichern mit fetch
         async function addToFavs(book, bookDiv) {
             try {
@@ -218,8 +229,6 @@ require_once '../config/lib.php';
                 msgContainer.textContent = 'Fehler beim Speichern!';
             }
         };
-
-
 
 
         // -> 1. async function mit fetch

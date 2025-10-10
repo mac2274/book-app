@@ -27,7 +27,7 @@ require_once '../config/lib.php';
         </h1>
 
         <!-- logout-button -->
-        <div class="fixed top-4 right-4 flex flex-col items-center">
+        <div class="fixed top-4 right-4 flex flex-col items-end">
             <p class="mb-2">Eingeloggt als
                 <span class="font-bold">
                     <?php echo $_SESSION['name']; ?>
@@ -59,8 +59,21 @@ require_once '../config/lib.php';
     </div>
 
     <!-- ----------------------- zurück-button  -->
-    <div class="flex w-full justify-end">
+    <div class="hidden w-full justify-end">
         <a href="../pages/home.php"
             class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
             zurück</a>
     </div>
+
+    <script>
+        window.addEventListener('scroll', (event) => {
+            if (window.screenY > 10) {
+                let backButton = event.target.closest('.backButton');
+                backButton.style.display = 'flex';
+            }
+        })
+
+    </script>
+</body>
+
+</html>
