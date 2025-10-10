@@ -24,49 +24,66 @@ $success = $_GET['success'] ?? 'Erfolgreich eingeloggt!';
 
 </head>
 
-<body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
-    <header class="absolute top-4 left-4 flex w-40 gap-x-4 items-center">
-        <img class="flex w-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
-
-        <h1 class="flex flex-col uppercase tracking-wide text-2xl leading-none font-bold">
-            <a href="../index.html">
-                <span>Book</span>
-                <span>loving</span>
-                <span>journal</span>
+<body class="flex flex-col min-h-screen bg-green-200">
+   <header class="fixed w-full flex justify-between items-start">
+        <div class="flex gap-x-4 items-center p-4">
+            <a href="../pages/home.php" class="flex item-center ">
+                <img class="flex w-20 h-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
             </a>
-        </h1>
+            <h1 class="flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
+                <a href="../pages/home.php">
+                    <span>Book</span>
+                    <span>loving</span>
+                    <span>journal</span>
+                </a>
+            </h1>
+        </div>
 
         <!-- logout-button -->
-        <div class="fixed top-4 right-4 flex flex-col items-center">
-            <p class="mb-2">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
+        <div class="flex gap-y-2 items-end flex-col w-60 p-4">
+            <p class="">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
 
             <a href="../php/logout.php"
                 class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
         </div>
     </header>
 
-    <div class="flex flex-col items-center">
-        <?php if($success): ?>
-            <p><?= htmlspecialchars($success); ?></p>
-        <?php endif; ?>
-        <h2 class="text-3xl text-center font-semibold py-4 mb-4">
-            <?php if ($_SESSION['name']) {
-                echo 'Willkommen zurück <br>in deinem Book Journal, <br> <em class="text-4xl">' . $_SESSION['name'] . '</em>!';
-            } ?>
-        </h2>
-        <div class="flex flex-row gap-2 flex-wrap justify-center">
-            <a href="./bookSearch.php"
-                class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
-                Weiter zur Buchsuche
-            </a>
-            <a href="./bookShelf.php"
-                class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
-                Zu deiner Bibliothek
-            </a>
+    <main class="flex flex-grow flex-col item-center justify-center px-6">
+        <div class="flex flex-col items-center">
+            <?php if ($success): ?>
+                <p><?= htmlspecialchars($success); ?></p>
+            <?php endif; ?>
+            <h2 class="text-3xl text-center font-semibold py-4 mb-4">
+                <?php if ($_SESSION['name']) {
+                    echo 'Willkommen zurück <br>in deinem Book Journal, <br> <em class="text-4xl">' . $_SESSION['name'] . '</em>!';
+                } ?>
+            </h2>
+            <div class="flex flex-row gap-2 flex-wrap justify-center">
+                <a href="./bookSearch.php"
+                    class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+                    Weiter zur Buchsuche
+                </a>
+                <a href="./bookShelf.php"
+                    class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+                    Zu deiner Bibliothek
+                </a>
+            </div>
         </div>
-    </div>
+    </main>
 
-
+    <footer class="flex justify-center h-full">
+        <ul class="flex pb-10">
+            <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
+                <a href="./datenschutz.php">Datenschutz</a>
+            </li>
+            <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
+                <a href="./Barrierefreiheit.php">Barrierefreiheit</a>
+            </li>
+            <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
+                <a href="./impressum.php">Impressum</a>
+            </li>
+        </ul>
+    </footer>
 </body>
 
 </html>

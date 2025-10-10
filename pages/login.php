@@ -39,45 +39,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
 
-<body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
-    <header class="absolute top-4 left-4 flex w-40 gap-x-4 items-center">
-        <img class="flex w-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
+<body class="flex flex-col min-h-screen bg-green-200">
 
-        <h1 class="flex flex-col uppercase tracking-wide text-2xl leading-none font-bold">
-            <a href="../index.html">
-                <span>Book</span>
-                <span>loving</span>
-                <span>journal</span>
+    <header class="fixed w-full flex justify-between items-start">
+        <div class="flex gap-x-4 items-center p-4">
+            <a href="../pages/home.php" class="flex item-center ">
+                <img class="flex w-20 h-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
             </a>
-        </h1>
-        </a>
+            <h1 class="flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
+                <a href="../pages/home.php">
+                    <span>Book</span>
+                    <span>loving</span>
+                    <span>journal</span>
+                </a>
+            </h1>
+        </div>
+
+        <!-- logout-button -->
+        <div class="flex gap-y-2 items-end flex-col w-60 p-4">
+            <p class="">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
+
+            <a href="../php/logout.php"
+                class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+        </div>
     </header>
 
-    <h2 class="text-2xl font-semibold">Login</h2>
+    <main class="flex flex-grow gap-y-4 flex-col items-center justify-center px-6">
 
-    <!-- Login-Message geben -->
-    <?php if ($error): ?>
-        <p class="text-red-500"><?= htmlspecialchars($error) ?> </p>
-    <?php endif; ?>
+        <h2 class="text-4xl font-semibold mt-4">Login</h2>
 
-    <form action="" method="POST" class="grid gap-y-4">
-        <div class="grid grid-cols-3 items-center">
-            <label for="loginEmail" class="text-xl">Email</label>
-            <input type="email" id="loginEmail" name="loginEmail" required
-                class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
-        </div>
-        <div class="grid grid-cols-3 items-center">
-            <label for="loginPwd" class="text-xl">Password</label>
-            <input type="password" id="loginPwd" name="loginPwd" required
-                class="col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
-        </div>
-        <div class="grid grid-cols-3 items-center">
-            <input type="submit" value="Einloggen" name="loginSubmit"
-                class="col-start-2 border-2 border-transparent rounded-3xl p-2 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
-        </div>
-    </form>
+        <!-- Login-Message geben -->
+        <?php if ($error): ?>
+            <p class="text-red-500"><?= htmlspecialchars($error) ?> </p>
+        <?php endif; ?>
 
-    <p>Noch nicht registriert? Dann <a href="register.html" class="underline">registriere</a> dich jetzt hier!</p>
+        <form action="" method="POST" class="grid gap-y-4">
+            <div class="grid grid-cols-3 items-center">
+                <label for="loginEmail" class="text-xl">Email</label>
+                <input type="email" id="loginEmail" name="loginEmail" required
+                    class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+            </div>
+            <div class="grid grid-cols-3 items-center">
+                <label for="loginPwd" class="text-xl">Password</label>
+                <input type="password" id="loginPwd" name="loginPwd" required
+                    class="col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+            </div>
+            <div class="grid grid-cols-3 items-center">
+                <input type="submit" value="Einloggen" name="loginSubmit"
+                    class="col-start-2 border-2 border-transparent rounded-3xl p-2 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
+            </div>
+        </form>
+
+        <p>Noch nicht registriert? Dann <a href="register.html" class="underline">registriere</a> dich jetzt hier!</p>
+    </main>
+
+    <footer class="flex justify-center w-full">
+        <ul class="flex pb-10">
+            <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
+                <a href="./datenschutz.php">Datenschutz</a>
+            </li>
+            <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
+                <a href="./Barrierefreiheit.php">Barrierefreiheit</a>
+            </li>
+            <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
+                <a href="./impressum.php">Impressum</a>
+            </li>
+        </ul>
+    </footer>
 </body>
 
 </html>

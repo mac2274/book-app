@@ -15,9 +15,8 @@ require_once '../config/lib.php';
 </head>
 
 <body class="flex flex-col min-h-screen bg-green-200">
-    <!-- <main class="relative flex flex-col items-center justify-center gap-y-10 flex-grow"> -->
 
-    <header class="fixed w-full flex justify-between">
+    <header class="fixed w-full flex justify-between items-start">
         <div class="flex gap-x-4 items-center p-4">
             <a href="../pages/home.php" class="flex item-center ">
                 <img class="flex w-20 h-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
@@ -522,23 +521,9 @@ require_once '../config/lib.php';
                     Schwenke</a></p>
             </p>
 
-            <!-- <footer class="absolute bottom-4 w-full">
-            <ul class="flex justify-center gap-x-2">
-                <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
-                    <a href="./datenschutz.php">Datenschutz</a>
-                </li>
-                <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
-                    <a href="./Barrierefreiheit.php">Barrierefreiheit</a>
-                </li>
-                <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
-                    <a href="./impressum.php">Impressum</a>
-                </li>
-            </ul>
-        </footer> -->
         </div>
     </main>
-    <!-- <footer class="relative bottom-0 h-full">
-            <ul class="absolute h-full w-full bottom-0 flex justify-center items-end gap-x-2"> -->
+
     <footer class="flex justify-center w-full">
         <ul class="flex pb-10">
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
@@ -561,12 +546,11 @@ require_once '../config/lib.php';
             if (window.scrollY > 40) {
 
                 // headerSttus muss das div drüber sein
-                headerStatus.classList.add('bg-white');
+                headerStatus.style.backgroundColor = "oklch(97% 0.001 106.424)"; // oklich-color
                 headerStatus.classList.add('top-0');
                 headerStatus.classList.add('h-28');
                 headerStatus.classList.add('transition');
                 headerStatus.classList.add('duration-500');
-                headerStatus.classList.add('z-10000');
                 headerStatus.classList.add('opacity-90');
             } else {
                 headerStatus.classList.remove('bg-white');

@@ -15,58 +15,95 @@ require_once '../config/lib.php';
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
 
-<body class="relative flex flex-col items-center justify-center gap-y-10 h-screen bg-green-200 p-4">
-    <header class="absolute top-4 left-4 flex w-40 gap-x-4 items-center">
-        <img class="flex w-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
+<body class="flex flex-col min-h-screen bg-green-200">
 
-        <h1 class="flex flex-col uppercase tracking-wide text-2xl leading-none font-bold">
-            <a href="../pages/home.php">
-                <span>Book</span>
-                <span>loving</span>
-                <span>journal</span>
+    <header class="fixed w-full flex justify-between items-start">
+        <div class="flex gap-x-4 items-center p-4">
+            <a href="../pages/home.php" class="flex item-center ">
+                <img class="flex w-20 h-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
             </a>
-        </h1>
+            <h1 class="flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
+                <a href="../pages/home.php">
+                    <span>Book</span>
+                    <span>loving</span>
+                    <span>journal</span>
+                </a>
+            </h1>
+        </div>
 
         <!-- logout-button -->
-        <div class="fixed top-4 right-4 flex flex-col items-center">
-            <p class="mb-2">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
+        <div class="flex gap-y-2 items-end flex-col w-60 p-4">
+            <p class="">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
 
             <a href="../php/logout.php"
                 class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
         </div>
     </header>
 
-    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
-        <h2 class="text-4xl font-semibold mt-4">Buchsuche</h2>
-        <form action="" class="flex flex-col gap-y-4">
-            <!--------------------------------------------------------- keine action nötig? -->
-            <div class="flex flex-row items-center gap-x-4">
-                <label for="title" class="text-xl">Titel</label>
-                <input type="text" id="name" class="border-2 rounded-3xl p-2 focus:bg-white" required>
-            </div>
+    <main class="flex pt-38 flex-grow flex-col item-center gap-y-4 justify-center px-6">
+        <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
+            <h2 class="text-4xl font-semibold mt-4">Buchsuche</h2>
+            <form action="" class="flex flex-col gap-y-4">
+                <!--------------------------------------------------------- keine action nötig? -->
+                <div class="flex flex-row items-center gap-x-4">
+                    <label for="title" class="text-xl">Titel</label>
+                    <input type="text" id="title" class="border-2 rounded-3xl w-100 p-2 focus:bg-white" required>
+                </div>
 
-            <div class="flex justify-center">
-                <input type="submit" value="Suchen"
-                    class="border-2 border-transparent rounded-4xl py-2 px-6 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
-            </div>
-        </form>
-    </div>
+                <div class="flex justify-center">
+                    <input type="submit" value="Suchen"
+                        class="border-2 border-transparent rounded-4xl py-2 px-6 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
+                </div>
+            </form>
+        </div>
 
-    <div id="result" class="flex flex-col justify-center gap-3 mr-10 ml-10"></div>
+        <div id="result" class="flex flex-col items-center gap-3"></div>
 
-    <!-- ----------------------- zurück-button  -->
-    <div class="flex w-full justify-end">
-        <a href="../pages/home.php"
-            class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
-            zurück</a>
-    </div>
+        <!-- ----------------------- zurück-button  -->
+        <div class="flex w-full justify-end">
+            <a href="../pages/home.php"
+                class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+                zurück</a>
+        </div>
+
+    </main>
+
+    <footer class="flex justify-center items-end h-full">
+        <ul class="flex pb-10">
+            <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
+                <a href="./datenschutz.php">Datenschutz</a>
+            </li>
+            <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
+                <a href="./Barrierefreiheit.php">Barrierefreiheit</a>
+            </li>
+            <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
+                <a href="./impressum.php">Impressum</a>
+            </li>
+        </ul>
+    </footer>
 
     <script>
         let searchDiv = document.querySelector('#searchDiv');
-        let input = document.querySelector('#name');
-        let searchResult = document.querySelector('#result');
+        let input = document.querySelector('#title');
+        const searchResult = document.querySelector('#result');
         const searchURL = "https://www.googleapis.com/books/v1/volumes?q=";
+        // header wird weiß beim vertikalen Scrollen
+        const headerStatus = document.querySelector('header');
 
+        function scrollDown() {
+            if (window.scrollY > 40) {
+
+                // headerSttus muss das div drüber sein
+                headerStatus.style.backgroundColor = "oklch(97% 0.001 106.424)"; // oklich-color
+                headerStatus.classList.add('top-0');
+                headerStatus.classList.add('h-28');
+                headerStatus.classList.add('transition');
+                headerStatus.classList.add('duration-500');
+                headerStatus.classList.add('opacity-90');
+            } else {
+                headerStatus.classList.remove('bg-white');
+            }
+        }
         // // in Fav-liste (DB) speichern mit fetch
         async function addToFavs(book, bookDiv) {
             try {
@@ -182,6 +219,9 @@ require_once '../config/lib.php';
             }
         };
 
+
+
+
         // -> 1. async function mit fetch
         async function getBook(e) {
             e.preventDefault();
@@ -200,13 +240,13 @@ require_once '../config/lib.php';
                 // -> 2. results zeigen
                 let searchDiv = document.querySelector('#searchDiv')
                 // Suche einzeilig machen 
-                searchDiv.className = 'absolute left-10 top-30 flex-row';
+                searchDiv.className = 'flex flex-row';
                 document.querySelector('h2').style.display = 'none';
                 document.querySelector('form').classList.remove('flex-col');
                 document.querySelector('form').classList.add('flex-row');
                 document.querySelector('form').classList.add('gap-x-4');
-                searchResult.classList.add('absolute');
-                searchResult.classList.add('top-50');
+                searchResult.classList.add('flex');
+                searchResult.classList.add('pt-10');
                 searchResult.innerHTML = '';
 
                 // überschrift für Suchergebnis
@@ -220,7 +260,7 @@ require_once '../config/lib.php';
 
                     // Container für Buchinfos (item)
                     const bookDiv = document.createElement('div'); // 3. Variante
-                    bookDiv.className = 'createdDiv flex flex-col items-center text-center gap-y-4 my-4';
+                    bookDiv.className = 'createdDiv flex flex-col items-center text-center w-200 gap-y-4 my-4';
                     searchResult.appendChild(bookDiv);
 
                     // Buchtitel
@@ -373,6 +413,7 @@ require_once '../config/lib.php';
             }
         }
 
+        window.addEventListener('scroll', scrollDown);
         document.querySelector('form').addEventListener('submit', getBook);
 
     </script>
