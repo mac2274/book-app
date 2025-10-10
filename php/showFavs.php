@@ -38,7 +38,7 @@ require_once '../config/lib.php';
         </div>
     </header>
 
-    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-80 pb-10 h-full">
+    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-80 mb-10 h-full">
         <h2 class="text-4xl font-semibold mt-4">Deine Favouriten</h2>
         <ol class="favList list-decimal list-outside w-xl px-8">
             <?php showFavs() ?>
@@ -96,8 +96,8 @@ require_once '../config/lib.php';
                 books.forEach(book => {
                     const li = document.createElement('li');
                     li.className = 'listContainer p-4';
-                    li.innerHTML = `<div class="flex flex-col items-center">
-                                        <p class="flex flex-col text-center">
+                    li.innerHTML = `<div class="flex flex-col items-center gap-y-2">
+                                        <p class="flex flex-col text-center gap-y-2">
                                             <span class="font-bold italic text-xl">${book.title}</span>
                                             <span class="text-sm"> - ${book.author} - </span>
                                         </p>

@@ -178,12 +178,12 @@ function showFavs()
 
         echo '<li class="listContainer p-4">
                 <div class="flex flex-col justify-center items-center"> 
-                    <p class="flex flex-col text-center">
+                    <p class="flex flex-col text-center gap-y-2">
                         <span class="font-bold text-sm italic text-xl"> ' . $row['title'] . ' </span>
                         <span class="text-sm"> - ' . $row['author'] . ' - </span>
                     </p>
                     <div class="flex flex-col items-center">
-                        <button type="button" class="reveal_more my-4 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition hover:ease-in-out hover:duration-500" data-desc="' . $row['description'] . '">
+                        <button type="button" class="reveal_more my-1 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition hover:ease-in-out hover:duration-500" data-desc="' . $row['description'] . '">
                             Beschreibung  
                         </button>
                     </div>     
@@ -213,16 +213,12 @@ function showDoneReading()
 
     while ($row = $result->fetch_assoc()) {
         echo '<li class="listContainer px-8">
-                <div class="flex flex-row gap-x-4 justify-between items-center py-4"> 
-                    <p class="flex flex-col text-center">
+                <div class="flex flex-row gap-x-4 justify-between items-center py-4 gap-y-2"> 
+                    <p class="flex flex-col w-100 text-center">
                         <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titel') . '</span>
                         <span class="text-sm">- ' . htmlspecialchars($row['author'] ?? 'Unbekannt') . ' - </span>
                     </p>
-                    <div class="flex flex-col items-center">
-                        <button type="button" class="reveal_more my-4 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition hover:ease-in-out hover:duration-500" data-desc="' . $row['description'] . '">
-                            Beschreibung  
-                        </button>
-                    </div> 
+                
                     <img class=" pt-4 pb-8 " src="' . htmlspecialchars($row['cover']) . '">
                 </div>    
                 <hr>
@@ -249,7 +245,7 @@ function showToRead()
     while ($row = $result->fetch_assoc()) {
         echo '<li class="listContainer p-4">
                 <div class="flex flex-col items-center"> 
-                    <p class="flex flex-col text-center">
+                    <p class="flex flex-col text-center gap-y-2">
                         <span class="italic text-xl">' . $row['title'] . '</span>
                         <span class="text-sm"> - ' . $row['author'] . ' - </span>
                     </p>

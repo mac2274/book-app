@@ -38,7 +38,7 @@ require_once '../config/lib.php';
         </div>
     </header>
 
-    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 my-80 h-full">
+    <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4 mt-80 h-full">
         <h2 class="text-4xl font-semibold mt-4">Deine bereits gelesenen Bücher</h2>
         <ol class="doneReadingList list-decimal list-outside w-xl px-8">
             <?php showDoneReading() ?>
@@ -97,7 +97,7 @@ require_once '../config/lib.php';
                     const li = document.createElement('li');
                     li.className = 'listContainer px-8';
                     li.innerHTML = `<div class="flex flex-row gap-x-4 justify-between items-center py-4">
-                                        <p class="flex flex-col text-center w-100 pb-4">
+                                        <p class="flex flex-col text-center w-100 gap-y-2">
                                             <span class="italic text-xl">${book.title}</span>
                                             <span class="text-sm">${book.author}</span>
                                         </p>

@@ -94,8 +94,8 @@ require_once '../config/lib.php';
                 books.forEach(book => {
                     const li = document.createElement('li');
                     li.className = 'listContainer p-4';
-                    li.innerHTML = `<div class="flex flex-col items-center gap-x-4">
-                                        <p class="flex flex-col text-center"> 
+                    li.innerHTML = `<div class="flex flex-col items-center gap-y-2">
+                                        <p class="flex flex-col text-center gap-y-2"> 
                                             <span class="italic text-xl">${book.title}</span>
                                             <span class="text-sm">- ${book.author} -</span>
                                         </p>
