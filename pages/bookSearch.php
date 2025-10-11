@@ -60,9 +60,9 @@ require_once '../config/lib.php';
         <div id="result" class="flex flex-col items-center gap-3"></div>
 
         <!-- ----------------------- zurück-button  -->
-        <div class="hidden w-full justify-end">
+        <div class="w-full justify-end">
             <a href="../pages/home.php"
-                class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+                class="backButton hidden fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
                 zurück</a>
         </div>
 
@@ -107,13 +107,15 @@ require_once '../config/lib.php';
         }
 
         // beim scrollDown erscheint zurück-Button
-        window.addEventListener('scroll', () => {
+        function showBackBtn() {
             const backButton = document.querySelector('.backButton');
-
-            if (window.scrollY > 10) {
-                backButton.style.display = 'flex';
+            if (window.scrollY > 500) {
+                backButton.classList.remove('hidden');
+                // backButton.classList.add('flex');
+            } else {
+                backButton.classList.add('hidden');;
             }
-        })
+        }
 
         // // in Fav-liste (DB) speichern mit fetch
         async function addToFavs(book, bookDiv) {
@@ -422,6 +424,7 @@ require_once '../config/lib.php';
             }
         }
 
+        window.addEventListener('scroll', showBackBtn);
         window.addEventListener('scroll', scrollDown);
         document.querySelector('form').addEventListener('submit', getBook);
 
