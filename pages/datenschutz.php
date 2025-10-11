@@ -525,7 +525,7 @@ require_once '../config/lib.php';
     </main>
 
     <footer class="flex justify-center w-full">
-        <ul class="flex pb-10">
+        <ul class="flex pb-10 pt-40">
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
                 <a href="./datenschutz.php">Datenschutz</a>
             </li>
