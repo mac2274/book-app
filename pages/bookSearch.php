@@ -62,7 +62,7 @@ require_once '../config/lib.php';
         <!-- ----------------------- zurück-button  -->
         <div class="w-full justify-end">
             <a href="../pages/home.php"
-                class="backButton hidden fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+                class="backButton hidden fixed right-4 bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
                 zurück</a>
         </div>
 
@@ -109,7 +109,7 @@ require_once '../config/lib.php';
         // beim scrollDown erscheint zurück-Button
         function showBackBtn() {
             const backButton = document.querySelector('.backButton');
-            if (window.scrollY > 500) {
+            if (window.scrollY > 200) {
                 backButton.classList.remove('hidden');
                 // backButton.classList.add('flex');
             } else {
