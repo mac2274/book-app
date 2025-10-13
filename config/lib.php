@@ -188,6 +188,27 @@ function showFavs()
                         </button>
                     </div>     
                     <img class="flex pt-4 pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
+
+                    <div>
+                        <form class="flex flex-row mb-8">
+                            <div class="evalutate_container flex gap-x-4">
+                                <div class="flex items-center">
+                                    <label for="like" class="thumb flex flex-col items-center">
+                                        <input type="radio" value="like" name="evalution_book" class="like hidden">
+                                        <img src="../src/img/thumbs-up-solid-empty.svg" class="likeImg w-10" alt="Dieses Buch gefällt mir!">
+                                        <span>Das Buch gefällt mir!</span>
+                                    </label>
+                                </div>    
+                                <div class="flex justify-center">
+                                    <label for="dislike" class="thumb flex flex-col items-center">
+                                        <input type="radio" value="dislike" name="evalution_book" class="dislike hidden">
+                                        <img src="../src/img/thumbs-up-solid-empty.svg" class="w-10 rotate-180" alt="Dieses Buch gefällt mir nicht!">
+                                        <span>Das Buch gefällt mir nicht.</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>    
                 <hr>
             </li>';
@@ -313,7 +334,7 @@ function getFavs($limit, $offset)
 }
 function getToBeRead($limit, $offset)
 {
-    global $mysqli;    
+    global $mysqli;
     // $userId aus login nehmen, um Userlisten zu zeigen  
     $userId = $_SESSION['userId'];
 
@@ -322,7 +343,7 @@ function getToBeRead($limit, $offset)
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('iii',  $userId, $limit, $offset);
+    $stmt->bind_param('iii', $userId, $limit, $offset);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermedung: ' . $stmt->error);
     }

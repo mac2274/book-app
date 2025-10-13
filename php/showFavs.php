@@ -82,6 +82,10 @@ require_once '../config/lib.php';
         const favContainer = document.querySelector('.favList');
         const btnShowMore = document.querySelector('.showMore');
 
+        const likeEval = document.querySelector('.like');
+        const dislikeEval = document.querySelector('.dislike');
+        const likeImg = document.querySelector('.likeImg');
+
         const limit = 10;
         let offset = 10;
 
@@ -100,7 +104,6 @@ require_once '../config/lib.php';
                 headerStatus.style.backgroundColor = 'transparent';
             }
         }
-
         // beim scrollen erscheint backButton
         function showBackButton() {
             const showBackButton = document.querySelector('.backButton');
@@ -146,8 +149,17 @@ require_once '../config/lib.php';
                 console.error(error.message);
             }
         }
+        // bewerten der Bücher 
+        likeEval.addEventListener('change', () => {
+            likeImg.src = '../src/img/thumbs-up-solid-full.svg';
+            likeImg.classList.add('green-500');
+
+            const evalText = document.createElement('p');
+            evalText.textContent = likeImg.alt;
+        })
 
         document.addEventListener('click', (event) => {
+            // wurde auf revealButton geklickt
             const button = event.target.closest(".reveal_more");
             let revealDescript = document.querySelector('.revealDiv');
 
@@ -156,11 +168,18 @@ require_once '../config/lib.php';
             } else {
                 revealDescript = document.createElement("div");
                 let descript = button.dataset.desc ?? "";
-                if (!descript.trim()) descript = "Keine Beschreibung vorhanden."; revealDescript.textContent = descript;
+                if (!descript.trim()) descript = "Keine Beschreibung vorhanden."; 
+                revealDescript.textContent = descript;
                 revealDescript.className = "revealDiv pt-4 text-sm";
                 button.parentElement.appendChild(revealDescript);
             }
+
+            //
+            const clickThumb = document.querySelector('like');
+
         });
+
+
 
         window.addEventListener('scroll', scrollDown);
         window.addEventListener('scroll', showBackButton);
