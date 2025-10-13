@@ -115,7 +115,7 @@ require_once '../config/lib.php';
                 headerStatus.classList.add('duration-500');
                 headerStatus.classList.add('opacity-90');
             } else {
-                headerStatus.classList.remove('bg-white');
+                headerStatus.style.backgroundColor = 'transparent';
             }
         }
 

@@ -43,11 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
 
     <header class="fixed w-full flex justify-between items-start">
         <div class="flex gap-x-4 items-center p-4">
-            <a href="../pages/home.php" class="flex item-center ">
+            <a href="../index.html" class="flex item-center ">
                 <img class="flex w-20 h-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
             </a>
             <h1 class="flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
-                <a href="../pages/home.php">
+                <a href="../index.html">
                     <span>Book</span>
                     <span>loving</span>
                     <span>journal</span>
@@ -84,6 +84,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
         </form>
 
         <p>Noch nicht registriert? Dann <a href="register.html" class="underline">registriere</a> dich jetzt hier!</p>
+
+        <div class="flex w-full justify-end">
+            <a href="../pages/home.php"
+                class="backButton fixed bottom-10 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+                zurück</a>
+        </div>
     </main>
 
     <footer class="flex justify-center mb-4">

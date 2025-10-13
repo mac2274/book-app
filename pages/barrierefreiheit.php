@@ -45,7 +45,7 @@ require_once '../config/lib.php';
     </main>
 
     <footer class="flex justify-center h-full">
-        <ul class="flex pb-10 pt-40">
+        <ul class="flex pb-4 pt-40">
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
                 <a href="./datenschutz.php">Datenschutz</a>
             </li>
@@ -73,7 +73,7 @@ require_once '../config/lib.php';
                 headerStatus.classList.add('duration-500');
                 headerStatus.classList.add('opacity-90');
             } else {
-                headerStatus.classList.remove('bg-white');
+                headerStatus.style.backgroundColor = 'transparent';
             }
         }
 
