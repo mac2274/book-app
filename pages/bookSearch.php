@@ -62,14 +62,14 @@ require_once '../config/lib.php';
         <!-- ----------------------- zurück-button  -->
         <div class="w-full justify-end">
             <a href="../pages/home.php"
-                class="backButton hidden fixed right-4 bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+                class="backButton fixed bottom-10 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
                 zurück</a>
         </div>
 
     </main>
 
     <footer class="flex justify-center items-end h-full">
-        <ul class="flex pb-10 pt-40">
+        <ul class="flex pb-4">
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
                 <a href="./datenschutz.php">Datenschutz</a>
             </li>
@@ -102,7 +102,7 @@ require_once '../config/lib.php';
                 headerStatus.classList.add('duration-500');
                 headerStatus.classList.add('opacity-90');
             } else {
-                headerStatus.classList.remove('bg-white');
+                headerStatus.style.backgroundColor = 'transparent';
             }
         }
 

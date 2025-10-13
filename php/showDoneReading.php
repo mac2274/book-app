@@ -57,7 +57,7 @@ require_once '../config/lib.php';
         <!-- ----------------------- zurück-button  ------------->
         <div class="flex w-full justify-end">
             <a href="../pages/bookShelf.php"
-                class="backButton fixed bottom-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+                class="backButton fixed bottom-10 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
                 zurück</a>
         </div>
 
@@ -98,7 +98,7 @@ require_once '../config/lib.php';
                 headerStatus.classList.add('duration-500');
                 headerStatus.classList.add('opacity-90');
             } else {
-                headerStatus.classList.remove('bg-white');
+                headerStatus.style.backgroundColor = 'transparent';
             }
         }
 

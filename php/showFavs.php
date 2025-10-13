@@ -57,7 +57,7 @@ require_once '../config/lib.php';
         <!-- ----------------------- zurück-button  -->
         <div class="flex w-full justify-end">
             <a href="../pages/bookShelf.php"
-                class="backButton fixed bottom-4 bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">
+                class="backButton hidden fixed bottom-10 right-4 bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">
                 zurück</a>
         </div>
 
@@ -97,10 +97,19 @@ require_once '../config/lib.php';
                 headerStatus.classList.add('duration-500');
                 headerStatus.classList.add('opacity-90');
             } else {
-                headerStatus.classList.remove('bg-white');
+                headerStatus.style.backgroundColor = 'transparent';
             }
         }
 
+        // beim scrollen erscheint backButton
+        function showBackButton() {
+            const showBackButton = document.querySelector('.backButton');
+            if (window.scrollY > 300) {
+                showBackButton.classList.remove('hidden');
+            } else {
+                showBackButton.classList.add('hidden');
+            }
+        }
         // beim Klick werden weitere Büchere aus der db angezeigt
         async function showMoreBooks() {
             try {
@@ -154,6 +163,7 @@ require_once '../config/lib.php';
         });
 
         window.addEventListener('scroll', scrollDown);
+        window.addEventListener('scroll', showBackButton);
         btnShowMore.addEventListener('click', showMoreBooks);
 
     </script>

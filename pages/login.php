@@ -55,13 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
             </h1>
         </div>
 
-        <!-- logout-button -->
-        <div class="flex gap-y-2 items-end flex-col w-60 p-4">
-            <p class="">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
-
-            <a href="../php/logout.php"
-                class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
-        </div>
     </header>
 
     <main class="flex flex-grow gap-y-4 flex-col items-center justify-center px-6">
@@ -93,16 +86,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
         <p>Noch nicht registriert? Dann <a href="register.html" class="underline">registriere</a> dich jetzt hier!</p>
     </main>
 
-    <footer class="flex justify-center w-full">
-        <ul class="flex pb-10 pt-40">
+    <footer class="flex justify-center mb-4">
+        <ul class="flex flex-col items-center sm:flex-row gap-x-2">
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
-                <a href="./datenschutz.php">Datenschutz</a>
+                <a href="pages/datenschutz.php">Datenschutz</a>
             </li>
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
-                <a href="./Barrierefreiheit.php">Barrierefreiheit</a>
+                <a href="pages/Barrierefreiheit.php">Barrierefreiheit</a>
             </li>
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
-                <a href="./impressum.php">Impressum</a>
+                <a href="pages/impressum.php">Impressum</a>
             </li>
         </ul>
     </footer>

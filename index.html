@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="'de">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,43 +15,49 @@
 </head>
 
 
-<body class="relative flex flex-col items-center justify-center  h-screen py-8 bg-green-200">
-    <header class="flex flex-col rounded-2xl outline-2 outline-white outline-offset-4 border-white p-6">
-        <div class="flex gap-x-4 md:gap-x-8 items-center">
-            <img class="w-50 rounded-2xl" src="src/img/bj-logo.png" alt="logo">
-            <h1 class="flex flex-col flex-start uppercase tracking-wide text-wrap text-4xl font-bold ">
-                <span>Book</span>
-                <span>loving</span>
-                <span>journal</span>
-            </h1>
+<body class="flex flex-col items-center justify-center h-screen py-8 bg-green-200">
+    <div class=" flex flex-col justify-center items-center flex-grow">
+        <header class="flex flex-col rounded-2xl outline-2 outline-white outline-offset-4 border-white p-3">
+            <div class="flex gap-x-4 sm:gap-x-8 items-center">
+                <img class="w-40 sm:w-50 md:w-60 rounded-2xl" src="src/img/bj-logo.png" alt="logo">
+                <h1
+                    class="hidden sm:flex flex-col flex-start uppercase tracking-wide text-wrap text-3xl sm:text-5xl md:text-6xl font-bold ">
+                    <span>Book</span>
+                    <span>loving</span>
+                    <span>journal</span>
+                </h1>
+            </div>
+        </header>
+
+        <p class="flex flex-col mt-12 mb-6 mx-10 sm:mx-20 md:mx-30 gap-4 text-center">
+            <span class="italic font-bold">Deine Buch-App für echte Lesefreude!</span>
+            Behalte den Überblick über alle Bücher, die du gelesen hast, noch lesen möchtest oder die dir besonders am
+            Herzen liegen.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 items-center justify-around pt-4 md:">
+            <a href="pages/register.html"
+                class="flex items-center justify-center text-white flex-4 text-center py-2 px-1 rounded-2xl border-2 border-transparent bg-orange-400 hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
+                Hier zur Registrierung
+            </a>
+            <a href="pages/login.php"
+                class="flex items-center h-full justify-center text-white flex-4 text-center py-2 px-1 rounded-2xl border-2 border-transparent bg-orange-400 hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
+                Hier zum Login
+            </a>
         </div>
-    </header>
-
-    <p class="flex mt-12 px-1 sm:px-20 md:px-40 lg:px-50 text-center">Elit aute et non anim ullamco aute commodo fugiat.
-        Consectetur excepteur sunt velit nulla
-        incididunt eu
-        laboris consectetur fugiat aliquip. Tempor consectetur do dolore non consectetur nisi.
-    </p>
-
-    <div class="flex gap-4 items-center justify-around pt-4 md:">
-        <a href="pages/register.html"
-            class="flex items-center justify-center text-white flex-4 text-center py-2 px-1 rounded-2xl border-2 border-transparent bg-orange-400 hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
-            Hier zur Registrierung
-        </a>
-        <a href="pages/login.php"
-            class="flex items-center h-full justify-center text-white flex-4 text-center py-2 px-1 rounded-2xl border-2 border-transparent bg-orange-400 hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
-            Hier zum Login
-        </a>
     </div>
-    <footer class="absolute bottom-4">
-        <ul class="flex gap-x-2">
+    <footer class="flex bottom-4">
+        <ul class="flex flex-col items-center sm:flex-row gap-x-2">
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
-                <a href="pages/datenschutz.php">Datenschutz</a></li>
+                <a href="pages/datenschutz.php">Datenschutz</a>
+            </li>
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
-                <a href="pages/Barrierefreiheit.php">Barrierefreiheit</a></li>
+                <a href="pages/Barrierefreiheit.php">Barrierefreiheit</a>
+            </li>
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
-                <a href="pages/impressum.php">Impressum</a></li>
-        </ul>    
+                <a href="pages/impressum.php">Impressum</a>
+            </li>
+        </ul>
     </footer>
 </body>
 
