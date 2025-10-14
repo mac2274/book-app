@@ -85,6 +85,8 @@ require_once '../config/lib.php';
         const likeEval = document.querySelector('.like');
         const dislikeEval = document.querySelector('.dislike');
         const likeImg = document.querySelector('.likeImg');
+        const dislikeImg = document.querySelector('.dislikeImg');
+        const evalContainer = document.querySelector('.evaluate_container');
 
         const limit = 10;
         let offset = 10;
@@ -150,35 +152,64 @@ require_once '../config/lib.php';
             }
         }
         // bewerten der Bücher 
-        likeEval.addEventListener('change', () => {
-            likeImg.src = '../src/img/thumbs-up-solid-full.svg';
-            likeImg.classList.add('green-500');
-
-            const evalText = document.createElement('p');
-            evalText.textContent = likeImg.alt;
-        })
 
         document.addEventListener('click', (event) => {
             // wurde auf revealButton geklickt
             const button = event.target.closest(".reveal_more");
-            let revealDescript = document.querySelector('.revealDiv');
-
-            if (revealDescript) {
-                revealDescript.remove();
-            } else {
-                revealDescript = document.createElement("div");
-                let descript = button.dataset.desc ?? "";
-                if (!descript.trim()) descript = "Keine Beschreibung vorhanden."; 
-                revealDescript.textContent = descript;
-                revealDescript.className = "revealDiv pt-4 text-sm";
-                button.parentElement.appendChild(revealDescript);
+            // prüft, ob button existiert, sonst bricht es ab
+            if (button) {
+                let revealDescript = document.querySelector('.revealDiv');
+                if (revealDescript) {
+                    revealDescript.remove();
+                } else {
+                    revealDescript = document.createElement("div");
+                    let descript = button.dataset.desc ?? "";
+                    if (!descript.trim()) descript = "Keine Beschreibung vorhanden.";
+                    revealDescript.textContent = descript;
+                    revealDescript.className = "revealDiv pt-4 text-sm";
+                    button.parentElement.appendChild(revealDescript);
+                }
             }
-
-            //
-            const clickThumb = document.querySelector('like');
 
         });
 
+        document.querySelectorAll('.evaluate_container').forEach(container => {
+            container.addEventListener('click', (event) => {
+                // thumbs up
+                const likeClicked = event.target.closest('.likeImg');
+                const dislikeClicked = event.target.closest('.dislikeImg');
+                // wenn nichts geklickt wurde
+                if (!likeClicked && !dislikeClicked) return;
+                // Entferne Texte bevor neue erstellt werden
+                document.querySelectorAll('.liked, .disliked').forEach(element => element.remove());
+                // wenn thumbs up
+                if (likeClicked) {
+                    const evalText = document.createElement('p');
+                    evalText.className = 'liked pt-4 text-green-600';
+                    evalText.textContent = likeImg.alt;
+                    evalContainer.appendChild(evalText);
+                    console.log('Like');
+
+                    likeEval.checked = true;
+                    dislikeEval.checked = false;
+                    likeImg.src = '../src/img/thumbs-up-solid-full.svg';
+                    dislikeImg.src = '../src/img/thumbs-up-solid-empty.svg';
+                }
+                // wenn thumbs down
+                if (dislikeClicked) {
+                    const evalText = document.createElement('p');
+                    evalText.className = 'disliked pt-4 text-red-600';
+                    evalText.textContent = dislikeImg.alt;
+                    evalContainer.appendChild(evalText);
+                    console.log('DisLike');
+
+                    dislikeEval.checked = true;
+                    likeEval.checked = false;
+                    dislikeImg.src = '../src/img/thumbs-up-solid-full.svg';
+                    likeImg.src = '../src/img/thumbs-up-solid-empty.svg';
+                }
+            });
+        });
 
 
         window.addEventListener('scroll', scrollDown);

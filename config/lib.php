@@ -191,20 +191,20 @@ function showFavs()
 
                     <div>
                         <form class="flex flex-row mb-8">
-                            <div class="evalutate_container flex gap-x-4">
-                                <div class="flex items-center">
-                                    <label for="like" class="thumb flex flex-col items-center">
-                                        <input type="radio" value="like" name="evalution_book" class="like hidden">
-                                        <img src="../src/img/thumbs-up-solid-empty.svg" class="likeImg w-10" alt="Dieses Buch gefällt mir!">
-                                        <span>Das Buch gefällt mir!</span>
-                                    </label>
-                                </div>    
-                                <div class="flex justify-center">
-                                    <label for="dislike" class="thumb flex flex-col items-center">
-                                        <input type="radio" value="dislike" name="evalution_book" class="dislike hidden">
-                                        <img src="../src/img/thumbs-up-solid-empty.svg" class="w-10 rotate-180" alt="Dieses Buch gefällt mir nicht!">
-                                        <span>Das Buch gefällt mir nicht.</span>
-                                    </label>
+                            <div class="evaluate_container flex flex-col items-center">
+                                <div class="flex gap-x-4">
+                                    <div class="flex items-center">
+                                        <label for="like" class="thumb_like flex flex-col items-center">
+                                            <input type="radio" value="like" name="evalution_book" class="like hidden">
+                                            <img src="../src/img/thumbs-up-solid-empty.svg" class="likeImg w-10" alt="Dieses Buch gefällt mir!">
+                                        </label>
+                                    </div>    
+                                    <div class="flex justify-center">
+                                        <label for="dislike" class="thumb_dislikes flex flex-col items-center">
+                                            <input type="radio" value="dislike" name="evalution_book" class="dislike hidden">
+                                            <img src="../src/img/thumbs-up-solid-empty.svg" class="dislikeImg w-10 rotate-180" alt="Dieses Buch gefällt mir nicht!">
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </form>

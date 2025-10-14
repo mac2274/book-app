@@ -254,10 +254,8 @@ require_once '../config/lib.php';
                 searchDiv.className = 'flex flex-row';
                 document.querySelector('h2').style.display = 'none';
                 document.querySelector('form').classList.remove('flex-col');
-                document.querySelector('form').classList.add('flex-row');
-                document.querySelector('form').classList.add('gap-x-4');
-                searchResult.classList.add('flex');
-                searchResult.classList.add('pt-10');
+                document.querySelector('form').classNamme = 'flex-row gap-x-4';
+                searchResult.className = 'flex flex-col pt-10';
                 searchResult.innerHTML = '';
 
                 // überschrift für Suchergebnis
