@@ -82,10 +82,6 @@ require_once '../config/lib.php';
         const favContainer = document.querySelector('.favList');
         const btnShowMore = document.querySelector('.showMore');
 
-        const likeEval = document.querySelector('.like');
-        const dislikeEval = document.querySelector('.dislike');
-        const likeImg = document.querySelector('.likeImg');
-        const dislikeImg = document.querySelector('.dislikeImg');
         const evalContainer = document.querySelector('.evaluate_container');
 
         const limit = 10;
@@ -178,11 +174,17 @@ require_once '../config/lib.php';
                 // thumbs up
                 const likeClicked = event.target.closest('.likeImg');
                 const dislikeClicked = event.target.closest('.dislikeImg');
+
+                const likeEval = container.querySelector('.like');
+                const dislikeEval = container.querySelector('.dislike');
+                const likeImg = container.querySelector('.likeImg');
+                const dislikeImg = container.querySelector('.dislikeImg');
+                const evalContainer = container;
                 // wenn nichts geklickt wurde
                 if (!likeClicked && !dislikeClicked) return;
                 // Entferne Texte bevor neue erstellt werden
-                document.querySelectorAll('.liked, .disliked').forEach(element => element.remove());
-                // wenn thumbs up
+                container.querySelectorAll('.liked, .disliked').forEach(element => element.remove());
+                // wenn thumbs up geklickt ist 
                 if (likeClicked) {
                     const evalText = document.createElement('p');
                     evalText.className = 'liked pt-4 text-green-600';
@@ -195,7 +197,7 @@ require_once '../config/lib.php';
                     likeImg.src = '../src/img/thumbs-up-solid-full.svg';
                     dislikeImg.src = '../src/img/thumbs-up-solid-empty.svg';
                 }
-                // wenn thumbs down
+                // wenn thumbs down geklickt ist
                 if (dislikeClicked) {
                     const evalText = document.createElement('p');
                     evalText.className = 'disliked pt-4 text-red-600';
