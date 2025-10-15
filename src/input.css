@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Eigene Styles oder Fonts unten ergänzen */
+@font-face {
+  font-family: "Playwrite";
+  src: url("./src/fonts/src/fonts/playwrite-de-la-v11-latin-regular.woff2") format("woff2");
+}
+
+body {
+  font-family: "Playwrite", serif;
+}
 /* @theme {
     --color-orange: #f2a233;
     --color-yellow: #f2a233;
