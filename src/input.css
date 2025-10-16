@@ -11,7 +11,7 @@
   src: url("./fonts/lavishly-yours-v7-latin-regular.woff2") format("woff2");
 }
 
-h2 {
+h2, .niceFont {
   font-family: "Playwrite";
 }
 .greetName {

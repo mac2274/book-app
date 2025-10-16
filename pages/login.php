@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
 
     <main class="flex flex-grow gap-y-4 flex-col items-center justify-center px-6">
 
-        <h2 class="text-4xl font-semibold py-4">Login</h2>
+        <h2 class="text-3xl font-semibold py-4">Login</h2>
 
         <!-- Login-Message geben -->
         <?php if ($error): ?>

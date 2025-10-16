@@ -42,7 +42,7 @@ require_once '../config/lib.php';
         <div id="searchDiv" class="pt-38 px-10 pb-20 flex flex-col items-start gap-y-4">
             <h2 class="text-4xl font-semibold py-4">Impressum</h2>
             <h3 class="font-semibold">Allgemeine Angaben</h3>
-            <p><b>Internet:</b> <a href="bookSearch-Journal.php" target="_blank">bookSearch-Journal.php</a></p>
+            <p><b>Internet:</b> <a href="../index.html" target="_blank">www.bookSearch-journal.de</a></p>
 
             <p><b>Name des Diensteanbieters:</b> myd Einzelunternehmen</p>
 

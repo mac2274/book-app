@@ -54,11 +54,11 @@ $success = $_GET['success'] ?? 'Erfolgreich eingeloggt!';
                 <p><?= htmlspecialchars($success); ?></p>
             <?php endif; ?>
 
-            <h2 class="text-3xl text-center font-semibold font-display py-4 mb-4">
+            <h2 class="flex gap-4 flex-col text-3xl text-center font-semibold font-display py-4">
                 <?php if (!empty($_SESSION['name'])): ?>
                     <?php
                         $safeName = htmlspecialchars($_SESSION['name']);
-                        echo 'Willkommen zurück <br>in deinem Book Journal, <br> <span class="greetName text-6xl py-4">' . $safeName . '</span>!';
+                        echo 'Willkommen zurück <br>in deinem Book Journal, <br> <span class="niceFont text-6xl py-4">' . $safeName . '!</span>';
                     ?>
                 <?php endif; ?>
             </h2>

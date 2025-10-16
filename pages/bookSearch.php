@@ -9,7 +9,6 @@ require_once '../config/lib.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../src/output.css" rel="stylesheet">
-
     <title>Buchsuche</title>
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
@@ -42,7 +41,7 @@ require_once '../config/lib.php';
     <main class="flex pt-38 flex-grow flex-col item-center gap-y-4 justify-center px-6">
         <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
             <h2 class="text-4xl font-semibold py-4">Buchsuche</h2>
-            <form action="" class="flex flex-col gap-y-4">
+            <form action="" class="flex flex-col gap-4">
                 <!--------------------------------------------------------- keine action nötig? -->
                 <div class="flex flex-row items-center gap-x-4">
                     <label for="title" class="text-xl">Titel</label>
