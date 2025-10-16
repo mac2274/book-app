@@ -17,7 +17,7 @@ $success = $_GET['success'] ?? 'Erfolgreich eingeloggt!';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="../src/output.css" rel="stylesheet">
 
     <title>Book Journal</title>
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
@@ -49,15 +49,20 @@ $success = $_GET['success'] ?? 'Erfolgreich eingeloggt!';
     </header>
 
     <main class="flex flex-grow flex-col item-center justify-center px-6">
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col gap-y-4 items-center">
             <?php if ($success): ?>
                 <p><?= htmlspecialchars($success); ?></p>
             <?php endif; ?>
-            <h2 class="text-3xl text-center font-semibold py-4 mb-4">
-                <?php if ($_SESSION['name']) {
-                    echo 'Willkommen zurück <br>in deinem Book Journal, <br> <em class="text-4xl">' . $_SESSION['name'] . '</em>!';
-                } ?>
+
+            <h2 class="text-3xl text-center font-semibold font-display py-4 mb-4">
+                <?php if (!empty($_SESSION['name'])): ?>
+                    <?php
+                        $safeName = htmlspecialchars($_SESSION['name']);
+                        echo 'Willkommen zurück <br>in deinem Book Journal, <br> <span class="greetName text-6xl py-4">' . $safeName . '</span>!';
+                    ?>
+                <?php endif; ?>
             </h2>
+
             <div class="flex flex-row gap-2 flex-wrap justify-center">
                 <a href="./bookSearch.php"
                     class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">

@@ -9,7 +9,6 @@ require_once '../config/lib.php';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="../src/output.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Datenschutz</title>
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
@@ -40,7 +39,7 @@ require_once '../config/lib.php';
     </header>
     <main class="flex flex-grow flex-col item-center justify-center px-6">
         <div id="searchDiv" class="mt-38 px-10 pb-20 flex flex-col items-start gap-y-4">
-            <h2 class="text-4xl font-semibold mt-4">Datenschutzerklärung</h2>
+            <h2 class="text-4xl font-semibold py-4">Datenschutzerklärung</h2>
             <h3 class="font-bold" id="m716">Präambel</h3>
             <p>Mit der folgenden Datenschutzerklärung möchten wir Sie darüber aufklären, welche Arten Ihrer
                 personenbezogenen Daten (nachfolgend auch kurz als "Daten" bezeichnet) wir zu welchen Zwecken und in

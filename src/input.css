@@ -1,13 +1,21 @@
 @import "tailwindcss";
 
 /* Eigene Styles oder Fonts unten ergänzen */
+
 @font-face {
   font-family: "Playwrite";
-  src: url("./src/fonts/src/fonts/playwrite-de-la-v11-latin-regular.woff2") format("woff2");
+  src: url("./fonts/playwrite-de-la-v11-latin-regular.woff2") format("woff2");
+}
+@font-face{
+  font-family: "Lavishly-Yours";
+  src: url("./fonts/lavishly-yours-v7-latin-regular.woff2") format("woff2");
 }
 
-body {
-  font-family: "Playwrite", serif;
+h2 {
+  font-family: "Playwrite";
+}
+.greetName {
+  font-family: sans-serif;
 }
 /* @theme {
     --color-orange: #f2a233;

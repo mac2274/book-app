@@ -33,8 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../src/output.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
     <title>Login</title>
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
@@ -59,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
 
     <main class="flex flex-grow gap-y-4 flex-col items-center justify-center px-6">
 
-        <h2 class="text-4xl font-semibold mt-4">Login</h2>
+        <h2 class="text-4xl font-semibold py-4">Login</h2>
 
         <!-- Login-Message geben -->
         <?php if ($error): ?>

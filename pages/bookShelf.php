@@ -9,7 +9,6 @@ require_once '../config/lib.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../src/output.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Bücherregal</title>
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
@@ -40,7 +39,7 @@ require_once '../config/lib.php';
 
     <main class="flex flex-grow justify-center flex-col pt-38">
         <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
-            <h2 class="text-4xl font-semibold mt-4">Dein Bücherregal</h2>
+            <h2 class="text-4xl font-semibold py-4">Dein Bücherregal</h2>
             <div class="flex flex-row gap-2 flex-wrap justify-center">
                 <a href="../php/showFavs.php"
                     class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">

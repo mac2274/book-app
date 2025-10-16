@@ -9,7 +9,6 @@ require_once '../config/lib.php';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="../src/output.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Datenschutz</title>
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
@@ -39,7 +38,7 @@ require_once '../config/lib.php';
     </header>
     <main class="flex flex-grow flex-col item-center justify-center px-6">
         <div id="searchDiv" class="pt-38 px-10 pb-20 flex flex-col items-start gap-y-4">
-            <h2 class="text-4xl font-semibold mt-4">Barrierefreiheit</h2>
+            <h2 class="text-3xl font-semibold py-4">Barrierefreiheit</h2>
 
         </div>
     </main>

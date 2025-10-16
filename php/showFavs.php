@@ -9,8 +9,6 @@ require_once '../config/lib.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../src/output.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
     <title>Favouriten</title>
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
@@ -42,7 +40,7 @@ require_once '../config/lib.php';
 
     <main class="flex flex-grow flex-col item-center justify-center px-6">
         <div id="searchDiv" class="mt-38 px-10 pb-20 flex flex-col items-center gap-y-4">
-            <h2 class="text-4xl font-semibold mt-4">Deine Favouriten</h2>
+            <h2 class="text-4xl font-semibold py-4">Deine Favouriten</h2>
             <ol class="favList list-decimal list-outside w-xl px-8">
                 <?php showFavs() ?>
             </ol>
