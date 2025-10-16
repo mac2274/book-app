@@ -125,6 +125,26 @@ require_once '../config/lib.php';
                                         </p>
                                         <img class="flex pt-4 pb-8 items-center" src="${book.cover}" alt="Cover von ${book.title}">
                                     </div>
+                                    <div class=>
+                                        <form class="flex justify-center flex-row mb-8">
+                                            <div class="evaluate_container flex flex-col items-center">
+                                                <div class="flex gap-x-4">
+                                                    <div class="flex items-center">
+                                                        <label for="like" class="thumb_like flex flex-col items-center">
+                                                            <input type="radio" value="like" name="evalution_book" class="like hidden">
+                                                            <img src="../src/img/thumbs-up-solid-empty.svg" class="likeImg w-10" alt="Dieses Buch gefällt mir!">
+                                                        </label>
+                                                    </div>    
+                                                    <div class="flex justify-center">
+                                                        <label for="dislike" class="thumb_dislikes flex flex-col items-center">
+                                                            <input type="radio" value="dislike" name="evalution_book" class="dislike hidden">
+                                                            <img src="../src/img/thumbs-up-solid-empty.svg" class="dislikeImg w-10 rotate-180" alt="Dieses Buch gefällt mir nicht!">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                     <hr>`;
                     doneContainer.appendChild(li);
                 });
@@ -137,48 +157,47 @@ require_once '../config/lib.php';
         }
 
         // Bewertung der Bücher mit Thumbs up/down
-        document.querySelectorAll('.evaluate_container').forEach(container => {
-            container.addEventListener('click', (event) => {
-                // thumbs up
-                const likeClicked = event.target.closest('.likeImg');
-                const dislikeClicked = event.target.closest('.dislikeImg');
+        document.addEventListener('click', (event) => {
+            const container = event.target.closest('.evaluate_container');
+            if (!container) return;
+            // thumbs up
+            const likeClicked = event.target.closest('.likeImg');
+            const dislikeClicked = event.target.closest('.dislikeImg');
+            // wenn nichts geklickt wurde
+            if (!likeClicked && !dislikeClicked) return;
+            // Elemente im aktuellen Container holen
+            const likeEval = container.querySelector('.like');
+            const dislikeEval = container.querySelector('.dislike');
+            const likeImg = container.querySelector('.likeImg');
+            const dislikeImg = container.querySelector('.dislikeImg');
+            // Entferne Texte bevor neue erstellt werden
+            container.querySelectorAll('.liked, .disliked').forEach(element => element.remove());
+            // wenn thumbs up geklickt ist 
+            if (likeClicked) {
+                const evalText = document.createElement('p');
+                evalText.className = 'liked pt-4 text-green-600';
+                evalText.textContent = likeImg.alt;
+                container.appendChild(evalText);
+                console.log('Like');
 
-                const likeEval = container.querySelector('.like');
-                const dislikeEval = container.querySelector('.dislike');
-                const likeImg = container.querySelector('.likeImg');
-                const dislikeImg = container.querySelector('.dislikeImg');
-                const evalContainer = container;
-                // wenn nichts geklickt wurde
-                if (!likeClicked && !dislikeClicked) return;
-                // Entferne Texte bevor neue erstellt werden
-                container.querySelectorAll('.liked, .disliked').forEach(element => element.remove());
-                // wenn thumbs up geklickt ist 
-                if (likeClicked) {
-                    const evalText = document.createElement('p');
-                    evalText.className = 'liked pt-4 text-green-600';
-                    evalText.textContent = likeImg.alt;
-                    evalContainer.appendChild(evalText);
-                    console.log('Like');
+                likeEval.checked = true;
+                dislikeEval.checked = false;
+                likeImg.src = '../src/img/thumbs-up-solid-full.svg';
+                dislikeImg.src = '../src/img/thumbs-up-solid-empty.svg';
+            }
+            // wenn thumbs down geklickt ist
+            if (dislikeClicked) {
+                const evalText = document.createElement('p');
+                evalText.className = 'disliked pt-4 text-red-600';
+                evalText.textContent = dislikeImg.alt;
+                container.appendChild(evalText);
+                console.log('DisLike');
 
-                    likeEval.checked = true;
-                    dislikeEval.checked = false;
-                    likeImg.src = '../src/img/thumbs-up-solid-full.svg';
-                    dislikeImg.src = '../src/img/thumbs-up-solid-empty.svg';
-                }
-                // wenn thumbs down geklickt ist
-                if (dislikeClicked) {
-                    const evalText = document.createElement('p');
-                    evalText.className = 'disliked pt-4 text-red-600';
-                    evalText.textContent = dislikeImg.alt;
-                    evalContainer.appendChild(evalText);
-                    console.log('DisLike');
-
-                    dislikeEval.checked = true;
-                    likeEval.checked = false;
-                    dislikeImg.src = '../src/img/thumbs-up-solid-full.svg';
-                    likeImg.src = '../src/img/thumbs-up-solid-empty.svg';
-                }
-            });
+                dislikeEval.checked = true;
+                likeEval.checked = false;
+                dislikeImg.src = '../src/img/thumbs-up-solid-full.svg';
+                likeImg.src = '../src/img/thumbs-up-solid-empty.svg';
+            }
         });
 
         window.addEventListener('scroll', scrollDown);

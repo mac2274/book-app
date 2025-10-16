@@ -80,8 +80,6 @@ require_once '../config/lib.php';
         const favContainer = document.querySelector('.favList');
         const btnShowMore = document.querySelector('.showMore');
 
-        const evalContainer = document.querySelector('.evaluate_container');
-
         const limit = 10;
         let offset = 10;
 
@@ -199,7 +197,6 @@ require_once '../config/lib.php';
             const dislikeEval = container.querySelector('.dislike');
             const likeImg = container.querySelector('.likeImg');
             const dislikeImg = container.querySelector('.dislikeImg');
-            const evalContainer = container;
             // Entferne Texte bevor neue erstellt werden
             container.querySelectorAll('.liked, .disliked').forEach(element => element.remove());
             // wenn thumbs up geklickt ist 
@@ -207,8 +204,7 @@ require_once '../config/lib.php';
                 const evalText = document.createElement('p');
                 evalText.className = 'liked pt-4 text-green-600';
                 evalText.textContent = likeImg.alt;
-                evalContainer.appendChild(evalText);
-                console.log('Like');
+                container.appendChild(evalText);
 
                 likeEval.checked = true;
                 dislikeEval.checked = false;
@@ -220,8 +216,7 @@ require_once '../config/lib.php';
                 const evalText = document.createElement('p');
                 evalText.className = 'disliked pt-4 text-red-600';
                 evalText.textContent = dislikeImg.alt;
-                evalContainer.appendChild(evalText);
-                console.log('DisLike');
+                container.appendChild(evalText);
 
                 dislikeEval.checked = true;
                 likeEval.checked = false;
