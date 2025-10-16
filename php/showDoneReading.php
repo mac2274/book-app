@@ -55,7 +55,7 @@ require_once '../config/lib.php';
         <!-- ----------------------- zurück-button  ------------->
         <div class="flex w-full justify-end">
             <a href="../pages/bookShelf.php"
-                class="backButton fixed bottom-10 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+                class="backButton hidden fixed bottom-10 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
                 zurück</a>
         </div>
 
@@ -90,16 +90,20 @@ require_once '../config/lib.php';
 
                 // headerSttus muss das div drüber sein
                 headerStatus.style.backgroundColor = "oklch(97% 0.001 106.424)"; // oklich-color
-                headerStatus.classList.add('top-0');
-                headerStatus.classList.add('h-28');
-                headerStatus.classList.add('transition');
-                headerStatus.classList.add('duration-500');
-                headerStatus.classList.add('opacity-90');
+                headerStatus.classList.add('top-0', 'h-28', 'duration-500', 'opacity-90');
             } else {
                 headerStatus.style.backgroundColor = 'transparent';
             }
         }
-
+        // beim scrollen erscheint backButton
+        function showBackButton() {
+            const showBackButton = document.querySelector('.backButton');
+            if (window.scrollY > 800) {
+                showBackButton.classList.remove('hidden');
+            } else {
+                showBackButton.classList.add('hidden');
+            }
+        }
         // beim Klick werden weitere Büchere aus der db angezeigt
         async function showMoreBooks() {
             try {
@@ -132,7 +136,53 @@ require_once '../config/lib.php';
             }
         }
 
+        // Bewertung der Bücher mit Thumbs up/down
+        document.querySelectorAll('.evaluate_container').forEach(container => {
+            container.addEventListener('click', (event) => {
+                // thumbs up
+                const likeClicked = event.target.closest('.likeImg');
+                const dislikeClicked = event.target.closest('.dislikeImg');
+
+                const likeEval = container.querySelector('.like');
+                const dislikeEval = container.querySelector('.dislike');
+                const likeImg = container.querySelector('.likeImg');
+                const dislikeImg = container.querySelector('.dislikeImg');
+                const evalContainer = container;
+                // wenn nichts geklickt wurde
+                if (!likeClicked && !dislikeClicked) return;
+                // Entferne Texte bevor neue erstellt werden
+                container.querySelectorAll('.liked, .disliked').forEach(element => element.remove());
+                // wenn thumbs up geklickt ist 
+                if (likeClicked) {
+                    const evalText = document.createElement('p');
+                    evalText.className = 'liked pt-4 text-green-600';
+                    evalText.textContent = likeImg.alt;
+                    evalContainer.appendChild(evalText);
+                    console.log('Like');
+
+                    likeEval.checked = true;
+                    dislikeEval.checked = false;
+                    likeImg.src = '../src/img/thumbs-up-solid-full.svg';
+                    dislikeImg.src = '../src/img/thumbs-up-solid-empty.svg';
+                }
+                // wenn thumbs down geklickt ist
+                if (dislikeClicked) {
+                    const evalText = document.createElement('p');
+                    evalText.className = 'disliked pt-4 text-red-600';
+                    evalText.textContent = dislikeImg.alt;
+                    evalContainer.appendChild(evalText);
+                    console.log('DisLike');
+
+                    dislikeEval.checked = true;
+                    likeEval.checked = false;
+                    dislikeImg.src = '../src/img/thumbs-up-solid-full.svg';
+                    likeImg.src = '../src/img/thumbs-up-solid-empty.svg';
+                }
+            });
+        });
+
         window.addEventListener('scroll', scrollDown);
+        window.addEventListener('scroll', showBackButton);
         btnShowMore.addEventListener('click', showMoreBooks);
     </script>
 

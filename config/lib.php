@@ -241,7 +241,28 @@ function showDoneReading()
                     </p>
                 
                     <img class=" pt-4 pb-8 " src="' . htmlspecialchars($row['cover']) . '">
-                </div>    
+                </div>  
+                <div>
+                    <form class="flex flex-row justify-center mb-8">
+                        <div class="evaluate_container flex flex-col items-center">
+                            <div class="flex gap-x-4">
+                                <div class="flex items-center">
+                                    <label for="like" class="thumb_like flex flex-col items-center">
+                                        <input type="radio" value="like" name="evalution_book" class="like hidden">
+                                        <img src="../src/img/thumbs-up-solid-empty.svg" class="likeImg w-10" alt="Dieses Buch gefällt mir!">
+                                    </label>
+                                </div>    
+                                <div class="flex justify-center">
+                                    <label for="dislike" class="thumb_dislikes flex flex-col items-center">
+                                        <input type="radio" value="dislike" name="evalution_book" class="dislike hidden">
+                                        <img src="../src/img/thumbs-up-solid-empty.svg" class="dislikeImg w-10 rotate-180" alt="Dieses Buch gefällt mir nicht!">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                  
                 <hr>
             </li>';
     }
@@ -271,7 +292,7 @@ function showToRead()
                         <span class="text-sm"> - ' . $row['author'] . ' - </span>
                     </p>
                     <div class="flex flex-col items-center">
-                        <button type="button" class="reveal_more border-1 bg-green-900 text-white rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-orange-200 hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
+                        <button type="button" class="reveal_more border-black border-1 text-black rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
                             Beschreibung
                         </button> 
                     </div>

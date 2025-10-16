@@ -589,6 +589,9 @@
   .text-wrap {
     text-wrap: wrap;
   }
+  .text-black {
+    color: var(--color-black);
+  }
   .text-green-200 {
     color: var(--color-green-200);
   }
@@ -641,6 +644,10 @@
   .duration-500 {
     --tw-duration: 500ms;
     transition-duration: 500ms;
+  }
+  .duration-1000 {
+    --tw-duration: 1000ms;
+    transition-duration: 1000ms;
   }
   .ease-in-out {
     --tw-ease: var(--ease-in-out);

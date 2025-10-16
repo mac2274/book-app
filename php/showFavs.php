@@ -91,11 +91,7 @@ require_once '../config/lib.php';
 
                 // headerSttus muss das div drüber sein
                 headerStatus.style.backgroundColor = "oklch(97% 0.001 106.424)"; // oklich-color
-                headerStatus.classList.add('top-0');
-                headerStatus.classList.add('h-28');
-                headerStatus.classList.add('transition');
-                headerStatus.classList.add('duration-500');
-                headerStatus.classList.add('opacity-90');
+                headerStatus.classList.add('top-0', 'h-28', 'duration-500', 'opacity-90');
             } else {
                 headerStatus.style.backgroundColor = 'transparent';
             }
@@ -103,7 +99,7 @@ require_once '../config/lib.php';
         // beim scrollen erscheint backButton
         function showBackButton() {
             const showBackButton = document.querySelector('.backButton');
-            if (window.scrollY > 300) {
+            if (window.scrollY > 800) {
                 showBackButton.classList.remove('hidden');
             } else {
                 showBackButton.classList.add('hidden');
@@ -129,7 +125,7 @@ require_once '../config/lib.php';
                                             <span class="text-sm"> - ${book.author} - </span>
                                         </p>
                                         <div class="flex flex-col items-center">
-                                            <button type="button" class="reveal_more my-4 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:ease-in-out hover:duration-500" data-desc="${book.description}">
+                                            <button type="button" class="reveal_more border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:ease-in-out hover:duration-500" data-desc="${book.description}">
                                                 Beschreibung
                                             </button> 
                                         </div>
@@ -166,7 +162,7 @@ require_once '../config/lib.php';
             }
 
         });
-
+        // Bewertung der Bücher mit Thumbs up/down
         document.querySelectorAll('.evaluate_container').forEach(container => {
             container.addEventListener('click', (event) => {
                 // thumbs up
