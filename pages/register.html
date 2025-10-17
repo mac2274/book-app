@@ -12,11 +12,11 @@
 <body class="flex flex-col min-h-screen bg-green-200">
     <header class="fixed w-full flex justify-between items-start">
         <div class="flex gap-x-4 items-center p-4">
-            <a href="../index.html" class="flex item-center ">
-                <img class="flex w-20 h-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
+            <a href="../pages/home.php" class="flex item-center" title="Book Loving Journal">
+                <img class="flex w-20 h-20 rounded-2xl shrink-0" src="../src/img/bj-logo.png" alt="logo">
             </a>
-            <h1 class="flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
-                <a href="../index.html">
+            <h1 class="hidden sm:flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
+                <a href="../pages/home.php">
                     <span>Book</span>
                     <span>loving</span>
                     <span>journal</span>
@@ -27,7 +27,7 @@
 
     <main class="flex flex-grow flex-col item-center justify-center px-6">
         <div id="searchDiv" class="flex flex-col justify-cenrer items-center gap-y-4">
-            <h2 class="text-3xl font-bold py-4">Hier registrieren</h2>
+            <h2 class="text-3xl text-center font-bold py-4">Hier registrieren</h2>
             <form method="POST" action="../php/registerUser.php" class="grid gap-y-4 text-right">
                 <div class="grid grid-cols-3 items-center gap-x-4">
                     <label for="name" class="grid text-xl">Vorname</label>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="grid grid-cols-3 items-center">
                     <input type="submit" id="submitRegisterUser" name="submitRegisterUser" value="Konto anlegen"
-                        class="grid col-span-1 col-start-2 border-2 border-transparent rounded-4xl py-3 px-6 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
+                        class="grid col-span-1 col-start-2 border-2 border-transparent rounded-4xl py-3 px-6 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500 w-fit">
                 </div>
 
                 <p class="text-center">
@@ -75,7 +75,7 @@
     </main>
 
     <footer class="flex justify-center mb-4">
-        <ul class="flex flex-col items-center sm:flex-row gap-x-2">
+        <ul class="flex items-center flex-row gap-x-2">
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
                 <a href="pages/datenschutz.php">Datenschutz</a>
             </li>

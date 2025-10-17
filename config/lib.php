@@ -55,10 +55,6 @@ function loginUser($email, $pwd)
     if ($result->num_rows === 1) {
         $getRow = $result->fetch_assoc();
 
-        // var_dump($getRow['pwd']);
-        // var_dump($pwd);
-        // var_dump(password_verify($pwd, $getRow['pwd']));
-
         if (password_verify($pwd, $getRow['pwd'])) {
             $_SESSION['name'] = $getRow['name'];
             $_SESSION['userId'] = $getRow['id'];
@@ -176,8 +172,8 @@ function showFavs()
 
     foreach ($rows as $row) {
 
-        echo '<li class="listContainer p-4">
-                <div class="flex flex-col justify-center items-center"> 
+        echo '<li class="listContainer w-100 p-4">
+                <div class="flex flex-col justify-center items-center gap-y-4"> 
                     <p class="flex flex-col text-center gap-y-2">
                         <span class="font-bold text-sm italic text-xl"> ' . $row['title'] . ' </span>
                         <span class="text-sm"> - ' . $row['author'] . ' - </span>
@@ -187,7 +183,7 @@ function showFavs()
                             Beschreibung  
                         </button>
                     </div>     
-                    <img class="flex pt-4 pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
+                    <img class="flex pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
 
                     <div>
                         <form class="flex flex-row mb-8">
@@ -233,15 +229,16 @@ function showDoneReading()
     $result = $stmt->get_result();
 
     while ($row = $result->fetch_assoc()) {
-        echo '<li class="listContainer px-8">
-                <div class="flex flex-row gap-x-4 justify-between items-center py-4 gap-y-2"> 
+        echo '<li class="listContainer w-100 px-4">
+                <div class="flex flex-row gap-x-4 gap-y-4 justify-center items-center py-4 gap-y-2"> 
                     <p class="flex flex-col w-100 text-center">
                         <span class="italic text-xl">' . htmlspecialchars($row['title'] ?? 'Kein Titel') . '</span>
                         <span class="text-sm">- ' . htmlspecialchars($row['author'] ?? 'Unbekannt') . ' - </span>
                     </p>
                 
-                    <img class=" pt-4 pb-8 " src="' . htmlspecialchars($row['cover']) . '">
+                    <img class="pb-8 " src="' . htmlspecialchars($row['cover']) . '">
                 </div>  
+
                 <div>
                     <form class="flex flex-row justify-center mb-8">
                         <div class="evaluate_container flex flex-col items-center">
@@ -285,8 +282,8 @@ function showToRead()
     }
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
-        echo '<li class="listContainer p-4">
-                <div class="flex flex-col items-center"> 
+        echo '<li class="listContainer w-100 p-4">
+                <div class="flex flex-col items-center gap-y-4"> 
                     <p class="flex flex-col text-center gap-y-2">
                         <span class="italic text-xl">' . $row['title'] . '</span>
                         <span class="text-sm"> - ' . $row['author'] . ' - </span>
@@ -297,7 +294,7 @@ function showToRead()
                         </button> 
                     </div>
                     <div class="flex">
-                        <img class="flex pt-4 pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
+                        <img class="flex pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
                     </div>
                 </div>    
                 <hr>

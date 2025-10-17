@@ -14,13 +14,12 @@ require_once '../config/lib.php';
 </head>
 
 <body class="flex flex-col min-h-screen bg-green-200">
-
     <header class="fixed w-full flex justify-between items-start">
         <div class="flex gap-x-4 items-center p-4">
-            <a href="../pages/home.php" class="flex item-center ">
-                <img class="flex w-20 h-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
+            <a href="../pages/home.php" class="flex item-center" title="Book Loving Journal">
+                <img class="flex w-20 h-20 rounded-2xl shrink-0" src="../src/img/bj-logo.png" alt="logo">
             </a>
-            <h1 class="flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
+            <h1 class="hidden sm:flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
                 <a href="../pages/home.php">
                     <span>Book</span>
                     <span>loving</span>
@@ -39,9 +38,9 @@ require_once '../config/lib.php';
     </header>
 
     <main class="flex flex-grow flex-col item-center justify-center px-6">
-        <div id="searchDiv" class="mt-38 px-10 pb-20 flex flex-col items-center gap-y-4">
-            <h2 class="text-4xl font-semibold py-4">Deine Favouriten</h2>
-            <ol class="favList list-decimal list-outside w-xl px-8">
+        <div id="searchDiv" class="mt-38 sm:px-10 flex flex-col items-center gap-y-4">
+            <h2 class="text-4xl font-semibold text-center py-4">Deine Favouriten</h2>
+            <ol class="favList flex flex-col items-center list-decimal list-outside w-full md:w-[600px] lg:w-[760px] px-8">
                 <?php showFavs() ?>
             </ol>
 
@@ -61,8 +60,8 @@ require_once '../config/lib.php';
 
     </main>
 
-    <footer class="flex justify-center w-full">
-        <ul class="flex pb-10 pt-40">
+    <footer class="flex justify-center w-full pb-4 pt-40">
+        <ul class="flex">
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
                 <a href="../pages/datenschutz.php">Datenschutz</a>
             </li>
@@ -116,8 +115,8 @@ require_once '../config/lib.php';
 
                 books.forEach(book => {
                     const li = document.createElement('li');
-                    li.className = 'listContainer p-4';
-                    li.innerHTML = `<div class="flex flex-col items-center gap-y-2">
+                    li.className = 'listContainer w-100 p-4';
+                    li.innerHTML = `<div class="book_container flex flex-col items-center gap-y-4">
                                         <p class="flex flex-col text-center gap-y-2">
                                             <span class="font-bold italic text-xl">${book.title}</span>
                                             <span class="text-sm"> - ${book.author} - </span>
@@ -127,7 +126,7 @@ require_once '../config/lib.php';
                                                 Beschreibung
                                             </button> 
                                         </div>
-                                        <img class="flex pt-4 pb-8 items-center" src="${book.cover}" alt="Cover von ${book.title}">
+                                        <img class="flex pb-8 items-center" src="${book.cover}" alt="Cover von ${book.title}">
 
                                         <div>
                                             <form class="flex flex-row mb-8">
@@ -160,8 +159,7 @@ require_once '../config/lib.php';
                 console.error(error.message);
             }
         }
-        // bewerten der Bücher 
-
+        // Beschreibung öffnen 
         document.addEventListener('click', (event) => {
             // wurde auf revealButton geklickt
             const button = event.target.closest(".reveal_more");
@@ -182,7 +180,6 @@ require_once '../config/lib.php';
 
         });
         // Bewertung der Bücher mit Thumbs up/down
-        // document.querySelectorAll('.evaluate_container').forEach(container => {
         document.addEventListener('click', (event) => {
             const container = event.target.closest('.evaluate_container');
             if (!container) return;

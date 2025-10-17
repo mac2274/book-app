@@ -27,10 +27,10 @@ $success = $_GET['success'] ?? 'Erfolgreich eingeloggt!';
 <body class="flex flex-col min-h-screen bg-green-200">
    <header class="fixed w-full flex justify-between items-start">
         <div class="flex gap-x-4 items-center p-4">
-            <a href="../pages/home.php" class="flex item-center ">
-                <img class="flex w-20 h-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
+            <a href="../pages/home.php" class="flex item-center" title="Book Loving Journal">
+                <img class="flex w-20 h-20 rounded-2xl shrink-0" src="../src/img/bj-logo.png" alt="logo">
             </a>
-            <h1 class="flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
+            <h1 class="hidden sm:flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
                 <a href="../pages/home.php">
                     <span>Book</span>
                     <span>loving</span>

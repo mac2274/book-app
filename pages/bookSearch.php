@@ -17,10 +17,10 @@ require_once '../config/lib.php';
 
     <header class="fixed w-full flex justify-between items-start">
         <div class="flex gap-x-4 items-center p-4">
-            <a href="../pages/home.php" class="flex item-center ">
-                <img class="flex w-20 h-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
+            <a href="../pages/home.php" class="flex item-center" title="Book Loving Journal">
+                <img class="flex w-20 h-20 rounded-2xl shrink-0" src="../src/img/bj-logo.png" alt="logo">
             </a>
-            <h1 class="flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
+            <h1 class="hidden sm:flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
                 <a href="../pages/home.php">
                     <span>Book</span>
                     <span>loving</span>
@@ -28,7 +28,6 @@ require_once '../config/lib.php';
                 </a>
             </h1>
         </div>
-
         <!-- logout-button -->
         <div class="flex gap-y-2 items-end flex-col w-60 p-4">
             <p class="">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
@@ -38,14 +37,14 @@ require_once '../config/lib.php';
         </div>
     </header>
 
-    <main class="flex pt-38 flex-grow flex-col item-center gap-y-4 justify-center px-6">
+    <main class="flex flex-grow flex-col justify-center">
         <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
             <h2 class="text-4xl font-semibold py-4">Buchsuche</h2>
             <form action="" class="flex flex-col gap-4">
                 <!--------------------------------------------------------- keine action nötig? -->
-                <div class="flex flex-row items-center gap-x-4">
+                <div class="flex flex-row items-center justify-center gap-x-4">
                     <label for="title" class="text-xl">Titel</label>
-                    <input type="text" id="title" class="border-2 rounded-3xl w-100 p-2 focus:bg-white" required>
+                    <input type="text" id="title" class="border-2 rounded-3xl w-auto p-2 focus:bg-white" required>
                 </div>
 
                 <div class="flex justify-center">
@@ -66,8 +65,8 @@ require_once '../config/lib.php';
 
     </main>
 
-    <footer class="flex justify-center items-end h-full">
-        <ul class="flex pb-4">
+    <footer class="flex justify-center items-end pb-4">
+        <ul class="flex">
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
                 <a href="./datenschutz.php">Datenschutz</a>
             </li>
@@ -249,11 +248,11 @@ require_once '../config/lib.php';
                 // -> 2. results zeigen
                 let searchDiv = document.querySelector('#searchDiv')
                 // Suche einzeilig machen 
-                searchDiv.className = 'flex flex-row';
+                searchDiv.className = 'flex flex-row pt-38';
                 document.querySelector('h2').style.display = 'none';
                 document.querySelector('form').classList.remove('flex-col');
                 document.querySelector('form').classNamme = 'flex-row gap-x-4';
-                searchResult.className = 'flex flex-col pt-10';
+                searchResult.className = 'flex flex-col pt-10 items-center';
                 searchResult.innerHTML = '';
 
                 // überschrift für Suchergebnis
@@ -267,7 +266,7 @@ require_once '../config/lib.php';
 
                     // Container für Buchinfos (item)
                     const bookDiv = document.createElement('div'); // 3. Variante
-                    bookDiv.className = 'createdDiv flex flex-col items-center text-center w-200 gap-y-4 my-4';
+                    bookDiv.className = 'createdDiv flex flex-col items-center text-center gap-y-4 my-4';
                     searchResult.appendChild(bookDiv);
 
                     // Buchtitel

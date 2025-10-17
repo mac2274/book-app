@@ -41,11 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
 
     <header class="fixed w-full flex justify-between items-start">
         <div class="flex gap-x-4 items-center p-4">
-            <a href="../index.html" class="flex item-center ">
-                <img class="flex w-20 h-20 rounded-2xl" src="../src/img/bj-logo.png" alt="logo">
+            <a href="../pages/home.php" class="flex item-center" title="Book Loving Journal">
+                <img class="flex w-20 h-20 rounded-2xl shrink-0" src="../src/img/bj-logo.png" alt="logo">
             </a>
-            <h1 class="flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
-                <a href="../index.html">
+            <h1 class="hidden sm:flex flex-col uppercase w-20 tracking-wide text-2xl leading-none font-bold">
+                <a href="../pages/home.php">
                     <span>Book</span>
                     <span>loving</span>
                     <span>journal</span>
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
     </main>
 
     <footer class="flex justify-center mb-4">
-        <ul class="flex flex-col items-center sm:flex-row gap-x-2">
+        <ul class="flex flex-row items-center gap-x-2">
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
                 <a href="pages/datenschutz.php">Datenschutz</a>
             </li>
