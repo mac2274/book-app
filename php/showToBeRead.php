@@ -62,14 +62,14 @@ require_once '../config/lib.php';
 
     <footer class="flex justify-center w-full">
         <ul class="flex pb-10 pt-40">
-            <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
-                <a href="./datenschutz.php">Datenschutz</a>
+             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
+                <a href="../pages/datenschutz.php">Datenschutz</a>
             </li>
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
-                <a href="./Barrierefreiheit.php">Barrierefreiheit</a>
+                <a href="../pages/barrierefreiheit.php">Barrierefreiheit</a>
             </li>
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
-                <a href="./impressum.php">Impressum</a>
+                <a href="../pages/impressum.php">Impressum</a>
             </li>
         </ul>
     </footer>
