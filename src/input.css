@@ -6,17 +6,27 @@
   font-family: "Playwrite";
   src: url("./fonts/playwrite-de-la-v11-latin-regular.woff2") format("woff2");
 }
-@font-face{
+
+@font-face {
   font-family: "Lavishly-Yours";
   src: url("./fonts/lavishly-yours-v7-latin-regular.woff2") format("woff2");
 }
 
-h2, .niceFont {
+h2,
+.niceFont {
   font-family: "Playwrite";
 }
+
 .greetName {
   font-family: sans-serif;
 }
+
+.hyphens-auto {
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 /* @theme {
     --color-orange: #f2a233;
     --color-yellow: #f2a233;
