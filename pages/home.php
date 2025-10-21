@@ -76,7 +76,7 @@ $success = $_GET['success'] ?? 'Erfolgreich eingeloggt!';
         </div>
     </main>
 
-    <footer class="flex justify-center h-full">
+    <footer class="flex justify-center">
         <ul class="flex pb-4">
             <li class="hover:bg-green-800 hover:text-white hover:rounded-2xl py-1 px-2">
                 <a href="./datenschutz.php">Datenschutz</a>

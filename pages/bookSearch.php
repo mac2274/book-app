@@ -37,7 +37,7 @@ require_once '../config/lib.php';
         </div>
     </header>
 
-    <main class="flex flex-grow flex-col justify-center">
+    <main class="flex flex-grow flex-col justify-center px-4">
         <div id="searchDiv" class="flex flex-col justify-content items-center gap-y-4">
             <h2 class="text-4xl font-semibold py-4">Buchsuche</h2>
             <form action="" class="flex flex-col gap-4">
@@ -323,7 +323,7 @@ require_once '../config/lib.php';
                     // Button addToList erzeugen
                     const addToList = document.createElement('button');
                     addToList.type = "button";
-                    addToList.className = 'bookBtndescription text-md  py-1 px-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white hover:transition duration-500';
+                    addToList.className = 'bookBtndescription text-md py-1 px-2 rounded-3xl border-1 hover:border-green-800 hover:text-green-800 hover:bg-white hover:transition duration-500';
                     addToList.textContent = "zur Liste hinzufügen";
                     bookDiv.appendChild(addToList);
 
@@ -412,8 +412,13 @@ require_once '../config/lib.php';
                             addToReads(book, bookDiv);
                         })
                     })
-                })
 
+                })
+                // Trennstrich
+                const divider = document.createElement('div');
+                divider.className = 'dividerDiv w-100';
+                divider.innerHTML = '<hr>';
+                addToList.appendChild(divider);
             } catch (error) {
                 console.error(error.message);
             }

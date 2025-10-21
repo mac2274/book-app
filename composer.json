@@ -1,0 +1,15 @@
+{
+    "name": "maggiyuen/book-search-journal",
+    "description": "vlucas/phpdotenv",
+    "type": "project",
+    "license": "mit",
+    "authors": [
+        {
+            "name": "composer --v"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
