@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitRegisterUser'])
     }
     // Passwort Validieren
     $errors = validatePassword($password);
-    if (!empty($errors)) {
+    if (!empty($errors)) { 
         foreach ($errors as $error) {
             echo '<p class="text-red>' . htmlspecialchars($error) . '</p>';
         }
@@ -38,19 +38,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitRegisterUser'])
 } else {
     require '../pages/register.php';
 }
-
-
-//     } elseif (emailExists($email)) {
-//         echo '<p class"text-red-500">Diese Email ist bereits in Gebrauch. Bitte wähle eine andere aus. </p>';
-//         require '../pages/register.html';
-//         exit;
-//     } else {
-//         registerUser($name, $surname, $email, $password);
-//         header('Location: ../pages/login.php');
-//     }
-// } else {
-//     echo '<p class"text-red-500">Die Registrierung ist fehlgeschlagen.</p>';
-// }
-
 
 ?>

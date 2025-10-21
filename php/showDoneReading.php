@@ -98,7 +98,7 @@ require_once '../config/lib.php';
         // beim scrollen erscheint backButton
         function showBackButton() {
             const showBackButton = document.querySelector('.backButton');
-            if (window.scrollY > 800) {
+            if (window.scrollY > 100) {
                 showBackButton.classList.remove('hidden');
             } else {
                 showBackButton.classList.add('hidden');

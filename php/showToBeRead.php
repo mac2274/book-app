@@ -55,7 +55,7 @@ require_once '../config/lib.php';
         <!-- ----------------------- zurück-button  -->
         <div class="flex w-full justify-end">
             <a href="../pages/bookShelf.php"
-                class="backButton fixed bottom-10 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+                class="backButton hidden fixed bottom-10 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
                 zurück</a>
         </div>
     </main>
@@ -96,7 +96,7 @@ require_once '../config/lib.php';
         // beim scrollen erscheint backButton
         function showBackButton() {
             const showBackButton = document.querySelector('.backButton');
-            if (window.scrollY > 800) {
+            if (window.scrollY > 100) {
                 showBackButton.classList.remove('hidden');
             } else {
                 showBackButton.classList.add('hidden');
