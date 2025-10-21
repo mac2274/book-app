@@ -18,6 +18,37 @@ function emailExists($email)
     $result = $stmt->get_result();
     return $result->num_rows > 0;
 }
+
+function validatePassword($password) {
+    $errors = [];
+    
+    // Mindestlänge
+    if (strlen($password) < 8) {
+        $errors[] = "Passwort muss mindestens 8 Zeichen lang sein";
+    }
+    
+    // Großbuchstaben
+    if (!preg_match('/[A-Z]/', $password)) {
+        $errors[] = "Passwort muss mindestens einen Großbuchstaben enthalten";
+    }
+    
+    // Kleinbuchstaben  
+    if (!preg_match('/[a-z]/', $password)) {
+        $errors[] = "Passwort muss mindestens einen Kleinbuchstaben enthalten";
+    }
+    
+    // Zahlen
+    if (!preg_match('/\d/', $password)) {
+        $errors[] = "Passwort muss mindestens eine Zahl enthalten";
+    }
+    
+    // Sonderzeichen
+    if (!preg_match('/[@$!%*?&]/', $password)) {
+        $errors[] = "Passwort muss mindestens ein Sonderzeichen (@$!%*?&) enthalten";
+    }
+    
+    return $errors;
+}
 function registerUser($name, $surname, $email, $password)
 {
     global $mysqli;
