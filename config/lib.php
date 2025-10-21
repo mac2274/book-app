@@ -322,7 +322,9 @@ function showToRead()
     }
     $result = $stmt->get_result();
     if ($result->num_rows === 0) {
-        return ['message' => 'Es sind noch keine Bücher hinzugefügt worden.'];
+        // ✅ Jetzt auch ECHO statt RETURN
+        echo '<p class="text-center py-4 ftext-xl">Es sind noch keine Bücher hinzugefügt worden.</p>';
+        return; //['message' => 'Es sind noch keine Bücher hinzugefügt worden.'];
     }
 
     while ($row = $result->fetch_assoc()) {
@@ -419,10 +421,6 @@ function getToBeRead($limit, $offset)
     }
     $result = $stmt->get_result();
     $rows = [];
-
-    if ($result->num_rows === 0) {
-        return ['message' => 'Es sind noch keine Bücher hinzugefügt worden.'];
-    }
 
     while ($row = $result->fetch_assoc()) {
         $rows[] = $row;
