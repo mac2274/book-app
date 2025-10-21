@@ -205,8 +205,12 @@ function showFavs()
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
     $result = $stmt->get_result();
-
-    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    if ($result->num_rows === 0){
+        echo '<p class="text-center py-4">Es sind noch keine Bücher hinzugefügt worden.</p>';
+        return;
+    }
+    
+    $rows = $result->fetch_all(MYSQLI_ASSOC); // direkt das Array holen
 
     foreach ($rows as $row) {
 
@@ -266,6 +270,10 @@ function showDoneReading()
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
     $result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+        echo '<p class="text-center py-4">Es sind noch keine Bücher hinzugefügt worden.</p>';
+        return; 
+    }
 
     while ($row = $result->fetch_assoc()) {
         echo '<li class="listContainer w-100 px-4">
@@ -322,9 +330,9 @@ function showToRead()
     }
     $result = $stmt->get_result();
     if ($result->num_rows === 0) {
-        // ✅ Jetzt auch ECHO statt RETURN
+        // Jetzt auch ECHO statt RETURN
         echo '<p class="text-center py-4 ftext-xl">Es sind noch keine Bücher hinzugefügt worden.</p>';
-        return; //['message' => 'Es sind noch keine Bücher hinzugefügt worden.'];
+        return; 
     }
 
     while ($row = $result->fetch_assoc()) {
