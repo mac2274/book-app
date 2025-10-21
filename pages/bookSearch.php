@@ -269,6 +269,13 @@ require_once '../config/lib.php';
                     bookDiv.className = 'createdDiv flex flex-col items-center text-center gap-y-4 my-4';
                     searchResult.appendChild(bookDiv);
 
+
+                    // Trennstrich
+                    const divider = document.createElement('div');
+                    divider.className = 'dividerDiv w-100 py-4';
+                    divider.innerHTML = '<hr>';
+                    bookDiv.appendChild(divider);
+
                     // Buchtitel
                     const title = document.createElement('h5');
                     title.className = 'bookTitle font-bold italic';
@@ -414,11 +421,7 @@ require_once '../config/lib.php';
                     })
 
                 })
-                // Trennstrich
-                const divider = document.createElement('div');
-                divider.className = 'dividerDiv w-100';
-                divider.innerHTML = '<hr>';
-                addToList.appendChild(divider);
+
             } catch (error) {
                 console.error(error.message);
             }
