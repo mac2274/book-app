@@ -19,41 +19,43 @@ function emailExists($email)
     return $result->num_rows > 0;
 }
 
-function validatePassword($password) {
-    $errors = [];
-    
+function validatePassword($password)
+{
+    $errorMessage = [];
+
     // Mindestlänge
     if (strlen($password) < 8) {
-        $errors[] = "Passwort muss mindestens 8 Zeichen lang sein";
+        $$errorMessage[] = "Passwort muss mindestens 8 Zeichen lang sein";
     }
-    
+
     // Großbuchstaben
     if (!preg_match('/[A-Z]/', $password)) {
-        $errors[] = "Passwort muss mindestens einen Großbuchstaben enthalten";
+        $$errorMessage[] = "Passwort muss mindestens einen Großbuchstaben enthalten";
     }
-    
+
     // Kleinbuchstaben  
     if (!preg_match('/[a-z]/', $password)) {
-        $errors[] = "Passwort muss mindestens einen Kleinbuchstaben enthalten";
+        $$errorMessage[] = "Passwort muss mindestens einen Kleinbuchstaben enthalten";
     }
-    
+
     // Zahlen
     if (!preg_match('/\d/', $password)) {
-        $errors[] = "Passwort muss mindestens eine Zahl enthalten";
+        $$errorMessage[] = "Passwort muss mindestens eine Zahl enthalten";
     }
-    
+
     // Sonderzeichen
     if (!preg_match('/[@$!%*?&]/', $password)) {
-        $errors[] = "Passwort muss mindestens ein Sonderzeichen (@$!%*?&) enthalten";
+        $$errorMessage[] = "Passwort muss mindestens ein Sonderzeichen (@$!%*?&) enthalten";
     }
-    
-    return $errors;
+
+    return $$errorMessage;
 }
+
 function registerUser($name, $surname, $email, $password)
 {
     global $mysqli;
 
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    // $hashedPassword = password_hash($password, PASSWORD_DEFAULT); wird in der Funktion zur Validirrung gesetzt
 
     # Hinzufügen vonneuen Usern
     $sql = "INSERT INTO user (name, surname, email, pwd) VALUES(?,?,?,?)";
@@ -61,12 +63,13 @@ function registerUser($name, $surname, $email, $password)
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('ssss', $name, $surname, $email, $hashedPassword);
+    $stmt->bind_param('ssss', $name, $surname, $email, $password);
     if (!$stmt->execute())
         throw new Exception('Fehlermeldung:' . $stmt->error);
 
     return $stmt->affected_rows;
 }
+
 function loginUser($email, $pwd)
 {
     global $mysqli;
@@ -101,6 +104,7 @@ function loginUser($email, $pwd)
         return false; // Email gibt es nicht nicht
     }
 }
+
 function saveToFavs($data)
 {
     global $mysqli;
@@ -129,6 +133,7 @@ function saveToFavs($data)
     }
     return $stmt->affected_rows;
 }
+
 function saveToDone($data)
 {
     global $mysqli;
@@ -154,6 +159,7 @@ function saveToDone($data)
     }
     return $stmt->affected_rows;
 }
+
 function saveToReads($data)
 {
     global $mysqli;
@@ -181,6 +187,7 @@ function saveToReads($data)
     }
     return $stmt->affected_rows;
 }
+
 function showFavs()
 {
     global $mysqli;
@@ -241,6 +248,7 @@ function showFavs()
             </li>';
     }
 }
+
 function showDoneReading()
 {
     global $mysqli;
@@ -295,6 +303,7 @@ function showDoneReading()
             </li>';
     }
 }
+
 function showToRead()
 {
     global $mysqli;
@@ -312,26 +321,31 @@ function showToRead()
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
     $result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+        return ['message' => 'Es sind noch keine Bücher hinzugefügt worden.'];
+    }
+
     while ($row = $result->fetch_assoc()) {
         echo '<li class="listContainer w-100 p-4">
                 <div class="flex flex-col items-center gap-y-4"> 
                     <p class="flex flex-col text-center gap-y-2">
-                        <span class="italic text-xl">' . $row['title'] . '</span>
-                        <span class="text-sm"> - ' . $row['author'] . ' - </span>
+                        <span class="italic text-xl">' . htmlspecialchars($row['title']) . '</span>
+                        <span class="text-sm"> - ' . htmlspecialchars($row['author']) . ' - </span>
                     </p>
                     <div class="flex flex-col items-center">
-                        <button type="button" class="reveal_more border-black border-1 text-black rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition ease-in-out duration-500" data-desc="' . $row['description'] . '">
+                        <button type="button" class="reveal_more border-black border-1 text-black rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition ease-in-out duration-500" data-desc="' . htmlspecialchars($row['description']) . '">
                             Beschreibung
                         </button> 
                     </div>
                     <div class="flex">
-                        <img class="flex pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
+                        <img class="flex pb-8 items-center" src="' . htmlspecialchars($row['cover']) . '" alt="Cover des Buchs">
                     </div>
                 </div>    
                 <hr>
             </li>';
     }
 }
+
 function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per Button-Klick
 {
     global $mysqli;
@@ -349,12 +363,18 @@ function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per But
     }
     $result = $stmt->get_result();
     $rows = []; // Array erstellen zum Befüllen
+    $noRow = '';
 
     while ($row = $result->fetch_assoc()) {
-        $rows[] = $row;
+        if ($row < 1) {
+            $noRow = 'Es sind noch keine Bücher hinzugefügt worden.';
+        } else {
+            $rows[] = $row;
+        }
     }
     return $rows; // Wiedergabe des Arrays
 }
+
 function getFavs($limit, $offset)
 {
     global $mysqli;
@@ -381,6 +401,7 @@ function getFavs($limit, $offset)
     }
     return $rows; // Wiedergabe des Arrays
 }
+
 function getToBeRead($limit, $offset)
 {
     global $mysqli;
@@ -399,9 +420,14 @@ function getToBeRead($limit, $offset)
     $result = $stmt->get_result();
     $rows = [];
 
+    if ($result->num_rows === 0) {
+        return ['message' => 'Es sind noch keine Bücher hinzugefügt worden.'];
+    }
+
     while ($row = $result->fetch_assoc()) {
         $rows[] = $row;
     }
+
     return $rows;
 }
 

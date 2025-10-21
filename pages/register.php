@@ -47,8 +47,9 @@
                 </div>
                 <div class="grid grid-cols-3 items-center gap-x-4">
                     <label for="pwd" class="grid text-xl">Passwort</label>
-                    <input type="password" id="pwd" name="pwd"
-                        class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+                    <input type="password" id="pwd" name="pwd" minlength="8"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                        class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white" required>
                 </div>
                 <div class="grid grid-cols-3 items-center gap-x-4">
                     <label for="pwdConfirm" class="grid text-xl">Passwort bestätigen</label>
@@ -87,6 +88,8 @@
             </li>
         </ul>
     </footer>
+
+
 </body>
 
 </html>

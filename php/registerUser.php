@@ -1,6 +1,20 @@
 <?php
 require_once '../config/lib.php';
 
+// Verwendung
+$password = $_POST['pwd'];
+$errors = validatePassword($password);
+
+if (empty($errors)) {
+    // Passwort ist sicher
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+} else {
+    // Fehler anzeigen
+    foreach ($errors as $error) {
+        echo "<p>Fehler: $error</p>";
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitRegisterUser'])) {
 
     $name = $_POST['name'] ?? '';
@@ -24,3 +38,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitRegisterUser'])
 
 
 ?>
+
+
