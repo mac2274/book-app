@@ -33,7 +33,7 @@ require_once '../config/lib.php';
             <?php if (!empty($_SESSION['name'])): ?>
                 <p class="">Eingeloggt als <span class="font-bold"><?= htmlspecialchars($_SESSION['name']); ?></span></p>
                 <a href="../php/logout.php"
-                    class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+                    class="logoutBtn justify-self-right bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
             <?php endif; ?>
         </div>
     </header>

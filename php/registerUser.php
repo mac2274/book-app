@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitRegisterUser'])
     registerUser($name, $surname, $email, $hashed_password);
     header('Location: ../pages/login.php');
     exit;
+    
 } else {
     require '../pages/register.php';
 }

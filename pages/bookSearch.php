@@ -33,7 +33,7 @@ require_once '../config/lib.php';
             <p class="">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
 
             <a href="../php/logout.php"
-                class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+                class="logoutBtn justify-self-right bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
         </div>
     </header>
 
@@ -44,12 +44,12 @@ require_once '../config/lib.php';
                 <!--------------------------------------------------------- keine action nötig? -->
                 <div class="flex flex-row items-center justify-center gap-x-4">
                     <label for="title" class="text-xl">Titel</label>
-                    <input type="text" id="title" class="border-2 rounded-3xl w-auto p-2 focus:bg-white" required>
+                    <input type="text" id="title" class="border-1 rounded-3xl w-auto p-2 focus:bg-white" required>
                 </div>
 
                 <div class="flex justify-center">
                     <input type="submit" value="Suchen"
-                        class="border-2 border-transparent rounded-4xl py-2 px-6 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
+                        class="border-1 border-transparent rounded-4xl py-2 px-6 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-1 hover:border-teal-600 transition duration-500">
                 </div>
             </form>
         </div>
@@ -59,7 +59,7 @@ require_once '../config/lib.php';
         <!-- ----------------------- zurück-button  -->
         <div class="w-full justify-end">
             <a href="../pages/home.php"
-                class="backButton fixed bottom-10 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+                class="backButton fixed bottom-10 right-4 bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
                 zurück</a>
         </div>
 

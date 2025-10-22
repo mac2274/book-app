@@ -205,11 +205,16 @@ function showFavs()
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
     $result = $stmt->get_result();
-    if ($result->num_rows === 0){
-        echo '<p class="text-center py-4">Es sind noch keine Bücher hinzugefügt worden.</p>';
+    if ($result->num_rows === 0){ // wenn keine Bücher da, Nachricht mit ZurückButton
+        echo '<p class="text-center py-4">Es sind noch keine Bücher hinzugefügt worden.</p>
+                <div class="flex w-full justify-end">
+                    <a href="../pages/bookShelf.php"
+                        class="backButton fixed bottom-10 right-4 bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">
+                        zurück</a>
+                </div>';
         return;
     }
-    
+
     $rows = $result->fetch_all(MYSQLI_ASSOC); // direkt das Array holen
 
     foreach ($rows as $row) {
@@ -270,8 +275,13 @@ function showDoneReading()
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
     $result = $stmt->get_result();
-    if ($result->num_rows === 0) {
-        echo '<p class="text-center py-4">Es sind noch keine Bücher hinzugefügt worden.</p>';
+    if ($result->num_rows === 0) { // wenn keine Bücher da, Nachricht mit BackButton
+        echo '<p class="text-center py-4">Es sind noch keine Bücher hinzugefügt worden.</p>
+                <div class="flex w-full justify-end">
+                    <a href="../pages/bookShelf.php"
+                        class="backButton fixed bottom-10 right-4 bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">
+                    zurück</a>
+                </div>';
         return; 
     }
 
@@ -329,9 +339,13 @@ function showToRead()
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
     $result = $stmt->get_result();
-    if ($result->num_rows === 0) {
-        // Jetzt auch ECHO statt RETURN
-        echo '<p class="text-center py-4 ftext-xl">Es sind noch keine Bücher hinzugefügt worden.</p>';
+    if ($result->num_rows === 0) { // wenn keine Bücher da, dann wird Nachricht mit BackButton angezeigt
+        echo '<p class="text-center py-4 ftext-xl">Es sind noch keine Bücher hinzugefügt worden.</p>
+                <div class="flex w-full justify-end">
+                    <a href="../pages/bookShelf.php"
+                        class="backButton fixed bottom-10 right-4 bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">
+                    zurück</a>
+                </div>';
         return; 
     }
 

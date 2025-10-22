@@ -33,14 +33,15 @@ require_once '../config/lib.php';
             <p class="">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
 
             <a href="../php/logout.php"
-                class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+                class="logoutBtn justify-self-right bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
         </div>
     </header>
 
     <main class="flex flex-grow flex-col item-center justify-center px-6">
         <div id="searchDiv" class="mt-38 sm:px-10 flex flex-col items-center gap-y-4">
             <h2 class="text-4xl font-semibold text-center py-4">Deine Favouriten</h2>
-            <ol class="favList flex flex-col items-center list-decimal list-outside w-full md:w-[600px] lg:w-[760px] px-8">
+            <ol
+                class="favList flex flex-col items-center list-decimal list-outside w-full md:w-[600px] lg:w-[760px] px-8">
                 <?php showFavs() ?>
             </ol>
 
@@ -95,11 +96,23 @@ require_once '../config/lib.php';
         }
         // beim scrollen erscheint backButton
         function showBackButton() {
-            const showBackButton = document.querySelector('.backButton');
-            if (window.scrollY > 0) {
-                showBackButton.classList.remove('hidden');
-            } else {
-                showBackButton.classList.add('hidden');
+            try {
+                const showBackButton = document.querySelector('.backButton');
+
+                if (!backButton) {
+                    console.warn('BackButton Element nicht gefunden');
+                    return;
+                }
+
+                window.addEventListener('scoll', () => {
+                    if (window.scrollY > 200) {
+                        showBackButton.classList.remove('hidden');
+                    } else {
+                        showBackButton.classList.add('hidden');
+                    }
+                })
+            } catch {
+                console.error('Fehler in showBackButton:', error);
             }
         }
         // beim Klick werden weitere Büchere aus der db angezeigt

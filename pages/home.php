@@ -44,7 +44,7 @@ $success = $_GET['success'] ?? 'Erfolgreich eingeloggt!';
             <p class="">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
 
             <a href="../php/logout.php"
-                class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+                class="logoutBtn justify-self-right bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
         </div>
     </header>
 
@@ -65,11 +65,11 @@ $success = $_GET['success'] ?? 'Erfolgreich eingeloggt!';
 
             <div class="flex flex-row gap-2 flex-wrap justify-center">
                 <a href="./bookSearch.php"
-                    class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+                    class="flex text-md font-semibold text-center p-2 rounded-4xl border-1 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                     Weiter zur Buchsuche
                 </a>
                 <a href="./bookShelf.php"
-                    class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+                    class="flex text-md font-semibold text-center p-2 rounded-4xl border-1 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                     Zu deiner Bibliothek
                 </a>
             </div>

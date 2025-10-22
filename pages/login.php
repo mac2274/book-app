@@ -68,16 +68,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
             <div class="grid grid-cols-3 items-center">
                 <label for="loginEmail" class="text-xl">Email</label>
                 <input type="email" id="loginEmail" name="loginEmail" required
-                    class="grid col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+                    class="grid col-span-2 border-1 border-back rounded-3xl p-2 focus:bg-white">
             </div>
             <div class="grid grid-cols-3 items-center">
                 <label for="loginPwd" class="text-xl">Password</label>
                 <input type="password" id="loginPwd" name="loginPwd" required
-                    class="col-span-2 border-2 border-back rounded-3xl p-2 focus:bg-white">
+                    class="col-span-2 border-1 border-back rounded-3xl p-2 focus:bg-white">
             </div>
             <div class="grid grid-cols-3 items-center">
                 <input type="submit" value="Einloggen" name="loginSubmit"
-                    class="col-start-2 border-2 border-transparent rounded-3xl p-2 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-2 hover:border-teal-600 transition duration-500">
+                    class="col-start-2 border-1 border-transparent rounded-3xl p-2 text-green-200 bg-black hover:bg-white hover:text-teal-600 hover:border-1 hover:border-teal-600 transition duration-500">
             </div>
         </form>
 
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginSubmit'])) {
 
         <div class="flex w-full justify-end">
             <a href="../pages/home.php"
-                class="backButton fixed bottom-10 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+                class="backButton fixed bottom-10 right-4 bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
                 zurück</a>
         </div>
     </main>

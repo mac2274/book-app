@@ -33,7 +33,7 @@ require_once '../config/lib.php';
             <p class="">Eingeloggt als <span class="font-bold"><?php echo $_SESSION['name']; ?></span></p>
 
             <a href="../php/logout.php"
-                class="logoutBtn justify-self-right bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
+                class="logoutBtn justify-self-right bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">Ausloggen</a>
         </div>
     </header>
 
@@ -42,16 +42,16 @@ require_once '../config/lib.php';
             <h2 class="text-4xl text-center font-semibold py-4">Dein Bücherregal</h2>
             <div class="flex flex-row gap-2 flex-wrap justify-center">
                 <a href="../php/showFavs.php"
-                    class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+                    class="flex text-md font-semibold text-center p-2 rounded-4xl border-1 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                     Favouriten
                 </a>
                 <a href="../php/showDoneReading.php"
-                    class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+                    class="flex text-md font-semibold text-center p-2 rounded-4xl border-1 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                     Bereits gelesene Bücher
                 </a>
 
                 <a href="../php/ShowToBeRead.php"
-                    class="flex text-md font-semibold text-center p-2 rounded-4xl border-2 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
+                    class="flex text-md font-semibold text-center p-2 rounded-4xl border-1 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                     Noch zu lesene Bücher
                 </a>
             </div>
@@ -60,7 +60,7 @@ require_once '../config/lib.php';
         <!-- ----------------------- zurück-button  -->
         <div class="flex w-full justify-end">
             <a href="../pages/home.php"
-                class="backButton fixed bottom-10 right-4 bg-black border-transparent border-2 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
+                class="backButton fixed bottom-10 right-4 bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black hover:transition duration-500">
                 zurück</a>
         </div>
     </main>
