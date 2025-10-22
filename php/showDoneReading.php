@@ -86,7 +86,7 @@ require_once '../config/lib.php';
 
         // header wird weiß beim vertikalen Scrollen
         function scrollDown() {
-            if (window.scrollY > 50) {
+            if (window.scrollY > 0) {
 
                 // headerSttus muss das div drüber sein
                 headerStatus.style.backgroundColor = "oklch(97% 0.001 106.424)"; // oklich-color
@@ -98,7 +98,7 @@ require_once '../config/lib.php';
         // beim scrollen erscheint backButton
         function showBackButton() {
             const showBackButton = document.querySelector('.backButton');
-            if (window.scrollY > 100) {
+            if (window.scrollY > 00) {
                 showBackButton.classList.remove('hidden');
             } else {
                 showBackButton.classList.add('hidden');
