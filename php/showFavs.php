@@ -89,7 +89,7 @@ require_once '../config/lib.php';
 
                 // headerSttus muss das div drüber sein
                 headerStatus.style.backgroundColor = "oklch(97% 0.001 106.424)"; // oklich-color
-                headerStatus.classList.add('top-0', 'h-28', 'duration-500', 'opacity-90');
+                headerStatus.classList.add('top-0', 'h-28', 'duration-500', 'opacity-90', 'z-999');
             } else {
                 headerStatus.style.backgroundColor = 'transparent';
             }
@@ -196,45 +196,49 @@ require_once '../config/lib.php';
         document.addEventListener('click', (event) => {
             const container = event.target.closest('.evaluate_container');
             if (!container) return;
-
             // thumbs up
-            const likeClicked = event.target.closest('.likeImg');
-            const dislikeClicked = event.target.closest('.dislikeImg');
+            const likeClicked = event.target.closest('.likeSvgEmpty');
+            const dislikeClicked = event.target.closest('.dislikeSvgEmpty');
             // wenn nichts geklickt wurde
             if (!likeClicked && !dislikeClicked) return;
-
+            // Elemente im aktuellen Container holen
             const likeEval = container.querySelector('.like');
             const dislikeEval = container.querySelector('.dislike');
-            const likeImg = container.querySelector('.likeImg');
-            const dislikeImg = container.querySelector('.dislikeImg');
+            const likeSvgEmpty = container.querySelector('.likeSvgEmpty');
+            const likeSvgFilled = container.querySelector('.likeSvgFilled');
+            const dislikeSvgEmpty = container.querySelector('.dislikeSvgEmpty');
+            const dislikeSvgFilled = container.querySelector('.dislikeSvgFilled');
             // Entferne Texte bevor neue erstellt werden
             container.querySelectorAll('.liked, .disliked').forEach(element => element.remove());
             // wenn thumbs up geklickt ist 
             if (likeClicked) {
                 const evalText = document.createElement('p');
                 evalText.className = 'liked pt-4 text-green-600';
-                evalText.textContent = likeImg.alt;
+                evalText.textContent = likeSvgFilled.querySelector('desc').textContent;
                 container.appendChild(evalText);
 
                 likeEval.checked = true;
                 dislikeEval.checked = false;
-                likeImg.src = '../src/img/thumbs-up-solid-full.svg';
-                dislikeImg.src = '../src/img/thumbs-up-solid-empty.svg';
+                likeSvgEmpty.classList.add('hidden');
+                likeSvgFilled.classList.remove('hidden');
+                dislikeSvgEmpty.classList.remove('hidden');
+                dislikeSvgFilled.classList.add('hidden')
             }
             // wenn thumbs down geklickt ist
             if (dislikeClicked) {
                 const evalText = document.createElement('p');
                 evalText.className = 'disliked pt-4 text-red-600';
-                evalText.textContent = dislikeImg.alt;
+                evalText.textContent = dislikeSvgFilled.querySelector('desc').textContent;
                 container.appendChild(evalText);
 
                 dislikeEval.checked = true;
                 likeEval.checked = false;
-                dislikeImg.src = '../src/img/thumbs-up-solid-full.svg';
-                likeImg.src = '../src/img/thumbs-up-solid-empty.svg';
+                dislikeSvgEmpty.classList.add('hidden');
+                dislikeSvgFilled.classList.remove('hidden');
+                likeSvgEmpty.classList.remove('hidden');
+                likeSvgFilled.classList.add('hidden')
             }
         });
-
         window.addEventListener('scroll', scrollDown);
         window.addEventListener('scroll', showBackButton);
         btnShowMore.addEventListener('click', showMoreBooks);

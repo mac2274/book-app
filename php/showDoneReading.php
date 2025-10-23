@@ -91,7 +91,7 @@ require_once '../config/lib.php';
 
                 // headerSttus muss das div drüber sein
                 headerStatus.style.backgroundColor = "oklch(97% 0.001 106.424)"; // oklich-color
-                headerStatus.classList.add('top-0', 'h-28', 'duration-500', 'opacity-90');
+                headerStatus.classList.add('top-0', 'h-28', 'duration-500', 'opacity-90', 'z-999');
             } else {
                 headerStatus.style.backgroundColor = 'transparent';
             }
