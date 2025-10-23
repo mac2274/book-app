@@ -99,19 +99,19 @@ require_once '../config/lib.php';
             try {
                 const showBackButton = document.querySelector('.backButton');
 
-                if (!backButton) {
+                if (!showBackButton) {
                     console.warn('BackButton Element nicht gefunden');
                     return;
                 }
 
-                window.addEventListener('scoll', () => {
-                    if (window.scrollY > 200) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 1) {
                         showBackButton.classList.remove('hidden');
                     } else {
                         showBackButton.classList.add('hidden');
                     }
                 })
-            } catch {
+            } catch (error) {
                 console.error('Fehler in showBackButton:', error);
             }
         }

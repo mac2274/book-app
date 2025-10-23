@@ -1,4 +1,6 @@
 <?php
+
+
 require_once '../config/lib.php';
 
 $userId = $_SESSION['userId'] ?? NULL;
@@ -8,6 +10,9 @@ if (!$userId) {
 }
 
 $success = $_GET['success'] ?? 'Erfolgreich eingeloggt!';
+
+
+
 
 ?>
 

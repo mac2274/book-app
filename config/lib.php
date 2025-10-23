@@ -239,13 +239,13 @@ function showFavs()
                                     <div class="flex items-center">
                                         <label for="like" class="thumb_like flex flex-col items-center">
                                             <input type="radio" value="like" name="evalution_book" class="like hidden">
-                                            <img src="../src/img/thumbs-up-solid-empty.svg" class="likeImg w-10" alt="Dieses Buch gefällt mir!">
+                                            <img src="../src/img/thumbs-up-solid-empty.svg" class="likeImg w-10 cursor-pointer hover:filter hover:saturation-0 hover:border-green-400 hover:bg-black" alt="Dieses Buch gefällt mir!">
                                         </label>
                                     </div>    
                                     <div class="flex justify-center">
                                         <label for="dislike" class="thumb_dislikes flex flex-col items-center">
                                             <input type="radio" value="dislike" name="evalution_book" class="dislike hidden">
-                                            <img src="../src/img/thumbs-up-solid-empty.svg" class="dislikeImg w-10 rotate-180" alt="Dieses Buch gefällt mir nicht!">
+                                            <img src="../src/img/thumbs-up-solid-empty.svg" class="dislikeImg w-10 rotate-180 hover:border-red-400" alt="Dieses Buch gefällt mir nicht!">
                                         </label>
                                     </div>
                                 </div>
@@ -303,7 +303,7 @@ function showDoneReading()
                                 <div class="flex items-center">
                                     <label for="like" class="thumb_like flex flex-col items-center">
                                         <input type="radio" value="like" name="evalution_book" class="like hidden">
-                                        <img src="../src/img/thumbs-up-solid-empty.svg" class="likeImg w-10" alt="Dieses Buch gefällt mir!">
+                                        <img src="../src/img/thumbs-up-solid-empty.svg" class="likeImg w-10 hover:filter hover:brightness-0 hover:saturate-100" alt="Dieses Buch gefällt mir!">
                                     </label>
                                 </div>    
                                 <div class="flex justify-center">

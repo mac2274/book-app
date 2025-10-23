@@ -27,6 +27,17 @@ h2,
   word-break: break-word;
 }
 
+.like-svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #9CA3AF; /* gray-400 */
+    transition: color 0.3s ease;
+}
+
+.thumb_like:hover .like-svg {
+    color: #10B981; /* green-500 */
+}
+
 /* @theme {
     --color-orange: #f2a233;
     --color-yellow: #f2a233;

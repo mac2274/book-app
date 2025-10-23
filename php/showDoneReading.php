@@ -8,7 +8,7 @@ require_once '../config/lib.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../src/output.css" rel="stylesheet">
+    <link href="../src/output.css?v=2" rel="stylesheet">
     <title>Bereits gelesene Bücher</title>
     <link rel="icon" type="image/x-icon" href="../src/img/bj-logo.png">
 </head>
