@@ -476,8 +476,14 @@
   .bg-green-200 {
     background-color: var(--color-green-200);
   }
+  .bg-green-400 {
+    background-color: var(--color-green-400);
+  }
   .bg-green-500 {
     background-color: var(--color-green-500);
+  }
+  .bg-green-600 {
+    background-color: var(--color-green-600);
   }
   .bg-green-800 {
     background-color: var(--color-green-800);
@@ -781,6 +787,13 @@
       }
     }
   }
+  .hover\:bg-green-600 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-green-600);
+      }
+    }
+  }
   .hover\:bg-green-800 {
     &:hover {
       @media (hover: hover) {
@@ -816,6 +829,13 @@
       }
     }
   }
+  .hover\:text-green-600 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-green-600);
+      }
+    }
+  }
   .hover\:text-green-700 {
     &:hover {
       @media (hover: hover) {
@@ -834,6 +854,13 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color-orange-200);
+      }
+    }
+  }
+  .hover\:text-red-600 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-red-600);
       }
     }
   }
