@@ -313,6 +313,26 @@ function showDoneReading()
                                     </label>
                                 </div>
                             </div>
+
+                            <div class="flex gap-4 w-100>
+                                <label for="like" class="thumb_like flex flex-col items-center">
+                                    <input id="like" type="radio" value="like" name="evalution_book" class="like hidden">
+                                    
+                                    <svg class="w-9 hover:text-green-700 transition-colors duration-500" 
+                                        fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                        <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+                                    </svg>
+                                </label>
+                                                        
+                                <label for="dislike" class="thumb_dislikes flex flex-col items-center">
+                                    <input type="radio" value="dislike" name="evalution_book" class="dislike hidden">
+                                    <svg class="w-9 rotate-180 hover:text-red-700 transition-colors duration-500" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+                                    </svg>
+                                </label>    
+
+                            
+                            </div>
                         </div>
                     </form>
                     </div>
