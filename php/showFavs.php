@@ -238,6 +238,9 @@ require_once '../config/lib.php';
                 likeSvgEmpty.classList.remove('hidden');
                 likeSvgFilled.classList.add('hidden')
             }
+            if(likeClicked || dislikeClicked){
+                
+            }
         });
         window.addEventListener('scroll', scrollDown);
         window.addEventListener('scroll', showBackButton);

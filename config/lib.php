@@ -22,32 +22,26 @@ function emailExists($email)
 function validatePassword($password)
 {
     $errorMessage = [];
-
     // Mindestlänge
     if (strlen($password) < 8) {
         $$errorMessage[] = "Passwort muss mindestens 8 Zeichen lang sein";
     }
-
     // Großbuchstaben
     if (!preg_match('/[A-Z]/', $password)) {
         $$errorMessage[] = "Passwort muss mindestens einen Großbuchstaben enthalten";
     }
-
     // Kleinbuchstaben  
     if (!preg_match('/[a-z]/', $password)) {
         $$errorMessage[] = "Passwort muss mindestens einen Kleinbuchstaben enthalten";
     }
-
     // Zahlen
     if (!preg_match('/\d/', $password)) {
         $$errorMessage[] = "Passwort muss mindestens eine Zahl enthalten";
     }
-
     // Sonderzeichen
     if (!preg_match('/[@$!%*?&]/', $password)) {
         $$errorMessage[] = "Passwort muss mindestens ein Sonderzeichen (@$!%*?&) enthalten";
     }
-
     return $$errorMessage;
 }
 
