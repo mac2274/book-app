@@ -477,6 +477,16 @@ function getToBeRead($limit, $offset)
 function addEval($eval, $userId, $bookId) {
     global $mysqli;
 
+    // Prüfen, ob das Buch zum eingeloggten User gehört
+    $stmt = $mysqli->prepare("SELECT id FROM books_fav WHERE id = ? AND userId = ?");
+    $stmt->bind_param("ii", $bookId, $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+        throw new Exception("Dieses Buch gehört nicht zu diesem User.");
+    }
+
+    // Wenn alles passt, Bewertung speichern
     $sql = 'INSERT INTO eval_books (evaluation, user_id, bookId) VALUES(?,?,?)';
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {

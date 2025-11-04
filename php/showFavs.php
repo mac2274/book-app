@@ -248,7 +248,7 @@ require_once '../config/lib.php';
                 dislikeSvgEmpty.classList.remove('hidden');
                 dislikeSvgFilled.classList.add('hidden');
                 //
-                const bookId = container.dataset.bookId;
+                const bookId = container.querySelector('input[name="bookId"]').value;;
                 sendEval(bookId, 1); // 1 = Like
             }
             // wenn thumbs down geklickt ist
@@ -265,7 +265,7 @@ require_once '../config/lib.php';
                 likeSvgEmpty.classList.remove('hidden');
                 likeSvgFilled.classList.add('hidden');
                 //
-                const bookId = container.dataset.bookId;
+                const bookId = container.querySelector('input[name="bookId"]').value;;
                 sendEval(bookId, 0); // 0 = Dislike
             }
         });
