@@ -230,9 +230,12 @@ function showFavs()
                         <form class="flex flex-row mb-8">
                             <div class="evaluate_container flex flex-col items-center z-0">
                                 <div class="flex gap-4 w-100>
-                                    <form action="saveRating.php" method="POST">
+                                    <form id="ratingForm" action="saveRating.php" method="POST">
+                                        <label>
+                                            <input type="hidden" name="bookId" value="'. $row['id'] .'">
+                                        </label>
                                         <label class="thumb_like flex flex-col items-center">
-                                            <input type="radio" value="like" name="evalution_book" class="like hidden">
+                                            <input type="radio" value="1" name="evalution_book" class="like hidden">
                                             <svg class="likeSvgEmpty w-9 hover:text-green-600 transition-colors duration-500" 
                                                 fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                                 <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
@@ -244,7 +247,7 @@ function showFavs()
                                             </svg>
                                         </label>
                                         <label class="thumb_dislike flex flex-col items-center">
-                                            <input type="radio" value="dislike" name="evalution_book" class="dislike hidden">
+                                            <input type="radio" value="0" name="evalution_book" class="dislike hidden">
                                             <svg class="dislikeSvgEmpty rotate-180 w-9 hover:text-red-600 transition-colors duration-500" 
                                                 fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                                 <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
@@ -256,7 +259,7 @@ function showFavs()
                                             </svg>
                                         </label>    
                                     </form>          
-                            </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -471,18 +474,18 @@ function getToBeRead($limit, $offset)
     return $rows;
 }
 
-function addEval($eval, $userId) {
+function addEval($userId, $bookId, $eval) {
     global $mysqli;
 
     // $userId aus login nehmen, um Userlisten zu zeigen  
     $userId = $_SESSION['userId'];
 
-    $sql = 'INSERT INTO eval_books (evaluation, userId) VALUES(?,?)';
+    $sql = 'INSERT INTO eval_books ($userId, $bookId, $eval) VALUES(?,?,?)';
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('ii', $eval, $userId);
+    $stmt->bind_param('iii', $userId, $bookId, $eval);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }

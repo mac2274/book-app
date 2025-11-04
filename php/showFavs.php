@@ -172,6 +172,30 @@ require_once '../config/lib.php';
                 console.error(error.message);
             }
         }
+
+        // Bewertung speichern
+        async function saendEval(bookId, eval) {
+            const formData = new FormData();
+            formData.append('bookId', bookId);
+            formData.append('evaluation_book', eval);
+
+            try {
+                const response = await fetch('./saveRating.php', {
+                    method: "POST",
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                const result = await response.json();
+                console.log(result);
+            }
+         
+        } catch (error) {
+            console.error(error.message);
+        }
+
+
         // Beschreibung öffnen 
         document.addEventListener('click', (event) => {
             // wurde auf revealButton geklickt
@@ -211,6 +235,7 @@ require_once '../config/lib.php';
             // Entferne Texte bevor neue erstellt werden
             container.querySelectorAll('.liked, .disliked').forEach(element => element.remove());
             // wenn thumbs up geklickt ist 
+
             if (likeClicked) {
                 const evalText = document.createElement('p');
                 evalText.className = 'liked pt-4 text-green-600';
@@ -222,7 +247,10 @@ require_once '../config/lib.php';
                 likeSvgEmpty.classList.add('hidden');
                 likeSvgFilled.classList.remove('hidden');
                 dislikeSvgEmpty.classList.remove('hidden');
-                dislikeSvgFilled.classList.add('hidden')
+                dislikeSvgFilled.classList.add('hidden');
+                //
+                const bookId = container.dataset.bookId;
+                sendEval(bookId, eval); // 1 = Like
             }
             // wenn thumbs down geklickt ist
             if (dislikeClicked) {
@@ -236,10 +264,10 @@ require_once '../config/lib.php';
                 dislikeSvgEmpty.classList.add('hidden');
                 dislikeSvgFilled.classList.remove('hidden');
                 likeSvgEmpty.classList.remove('hidden');
-                likeSvgFilled.classList.add('hidden')
-            }
-            if(likeClicked || dislikeClicked){
-                
+                likeSvgFilled.classList.add('hidden');
+                //
+                const bookId = container.dataset.bookId;
+                saendEval(bookId, eval); // 0 = Dislike
             }
         });
         window.addEventListener('scroll', scrollDown);
