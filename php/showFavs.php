@@ -174,7 +174,7 @@ require_once '../config/lib.php';
         }
 
         // Bewertung speichern
-        async function saendEval(bookId, eval) {
+        async function sendEval(bookId, eval) {
             const formData = new FormData();
             formData.append('bookId', bookId);
             formData.append('evaluation_book', eval);
@@ -189,10 +189,9 @@ require_once '../config/lib.php';
                 }
                 const result = await response.json();
                 console.log(result);
+            } catch(error) {
+                console.error(error.message);
             }
-         
-        } catch (error) {
-            console.error(error.message);
         }
 
 
@@ -250,7 +249,7 @@ require_once '../config/lib.php';
                 dislikeSvgFilled.classList.add('hidden');
                 //
                 const bookId = container.dataset.bookId;
-                sendEval(bookId, eval); // 1 = Like
+                sendEval(bookId, 1); // 1 = Like
             }
             // wenn thumbs down geklickt ist
             if (dislikeClicked) {
@@ -267,7 +266,7 @@ require_once '../config/lib.php';
                 likeSvgFilled.classList.add('hidden');
                 //
                 const bookId = container.dataset.bookId;
-                saendEval(bookId, eval); // 0 = Dislike
+                sendEval(bookId, 0); // 0 = Dislike
             }
         });
         window.addEventListener('scroll', scrollDown);

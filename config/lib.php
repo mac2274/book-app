@@ -474,18 +474,15 @@ function getToBeRead($limit, $offset)
     return $rows;
 }
 
-function addEval($userId, $bookId, $eval) {
+function addEval($eval, $userId, $bookId) {
     global $mysqli;
 
-    // $userId aus login nehmen, um Userlisten zu zeigen  
-    $userId = $_SESSION['userId'];
-
-    $sql = 'INSERT INTO eval_books ($userId, $bookId, $eval) VALUES(?,?,?)';
+    $sql = 'INSERT INTO eval_books (evaluation, user_id, bookId) VALUES(?,?,?)';
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('iii', $userId, $bookId, $eval);
+    $stmt->bind_param('iii', $eval, $userId, $bookId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
