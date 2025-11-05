@@ -129,25 +129,40 @@ require_once '../config/lib.php';
                                         <img class="flex pb-8 items-center" src="${book.cover}" alt="Cover von ${book.title}">
                                     </div>
                                     
-                                    <div>
-                                        <form class="flex justify-center flex-row mb-8">
-                                            <div class="evaluate_container flex flex-col items-center">
-                                                <div class="flex gap-x-4">
-                                                    <div class="flex items-center">
-                                                        <label for="like" class="thumb_like flex flex-col items-center">
-                                                            <input type="radio" value="like" name="evalution_book" class="like hidden">
-                                                            <img src="../src/img/thumbs-up-solid-empty.svg" class="likeImg w-10" alt="Dieses Buch gefällt mir!">
-                                                        </label>
-                                                    </div>    
-                                                    <div class="flex justify-center">
-                                                        <label for="dislike" class="thumb_dislikes flex flex-col items-center">
-                                                            <input type="radio" value="dislike" name="evalution_book" class="dislike hidden">
-                                                            <img src="../src/img/thumbs-up-solid-empty.svg" class="dislikeImg w-10 rotate-180" alt="Dieses Buch gefällt mir nicht!">
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
+                                    <div class="evaluate_container flex flex-col items-center mb-8 z-0">
+                                        <div class="flex gap-4 w-100 justify-center">
+                                            <form action="saveRating.php" method="POST" class="flex flex-row gap-4 justify-center w-100">
+                                                <label>
+                                                    <input type="hidden" name="bookId" value="${book.id}">
+                                                </label>
+                                                <div class="flex flex-row gap-4 justify-center w-full">
+                                                    <label class="thumb_like flex flex-col items-center">
+                                                        <input type="radio" value="1" name="evalution_book" class="like hidden">
+                                                        <svg class="likeSvgEmpty w-9 hover:text-green-600 transition-colors duration-500" 
+                                                            fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                                            <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+                                                        </svg>
+                                                        <svg class="likeSvgFilled w-9 hidden text-green-600"
+                                                            fill="currentColor" viewBox="0 0 24 24">
+                                                            <desc>Dieses Buch gefällt mir!</desc>
+                                                            <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+                                                        </svg>
+                                                    </label>
+                                                    <label class="thumb_dislike flex flex-col items-center">
+                                                        <input type="radio" value="0" name="evalution_book" class="dislike hidden">
+                                                        <svg class="dislikeSvgEmpty rotate-180 w-9 hover:text-red-600 transition-colors duration-500" 
+                                                            fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                                            <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+                                                        </svg>
+                                                        <svg class="dislikeSvgFilled rotate-180 w-9 hidden text-red-600"
+                                                            fill="currentColor" viewBox="0 0 24 24">
+                                                            <desc>Dieses Buch gefällt mir nicht.</desc>
+                                                            <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+                                                        </svg>
+                                                    </label> 
+                                                </div>       
+                                            </form>          
+                                        </div>
                                     </div>
                                     <hr>`;
                     doneContainer.appendChild(li);
