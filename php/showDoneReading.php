@@ -175,6 +175,27 @@ require_once '../config/lib.php';
             }
         }
 
+         // Bewertung speichern
+        async function sendEval(bookId, eval) {
+            const formData = new FormData();
+            formData.append('bookId', bookId);
+            formData.append('evaluation_book', eval);
+
+            try {
+                const response = await fetch('./saveDoneReadingRating.php', {
+                    method: "POST",
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                const result = await response.json();
+                console.log(result);
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
         // Bewertung der Bücher mit Thumbs up/down
         document.addEventListener('click', (event) => {
             const container = event.target.closest('.evaluate_container');
@@ -205,7 +226,10 @@ require_once '../config/lib.php';
                 likeSvgEmpty.classList.add('hidden');
                 likeSvgFilled.classList.remove('hidden');
                 dislikeSvgEmpty.classList.remove('hidden');
-                dislikeSvgFilled.classList.add('hidden')
+                dislikeSvgFilled.classList.add('hidden');
+                // variable für BuchId
+                const bookId = container.querySelector('input[name="bookId"]').value;
+                sendEval(bookId, 1);
             }
             // wenn thumbs down geklickt ist
             if (dislikeClicked) {
@@ -219,7 +243,10 @@ require_once '../config/lib.php';
                 dislikeSvgEmpty.classList.add('hidden');
                 dislikeSvgFilled.classList.remove('hidden');
                 likeSvgEmpty.classList.remove('hidden');
-                likeSvgFilled.classList.add('hidden')
+                likeSvgFilled.classList.add('hidden');
+                // Variable für BuchId
+                const bookId = container.querySelector('input[name="bookId"]').value;
+                sendEval(bookId, 0);
             }
         });
 

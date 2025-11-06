@@ -143,7 +143,7 @@ require_once '../config/lib.php';
 
                                          <div class="evaluate_container flex flex-col items-center mb-8 z-0">
                                             <div class="flex gap-4 w-100 justify-center">
-                                                <form action="saveRating.php" method="POST">
+                                                <form action="saveFavRating.php" method="POST">
                                                     <label>
                                                         <input type="hidden" name="bookId" value="${book.id}">
                                                     </label>
@@ -195,7 +195,7 @@ require_once '../config/lib.php';
             formData.append('evaluation_book', eval);
 
             try {
-                const response = await fetch('./saveRating.php', {
+                const response = await fetch('./saveFavRating.php', {
                     method: "POST",
                     body: formData
                 });
@@ -208,7 +208,6 @@ require_once '../config/lib.php';
                 console.error(error.message);
             }
         }
-
 
         // Beschreibung öffnen 
         document.addEventListener('click', (event) => {
@@ -249,7 +248,6 @@ require_once '../config/lib.php';
             // Entferne Texte bevor neue erstellt werden
             container.querySelectorAll('.liked, .disliked').forEach(element => element.remove());
             // wenn thumbs up geklickt ist 
-
             if (likeClicked) {
                 const evalText = document.createElement('p');
                 evalText.className = 'liked pt-4 text-green-600';
@@ -262,7 +260,7 @@ require_once '../config/lib.php';
                 likeSvgFilled.classList.remove('hidden');
                 dislikeSvgEmpty.classList.remove('hidden');
                 dislikeSvgFilled.classList.add('hidden');
-                //
+                // Variable für BuchId
                 const bookId = container.querySelector('input[name="bookId"]').value;;
                 sendEval(bookId, 1); // 1 = Like
             }
@@ -280,10 +278,11 @@ require_once '../config/lib.php';
                 likeSvgEmpty.classList.remove('hidden');
                 likeSvgFilled.classList.add('hidden');
                 //
-                const bookId = container.querySelector('input[name="bookId"]').value;;
+                const bookId = container.querySelector('input[name="bookId"]').value;
                 sendEval(bookId, 0); // 0 = Dislike
             }
         });
+
         window.addEventListener('scroll', scrollDown);
         window.addEventListener('scroll', showBackButton);
         btnShowMore.addEventListener('click', showMoreBooks);

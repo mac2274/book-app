@@ -216,22 +216,22 @@ function showFavs()
         echo '<li class="listContainer w-100 p-4">
                 <div class="flex flex-col justify-center items-center gap-y-4"> 
                     <p class="flex flex-col text-center gap-y-2">
-                        <span class="font-bold text-sm italic text-xl"> ' . $row['title'] . ' </span>
-                        <span class="text-sm"> - ' . $row['author'] . ' - </span>
+                        <span class="font-bold text-sm italic text-xl"> ' . htmlspecialchars($row['title']) . ' </span>
+                        <span class="text-sm"> - ' . htmlspecialchars($row['author']) . ' - </span>
                     </p>
                     <div class="flex flex-col items-center">
-                        <button type="button" class="reveal_more my-1 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition hover:ease-in-out hover:duration-500" data-desc="' . $row['description'] . '">
+                        <button type="button" class="reveal_more my-1 border-1 rounded-3xl py-1 px-2 hover:bg-green-800 hover:text-white hover:transition hover:ease-in-out hover:duration-500" data-desc="' . htmlspecialchars($row['description']) . '">
                             Beschreibung  
                         </button>
                     </div>     
-                    <img class="flex pb-8 items-center" src="' . $row['cover'] . '" alt="Cover des Buchs">
+                    <img class="flex pb-8 items-center" src="' . htmlspecialchars($row['cover']) . '" alt="Cover des Buchs">
 
                     <div>
                             <div class="evaluate_container flex flex-col items-center mb-8 z-0">
                                 <div class="flex gap-4 w-100 justify-center">
-                                    <form action="saveRating.php" method="POST" class="flex flex-row gap-4 justify-center w-100">
+                                    <form action="saveFavRating.php" method="POST" class="flex flex-row gap-4 justify-center w-100">
                                         <label>
-                                            <input type="hidden" name="bookId" value="'. $row['id'] .'">
+                                            <input type="hidden" name="bookId" value="'. htmlspecialchars($row['id']) .'">
                                         </label>
                                         <div class="flex flex-row gap-4 justify-center w-full">
                                             <label class="thumb_like flex flex-col items-center">
@@ -308,38 +308,43 @@ function showDoneReading()
                 </div>  
 
                 <div>
-                    <form class="flex flex-row justify-center mb-8">
-                        <div class="evaluate_container flex flex-col items-center z-0">
-                            <div class="flex gap-4 w-100>
-                                <label for="like" class="thumb_like flex flex-col items-center">
-                                    <input type="radio" value="like" name="evalution_book" class="like hidden">
-                                    <svg class="likeSvgEmpty w-9 hover:text-green-600 transition-colors duration-500" 
-                                        fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                        <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
-                                    </svg>
-                                    <svg class="likeSvgFilled w-9 hidden text-green-600"
-                                        fill="currentColor" viewBox="0 0 24 24">
-                                        <desc>Dieses Buch gefällt mir!</desc>
-                                        <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
-                                    </svg>
+                    <div class="evaluate_container flex flex-col items-center mb-8 z-0">
+                        <div class="flex gap-4 w-100 justify-center">
+                            <form action="saveDoneReadingRating.php" method="POST" class="flex flex-row gap-4 justify-center w-100">
+                                 <label>
+                                    <input type="hidden" name="bookId" value="'. htmlspecialchars($row['id']) .'">
                                 </label>
-                                <label for="dislike" class="thumb_dislike flex flex-col items-center">
-                                    <input type="radio" value="like" name="evalution_book" class="dislike hidden">
-                                    <svg class="dislikeSvgEmpty rotate-180 w-9 hover:text-red-600 transition-colors duration-500" 
-                                        fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                        <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
-                                    </svg>
-                                    <svg class="dislikeSvgFilled rotate-180 w-9 hidden text-red-600"
-                                        fill="currentColor" viewBox="0 0 24 24">
-                                        <desc>Dieses Buch gefällt mir nicht.</desc>
-                                        <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
-                                    </svg>
-                                </label>              
-                            </div>
+                                <div class="evaluate_container flex flex-col items-center z-0">
+                                    <div class="flex gap-4 w-100>
+                                        <label for="like" class="thumb_like flex flex-col items-center">
+                                            <input type="radio" value="like" name="evalution_book" class="like hidden">
+                                            <svg class="likeSvgEmpty w-9 hover:text-green-600 transition-colors duration-500" 
+                                                fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                                <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+                                            </svg>
+                                            <svg class="likeSvgFilled w-9 hidden text-green-600"
+                                                fill="currentColor" viewBox="0 0 24 24">
+                                                <desc>Dieses Buch gefällt mir!</desc>
+                                                <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+                                            </svg>
+                                        </label>
+                                        <label for="dislike" class="thumb_dislike flex flex-col items-center">
+                                            <input type="radio" value="like" name="evalution_book" class="dislike hidden">
+                                            <svg class="dislikeSvgEmpty rotate-180 w-9 hover:text-red-600 transition-colors duration-500" 
+                                                fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                                <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+                                            </svg>
+                                            <svg class="dislikeSvgFilled rotate-180 w-9 hidden text-red-600"
+                                                fill="currentColor" viewBox="0 0 24 24">
+                                                <desc>Dieses Buch gefällt mir nicht.</desc>
+                                                <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+                                            </svg>
+                                        </label>              
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
-                  
+                    </div>
                 <hr>
             </li>';
     }
@@ -474,11 +479,36 @@ function getToBeRead($limit, $offset)
     return $rows;
 }
 
-function addEval($eval, $userId, $bookId) {
+function addEvalFav($eval, $userId, $bookId) {
     global $mysqli;
 
     // Prüfen, ob das Buch zum eingeloggten User gehört
     $stmt = $mysqli->prepare("SELECT id FROM books_fav WHERE id = ? AND userId = ?");
+    $stmt->bind_param("ii", $bookId, $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+        throw new Exception("Dieses Buch gehört nicht zu diesem User.");
+    }
+
+    // Wenn alles passt, Bewertung speichern
+    $sql = 'INSERT INTO eval_books (evaluation, user_id, bookId) VALUES(?,?,?)';
+    $stmt = $mysqli->prepare($sql);
+    if (!$stmt) {
+        throw new Exception('Fehlermeldung: ' . $mysqli->error);
+    }
+    $stmt->bind_param('iii', $eval, $userId, $bookId);
+    if (!$stmt->execute()) {
+        throw new Exception('Fehlermeldung: ' . $stmt->error);
+    }
+    return $stmt->affected_rows;
+}
+
+function addEvalDone($eval, $userId, $bookId) {
+    global $mysqli;
+
+    // Prüfen, ob das Buch zum eingeloggten User gehört
+    $stmt = $mysqli->prepare("SELECT id FROM books_read WHERE id = ? AND userId = ?");
     $stmt->bind_param("ii", $bookId, $userId);
     $stmt->execute();
     $result = $stmt->get_result();

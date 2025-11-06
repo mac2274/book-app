@@ -3,8 +3,16 @@ require_once '../config/config.db.php';
 require_once '../config/lib.php';
 
 $bookId = (int) $_POST['bookId'];
-$check = $mysqli->query("SELECT id FROM books_fav WHERE id = $bookId");
-if ($check->num_rows === 0) {
+$stmt = $mysqli->prepare("SELECT id FROM books_fav WHERE id = $bookId");
+if (!$stmt){
+    throw new Exception('Fehler bei der Datenbankverbindung:' . $mysqli->error);
+}
+$stmt->bind_param('i', $bookId);
+if(!$stmt->execute()) {
+    throw new Exception('Fehler:' . $stmt->error);
+}
+$result = $stmt->get_result();
+if ($result->num_rows === 0) {
     die("Buch existiert nicht!");
 }
 
@@ -14,7 +22,7 @@ if (isset($_POST['evaluation_book']) && isset($_SESSION['userId'])) {
     $eval = (int) $_POST['evaluation_book']; // 1 oder 0
 
     try {
-        $row = addEval($eval, $userId, $bookId);
+        $row = addEvalFav($eval, $userId, $bookId);
         if ($row > 0) {
             echo "Bewertung gespeichert!";
         } else {
