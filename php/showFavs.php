@@ -261,7 +261,7 @@ require_once '../config/lib.php';
                 dislikeSvgEmpty.classList.remove('hidden');
                 dislikeSvgFilled.classList.add('hidden');
                 // Variable für BuchId
-                const bookId = container.querySelector('input[name="bookId"]').value;;
+                const bookId = container.querySelector('input[name="bookId"]').value;
                 sendEval(bookId, 1); // 1 = Like
             }
             // wenn thumbs down geklickt ist
@@ -281,6 +281,9 @@ require_once '../config/lib.php';
                 const bookId = container.querySelector('input[name="bookId"]').value;
                 sendEval(bookId, 0); // 0 = Dislike
             }
+
+            console.log(container);
+            console.log(container.querySelector('input[name="bookId"]').value);
         });
 
         window.addEventListener('scroll', scrollDown);

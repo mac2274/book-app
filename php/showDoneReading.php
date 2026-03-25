@@ -175,7 +175,7 @@ require_once '../config/lib.php';
             }
         }
 
-         // Bewertung speichern
+        // Bewertung speichern
         async function sendEval(bookId, eval) {
             const formData = new FormData();
             formData.append('bookId', bookId);
@@ -189,7 +189,7 @@ require_once '../config/lib.php';
                 if (!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
                 }
-                const result = await response.json();
+                const result = await response.text();
                 console.log(result);
             } catch (error) {
                 console.error(error.message);
@@ -248,6 +248,8 @@ require_once '../config/lib.php';
                 const bookId = container.querySelector('input[name="bookId"]').value;
                 sendEval(bookId, 0);
             }
+        
+            console.log(container.querySelector('input[name="bookId"]').value);
         });
 
         window.addEventListener('scroll', scrollDown);
