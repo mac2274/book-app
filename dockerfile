@@ -16,9 +16,15 @@ RUN apt-get update && apt-get install -y \
             zip
 
 
+# Composer installieren ✅
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
 RUN a2enmod rewrite
 
 COPY . /var/www/html/
+
+# Composer ausführen ✅
+RUN cd /var/www/html && composer install
 
 RUN chown -R www-data:www-data /var/www/html/
 RUN chmod -R 755 /var/www/html/
