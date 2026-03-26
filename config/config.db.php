@@ -6,17 +6,21 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/..");
 // parsen
 $dotenv->load();
 // VALIDIERUNG direkt nach load()
-$dotenv->required(['MYSQL_HOST', 'MYSQL_USER', 'MYSQL_PASSWORD', 'MYSQL_DATABASE']);
+$dotenv->required(['PG_HOST', 'PG_USER', 'PG_PASSWORD', 'PG_DATABASE', 'PG_PORT']);
 
 
-$host = $_ENV['MYSQL_HOST'] ?? 'localhost';
-$user = $_ENV['MYSQL_USER'] ?? 'root';
-$pwd = $_ENV['MYSQL_PASSWORD'] ?? '';
-$db = $_ENV['MYSQL_DATABASE'] ?? 'meine_datenbank';
+$host = $_ENV['PG_HOST'];
+$user = $_ENV['PG_USER'];
+$pwd = $_ENV['PG_PASSWORD'];
+$db = $_ENV['PG_DATABASE'];
+$port = $_ENV['PG_PORT'] ?? '5432';
 
-$mysqli = new mysqli($host, $user, $pwd, $db);
-
-if ($mysqli->connect_error) {
-    throw new Exception('mysqli-Verbindungsfehler' . $mysqli->connect_error);
+try {
+    $pdo = new PDO("pgsql:host=$host; port=$port; dbname=$db", $user, $pwd, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
+} catch (PDOException $e) {
+    throw new Exception('Datenbankverbindungsfehler: ' . $e->getMessage());
 }
 ?>
