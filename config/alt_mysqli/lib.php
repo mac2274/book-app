@@ -4,11 +4,19 @@ require_once 'config.db.php';
 
 function emailExists($email)
 {
-       global $pdo;
+    global $mysqli;
 
-    $stmt = $pdo->prepare("SELECT id FROM user WHERE email=?");
-    $stmt->execute([$email]);
-    return $stmt->rowCount() > 0;
+    # Doppelte Emails prüfen
+    $stmt = "SELECT id FROM user WHERE email=?";
+    $stmt = $mysqli->prepare($stmt);
+    if (!$stmt) {
+        throw new Exception('Fehlermeldung:' . $mysqli->error);
+    }
+    $stmt->bind_param('s', $email);
+    if (!$stmt->execute())
+        throw new Exception('Fehlermeldung:' . $stmt->error);
+    $result = $stmt->get_result();
+    return $result->num_rows > 0;
 }
 
 function validatePassword($password)
@@ -191,7 +199,7 @@ function showFavs()
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
     $result = $stmt->get_result();
-    if ($result->num_rows === 0) { // wenn keine Bücher da, Nachricht mit ZurückButton
+    if ($result->num_rows === 0){ // wenn keine Bücher da, Nachricht mit ZurückButton
         echo '<p class="text-center py-4">Es sind noch keine Bücher hinzugefügt worden.</p>
                 <div class="flex w-full justify-end">
                     <a href="../pages/bookShelf.php"
@@ -223,7 +231,7 @@ function showFavs()
                                 <div class="flex gap-4 w-100 justify-center">
                                     <form action="saveFavRating.php" method="POST" class="flex flex-row gap-4 justify-center w-100">
                                         <label>
-                                            <input type="hidden" name="bookId" value="' . htmlspecialchars($row['id']) . '">
+                                            <input type="hidden" name="bookId" value="'. htmlspecialchars($row['id']) .'">
                                         </label>
                                         <div class="flex flex-row gap-4 justify-center w-full">
                                             <label class="thumb_like flex flex-col items-center">
@@ -285,7 +293,7 @@ function showDoneReading()
                         class="backButton fixed bottom-10 right-4 bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">
                     zurück</a>
                 </div>';
-        return;
+        return; 
     }
 
     while ($row = $result->fetch_assoc()) {
@@ -304,7 +312,7 @@ function showDoneReading()
                         <div class="flex gap-4 w-100 justify-center">
                             <form action="saveDoneReadingRating.php" method="POST" class="flex flex-row gap-4 justify-center w-100">
                                  <label>
-                                    <input type="hidden" name="bookId" value="' . htmlspecialchars($row['id']) . '">
+                                    <input type="hidden" name="bookId" value="'. htmlspecialchars($row['id']) .'">
                                 </label>
                                 <div class="flex gap-4 w-100>
                                     <label for="like" class="thumb_like flex flex-col items-center">
@@ -364,7 +372,7 @@ function showToRead()
                         class="backButton fixed bottom-10 right-4 bg-black border-transparent border-1 text-white rounded-4xl p-2 hover:bg-green-200 hover:text-black hover:border-black  duration-500">
                     zurück</a>
                 </div>';
-        return;
+        return; 
     }
 
     while ($row = $result->fetch_assoc()) {
@@ -469,8 +477,7 @@ function getToBeRead($limit, $offset)
     return $rows;
 }
 
-function addEvalFav($eval, $userId, $bookId)
-{
+function addEvalFav($eval, $userId, $bookId) {
     global $mysqli;
 
     // Prüfen, ob das Buch zum eingeloggten User gehört
@@ -495,8 +502,7 @@ function addEvalFav($eval, $userId, $bookId)
     return $stmt->affected_rows;
 }
 
-function addEvalDone($eval, $userId, $bookId)
-{
+function addEvalDone($eval, $userId, $bookId) {
     global $mysqli;
 
     // Prüfen, ob das Buch zum eingeloggten User gehört
