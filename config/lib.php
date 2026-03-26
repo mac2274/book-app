@@ -4,7 +4,7 @@ require_once 'config.db.php';
 
 function emailExists($email)
 {
-       global $pdo;
+    global $pdo;
 
     $stmt = $pdo->prepare("SELECT id FROM user WHERE email=?");
     $stmt->execute([$email]);
