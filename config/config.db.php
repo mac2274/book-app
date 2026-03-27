@@ -4,7 +4,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 // Datei einlesen
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/..");
 // parsen
-$dotenv->safeLoad();
+$dotenv->load();
 // VALIDIERUNG direkt nach load()
 $dotenv->required(['PG_HOST', 'PG_USER', 'PG_PASSWORD', 'PG_DATABASE', 'PG_PORT']);
 
@@ -23,4 +23,7 @@ try {
 } catch (PDOException $e) {
     throw new Exception('Datenbankverbindungsfehler: ' . $e->getMessage());
 }
+
+var_dump(file_exists(__DIR__ . '/../.env'));
+die();
 ?>
