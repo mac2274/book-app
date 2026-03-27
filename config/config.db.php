@@ -4,7 +4,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 // Datei einlesen
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/..");
 // parsen
-$dotenv->load();
+$dotenv->safeLoad();
 // VALIDIERUNG direkt nach load()
 $dotenv->required(['PG_HOST', 'PG_USER', 'PG_PASSWORD', 'PG_DATABASE', 'PG_PORT']);
 
