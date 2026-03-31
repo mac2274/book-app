@@ -189,7 +189,7 @@ function showFavs()
     // $userId aus login nehmen, um Userlisten zu zeigen  
     $userId = $_SESSION['userId'];
 
-    $sql = "SELECT * FROM books_fav WHERE userID=? LIMIT 10";
+    $sql = "SELECT * FROM books_fav WHERE userId=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
@@ -276,7 +276,7 @@ function showDoneReading()
     // $userId aus login nehmen, um Userlisten zu zeigen  
     $userId = $_SESSION['userId'];
 
-    $sql = "SELECT * FROM books_read WHERE userID=? LIMIT 10";
+    $sql = "SELECT * FROM books_read WHERE userId=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
@@ -355,7 +355,7 @@ function showToRead()
     // $userId aus login nehmen, um Userlisten zu zeigen  
     $userId = $_SESSION['userId'];
 
-    $sql = "SELECT * FROM books_to_read WHERE userID=? LIMIT 10";
+    $sql = "SELECT * FROM books_to_read WHERE userId=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
