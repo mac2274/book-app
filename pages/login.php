@@ -1,6 +1,10 @@
 <?php
 require_once '../config/lib.php';
 
+require_once __DIR__ . '/../config/config.db.php';
+
+echo $_ENV['DB_HOST'] ?? 'NICHT GESETZT';
+
 $error = $_GET['error'] ?? '';
 $success = $_GET['success'] ?? '';
 
