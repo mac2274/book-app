@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install \
     gd \
     exif \
-    pdo \
     pdo_pgsql \
     zip
 
