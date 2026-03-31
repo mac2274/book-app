@@ -3,8 +3,8 @@
 
 require_once '../config/lib.php';
 
-$userId = $_SESSION['userId'] ?? NULL;
-if (!$userId) {
+$userId = $_SESSION[user_id] ?? NULL;
+if (!$userID) {
     header('Location: ./login.php?error=' . urlencode('Bitte zuerst einloggen.'));
     exit;
 }

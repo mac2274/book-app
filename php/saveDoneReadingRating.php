@@ -19,7 +19,7 @@ try {
     }
 
     // 3. user eingeloggt?
-    if (!isset($_SESSION['userId'])) {
+    if (!isset($_SESSION['userID'])) {
         throw new Exception('Nicht eingeloggt!');
     }
 
@@ -28,10 +28,10 @@ try {
         throw new Exception('Bewertung fehlt!');
     }
 
-    $userId = (int) $_SESSION['userId'];
+    $userID = (int) $_SESSION['userID'];
     $eval = (int) $_POST['evaluation_book']; // 1 oder 0
 
-    $row = addEvalDone($eval, $userId, $bookId);
+    $row = addEvalDone($eval, $userID, $bookId);
 
     echo json_encode([
         "success" => true,

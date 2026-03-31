@@ -85,7 +85,7 @@ function loginUser($email, $pwd)
 
         if (password_verify($pwd, $getRow['pwd'])) {
             $_SESSION['name'] = $getRow['name'];
-            $_SESSION['userId'] = $getRow['id'];
+            $_SESSION['userID'] = $getRow['id'];
             $_SESSION['loginDone'] = true;
 
             return true;
@@ -105,10 +105,10 @@ function saveToFavs($data)
     // POST auslesen
 
     // Prüfen, ob User eingeloggt ist
-    if (!isset($_SESSION['userId'])) {
+    if (!isset($_SESSION['userID'])) {
         throw new Exception('User ist nicht eingeloggt.');
     }
-    $userId = $_SESSION['userId']; // wenn eingeloggt, wird die userId genutzt für die Speicherung in listen des Users
+    $userId = $_SESSION[user_id]; // wenn eingeloggt, wird die userID genutzt für die Speicherung in listen des Users
 
     $title = $data['title'];
     $author = $data['author'];
@@ -116,12 +116,12 @@ function saveToFavs($data)
     $description = $data['description'];
     $cover = $data['cover'];
 
-    $sql = 'INSERT INTO books_fav (title, author, subtitle, description, cover, userId) VALUES(?,?,?,?,?,?)';
+    $sql = 'INSERT INTO books_fav (title, author, subtitle, description, cover, userID) VALUES(?,?,?,?,?,?)';
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehler:' . $mysqli->error);
     }
-    $stmt->bind_param('sssssi', $title, $author, $subtitle, $description, $cover, $userId);
+    $stmt->bind_param('sssssi', $title, $author, $subtitle, $description, $cover, $userID);
     if (!$stmt->execute()) {
         throw new Exception('Fehler: ' . $stmt->error);
     }
@@ -133,21 +133,21 @@ function saveToDone($data)
     global $mysqli;
 
     // Prüfen, ob User eingeloggt ist
-    if (!isset($_SESSION['userId'])) {
+    if (!isset($_SESSION['userID'])) {
         throw new Exception('User ist nicht eingeloggt.');
     }
-    $userId = $_SESSION['userId']; // wenn eingeloggt, wird die userId genutzt für die Speicherung in listen des Users
+    $userId = $_SESSION[user_id]; // wenn eingeloggt, wird die userID genutzt für die Speicherung in listen des Users
 
     $title = $data['title'];
     $author = $data['author'];
     $cover = $data['cover'];
 
-    $sql = 'INSERT INTO books_read (title, author, cover, userId) VALUES(?,?,?,?)';
+    $sql = 'INSERT INTO books_read (title, author, cover, userID) VALUES(?,?,?,?)';
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('sssi', $title, $author, $cover, $userId);
+    $stmt->bind_param('sssi', $title, $author, $cover, $userID);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -159,10 +159,10 @@ function saveToReads($data)
     global $mysqli;
 
     // Prüfen, ob User eingeloggt ist
-    if (!isset($_SESSION['userId'])) {
+    if (!isset($_SESSION['userID'])) {
         throw new Exception('User ist nicht eingeloggt.');
     }
-    $userId = $_SESSION['userId']; // wenn eingeloggt, wird die userId genutzt für die Speicherung in listen des Users
+    $userId = $_SESSION[user_id]; // wenn eingeloggt, wird die userID genutzt für die Speicherung in listen des Users
 
     $title = $data['title'];
     $author = $data['author'];
@@ -170,12 +170,12 @@ function saveToReads($data)
     $description = $data['description'];
     $cover = $data['cover'];
 
-    $sql = "INSERT INTO books_to_read (title, author, subtitle, description, cover, userId) VALUES(?,?,?,?,?,?)";
+    $sql = "INSERT INTO books_to_read (title, author, subtitle, description, cover, userID) VALUES(?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('sssssi', $title, $author, $subtitle, $description, $cover, $userId);
+    $stmt->bind_param('sssssi', $title, $author, $subtitle, $description, $cover, $userID);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung:' . $stmt->error);
     }
@@ -186,15 +186,15 @@ function showFavs()
 {
     global $mysqli;
 
-    // $userId aus login nehmen, um Userlisten zu zeigen  
-    $userId = $_SESSION['userId'];
+    // $userID aus login nehmen, um Userlisten zu zeigen  
+    $userId = $_SESSION[user_id];
 
-    $sql = "SELECT * FROM books_fav WHERE userId=? LIMIT 10";
+    $sql = "SELECT * FROM books_fav WHERE userID=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('i', $userId);
+    $stmt->bind_param('i', $userID);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -273,15 +273,15 @@ function showDoneReading()
 {
     global $mysqli;
 
-    // $userId aus login nehmen, um Userlisten zu zeigen  
-    $userId = $_SESSION['userId'];
+    // $userID aus login nehmen, um Userlisten zu zeigen  
+    $userId = $_SESSION[user_id];
 
-    $sql = "SELECT * FROM books_read WHERE userId=? LIMIT 10";
+    $sql = "SELECT * FROM books_read WHERE userID=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('i', $userId);
+    $stmt->bind_param('i', $userID);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -352,15 +352,15 @@ function showToRead()
 {
     global $mysqli;
 
-    // $userId aus login nehmen, um Userlisten zu zeigen  
-    $userId = $_SESSION['userId'];
+    // $userID aus login nehmen, um Userlisten zu zeigen  
+    $userId = $_SESSION[user_id];
 
-    $sql = "SELECT * FROM books_to_read WHERE userId=? LIMIT 10";
+    $sql = "SELECT * FROM books_to_read WHERE userID=? LIMIT 10";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('i', $userId);
+    $stmt->bind_param('i', $userID);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -399,15 +399,15 @@ function showToRead()
 function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per Button-Klick
 {
     global $mysqli;
-    // $userId aus login nehmen, um Userlisten zu zeigen  
-    $userId = $_SESSION['userId'];
+    // $userID aus login nehmen, um Userlisten zu zeigen  
+    $userId = $_SESSION[user_id];
 
-    $sql = "SELECT * FROM books_read WHERE userId=? LIMIT ? OFFSET ?";
+    $sql = "SELECT * FROM books_read WHERE userID=? LIMIT ? OFFSET ?";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('iii', $userId, $limit, $offset);
+    $stmt->bind_param('iii', $userID, $limit, $offset);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -428,18 +428,18 @@ function getDoneReading($limit, $offset) // Weitere Daten aus db liefern per But
 function getFavs($limit, $offset)
 {
     global $mysqli;
-    // $userId aus login nehmen, um Userlisten zu zeigen  
-    $userId = $_SESSION['userId'];
+    // $userID aus login nehmen, um Userlisten zu zeigen  
+    $userId = $_SESSION[user_id];
 
     $limit = (int) $limit;
     $offset = (int) $offset;
 
-    $sql = "SELECT * FROM books_fav WHERE userId=? LIMIT ? OFFSET ?";
+    $sql = "SELECT * FROM books_fav WHERE userID=? LIMIT ? OFFSET ?";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung:' . $mysqli->error);
     }
-    $stmt->bind_param('iii', $userId, $limit, $offset);
+    $stmt->bind_param('iii', $userID, $limit, $offset);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
@@ -455,15 +455,15 @@ function getFavs($limit, $offset)
 function getToBeRead($limit, $offset)
 {
     global $mysqli;
-    // $userId aus login nehmen, um Userlisten zu zeigen  
-    $userId = $_SESSION['userId'];
+    // $userID aus login nehmen, um Userlisten zu zeigen  
+    $userId = $_SESSION[user_id];
 
-    $sql = "SELECT * FROM books_to_read WHERE userId=? LIMIT ? OFFSET ?";
+    $sql = "SELECT * FROM books_to_read WHERE userID=? LIMIT ? OFFSET ?";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('iii', $userId, $limit, $offset);
+    $stmt->bind_param('iii', $userID, $limit, $offset);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermedung: ' . $stmt->error);
     }
@@ -477,12 +477,12 @@ function getToBeRead($limit, $offset)
     return $rows;
 }
 
-function addEvalFav($eval, $userId, $bookId) {
+function addEvalFav($eval, $userID, $bookId) {
     global $mysqli;
 
     // Prüfen, ob das Buch zum eingeloggten User gehört
-    $stmt = $mysqli->prepare("SELECT id FROM books_fav WHERE id = ? AND userId = ?");
-    $stmt->bind_param("ii", $bookId, $userId);
+    $stmt = $mysqli->prepare("SELECT id FROM books_fav WHERE id = ? AND userID = ?");
+    $stmt->bind_param("ii", $bookId, $userID);
     $stmt->execute();
     $result = $stmt->get_result();
     if ($result->num_rows === 0) {
@@ -495,19 +495,19 @@ function addEvalFav($eval, $userId, $bookId) {
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('iii', $eval, $userId, $bookId);
+    $stmt->bind_param('iii', $eval, $userID, $bookId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }
     return $stmt->affected_rows;
 }
 
-function addEvalDone($eval, $userId, $bookId) {
+function addEvalDone($eval, $userID, $bookId) {
     global $mysqli;
 
     // Prüfen, ob das Buch zum eingeloggten User gehört
-    $stmt = $mysqli->prepare("SELECT id FROM books_read WHERE id = ? AND userId = ?");
-    $stmt->bind_param("ii", $bookId, $userId);
+    $stmt = $mysqli->prepare("SELECT id FROM books_read WHERE id = ? AND userID = ?");
+    $stmt->bind_param("ii", $bookId, $userID);
     $stmt->execute();
     $result = $stmt->get_result();
     if ($result->num_rows === 0) {
@@ -520,7 +520,7 @@ function addEvalDone($eval, $userId, $bookId) {
     if (!$stmt) {
         throw new Exception('Fehlermeldung: ' . $mysqli->error);
     }
-    $stmt->bind_param('iii', $eval, $userId, $bookId);
+    $stmt->bind_param('iii', $eval, $userID, $bookId);
     if (!$stmt->execute()) {
         throw new Exception('Fehlermeldung: ' . $stmt->error);
     }

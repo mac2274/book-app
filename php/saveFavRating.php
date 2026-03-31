@@ -20,7 +20,7 @@ try {
     }
 
     // 3. Ist der User eingeloggt?
-    if (!isset($_SESSION['userId'])) {
+    if (!isset($_SESSION['userID'])) {
         throw new Exception('Nicht eingeloggt!');
     }
 
@@ -30,10 +30,10 @@ try {
     }
 
     // Hier wird die Bewertung des Buchs gespeichert anhand Variablen
-    $userId = (int) $_SESSION['userId']; // aus Session
+    $userID = (int) $_SESSION['userID']; // aus Session
     $eval = (int) $_POST['evaluation_book']; // 1 oder 0
 
-    $row = addEvalFav($eval, $userId, $bookId);
+    $row = addEvalFav($eval, $userID, $bookId);
 
     echo json_encode([
         "success" => true,

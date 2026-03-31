@@ -18,8 +18,8 @@ if (!$data) {
 }
 
 try {
-    if (isset($_SESSION['userId'])) {
-        $userId = $_SESSION['userId'];
+    if (isset($_SESSION['userID'])) {
+        $userId = $_SESSION[user_id];
     }
     $affectedRows = saveToFavs($data); // Funktion zum Speichern der Bücher in Favs
     echo json_encode([
