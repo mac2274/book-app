@@ -1,37 +1,54 @@
 <?php
+header('Content-Type: application/json');
+
 require_once '../config/config.db.php';
 require_once '../config/lib.php';
 
-$bookId = (int) $_POST['bookId'];
-$stmt = $mysqli->prepare("SELECT id FROM books_read WHERE id = ?");
-if (!$stmt){
-    throw new Exception('Fehler bei der Datenbankverbindung:' . $mysqli->error);
-}
-$stmt->bind_param('i',$bookId);
-if(!$stmt->execute()) {
-    throw new Exception('Fehler:' . $stmt->error);
-}
-$result = $stmt->get_result();
-if ($result->num_rows === 0) {
-    die("Buch existiert nicht!");
-}
+try {
+    // 1. bookId prüfen
+    if (!isset($_POST['bookId'])) {
+        throw new Exception("bookId fehlt");
+    }
+    $bookId = (int) $_POST['bookId'];
 
-if (isset($_POST['evaluation_book']) && isset($_SESSION['userId'])) {
+    // 2. existiert Buch?
+    $stmt = $pdo->prepare("SELECT id FROM books_read WHERE id = ?");
+    $stmt->execute([$bookId]);
+    if ($stmt->rowCount() === 0) {
+        throw new Exception("Buch existiert nicht!");
+    }
+
+    // 3. user eingeloggt?
+    if (!isset($_SESSION['userId'])) {
+        throw new Exception('Nicht eingeloggt!');
+    }
+
+    // 4. Bewertung vorhanden?
+    if (!isset($_POST['evaluation_book'])) {
+        throw new Exception('Bewertung fehlt!');
+    }
+
     $userId = (int) $_SESSION['userId'];
-    $bookId = (int) $_POST['bookId']; // aus dem HTML nehmen
     $eval = (int) $_POST['evaluation_book']; // 1 oder 0
 
-    try {
-        $row = addEvalDone($eval, $userId, $bookId);
-        if ($row > 0) {
-            echo "Bewertung gespeichert!";
-        } else {
-            echo "Keine Bewertung gespeichert.";
-        }
+    $row = addEvalDone($eval, $userId, $bookId);
 
-    } catch (Exception $e) {
-        echo "Fehler: " . $e->getMessage();
-    }
+    echo json_encode([
+        "success" => true,
+        "message" => "Bewertung gespeichert.",
+        "rows" => $row
+    ]);
+
+} catch (Exception $e) {
+    echo json_encode([
+        "success" => false,
+        "message" => $e->getMessage()
+    ]);
 }
+
+
+
+
+
 
 
