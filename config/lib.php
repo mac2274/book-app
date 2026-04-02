@@ -357,7 +357,7 @@ function addEvalFav($eval, $userId, $bookId)
         throw new Exception("Dieses Buch gehört nicht zu diesem User.");
     }
 
-    $sql  = 'INSERT INTO eval_books (evaluation, user_id, "bookId") VALUES(?,?,?)';
+    $sql  = 'INSERT INTO eval_books (evaluation, userID, "bookId") VALUES(?,?,?)';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$eval, $userId, $bookId]);
     return $stmt->rowCount();
@@ -374,7 +374,7 @@ function addEvalDone($eval, $userId, $bookId)
         throw new Exception("Dieses Buch gehört nicht zu diesem User.");
     }
 
-    $sql  = 'INSERT INTO eval_books (evaluation, user_id, "bookId") VALUES(?,?,?)';
+    $sql  = 'INSERT INTO eval_books (evaluation, userID, "bookId") VALUES(?,?,?)';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$eval, $userId, $bookId]);
     return $stmt->rowCount();
