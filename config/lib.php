@@ -52,8 +52,8 @@ function loginUser($email, $pwd)
 
     if ($row) {
         if (password_verify($pwd, $row['pwd'])) {
-            $_SESSION['name']      = $row['name'];
-            $_SESSION['user_id']    = $row['id'];  // ← immer klein 'd'
+            $_SESSION['name'] = $row['name'];
+            $_SESSION['user_id'] = $row['id'];  // ← immer klein 'd'
             $_SESSION['loginDone'] = true;
             return true;
         } else {
@@ -76,7 +76,7 @@ function saveToFavs($data)
     // Prüfung, ob Buch bereits hinzugefügt
     $check = $pdo->prepare("SELECT id FROM books_fav WHERE title=? AND user_id=?");
     $check->execute([$data['title'], $user_id]);
-    if ($check->rowCount() >0) {
+    if ($check->rowCount() > 0) {
         throw new Exception('Buch ist bereuts in der Liste vorhanden.');
     }
 
@@ -201,11 +201,9 @@ function showFavs($user_id) // Vorher muss $user_id = $_SESSION['user_id'] sein!
     }
 }
 
-function showDoneReading()
+function showDoneReading($user_id)
 {
     global $pdo;
-
-    $user_id = $_SESSION['user_id'];
 
     $sql = 'SELECT * FROM books_read WHERE user_id=? LIMIT 10';
     $stmt = $pdo->prepare($sql);
@@ -245,6 +243,7 @@ function showDoneReading()
                                             <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
                                         </svg>
                                         <svg class="likeSvgFilled w-9 hidden text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                                            <desc>Dieses Buch gefällt mir!</desc>
                                             <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
                                         </svg>
                                     </label>
@@ -254,6 +253,7 @@ function showDoneReading()
                                             <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
                                         </svg>
                                         <svg class="dislikeSvgFilled rotate-180 w-9 hidden text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                                            <desc>Dieses Buch gefällt mir nicht.</desc>
                                             <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
                                         </svg>
                                     </label>              
@@ -311,10 +311,10 @@ function getDoneReading($user_id, $limit, $offset)
 {
     global $pdo;
 
-    $limit  = (int) $limit;
+    $limit = (int) $limit;
     $offset = (int) $offset;
 
-    $sql  = 'SELECT * FROM books_read WHERE user_id=? LIMIT ? OFFSET ?';
+    $sql = 'SELECT * FROM books_read WHERE user_id=? LIMIT ? OFFSET ?';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$user_id, $limit, $offset]);
     return $stmt->fetchAll();
@@ -324,10 +324,10 @@ function getFavs($user_id, $limit, $offset)
 {
     global $pdo;
 
-    $limit  = (int) $limit;
+    $limit = (int) $limit;
     $offset = (int) $offset;
 
-    $sql  = 'SELECT * FROM books_fav WHERE user_id=? LIMIT ? OFFSET ?';
+    $sql = 'SELECT * FROM books_fav WHERE user_id=? LIMIT ? OFFSET ?';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$user_id, $limit, $offset]);
     return $stmt->fetchAll();
@@ -337,11 +337,12 @@ function getToBeRead($limit, $offset)
 {
     global $pdo;
 
-    $user_id = $_SESSION['user_id'];;
-    $limit  = (int) $limit;
+    $user_id = $_SESSION['user_id'];
+    ;
+    $limit = (int) $limit;
     $offset = (int) $offset;
 
-    $sql  = 'SELECT * FROM books_to_read WHERE user_id=? LIMIT ? OFFSET ?';
+    $sql = 'SELECT * FROM books_to_read WHERE user_id=? LIMIT ? OFFSET ?';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$user_id, $limit, $offset]);
     return $stmt->fetchAll();
@@ -358,7 +359,7 @@ function addEvalFav($eval, $user_id, $book_id)
         throw new Exception("Dieses Buch gehört nicht zu diesem User.");
     }
 
-    $sql  = 'INSERT INTO eval_books (evaluation, user_id, book_id) VALUES(?,?,?)';
+    $sql = 'INSERT INTO eval_books (evaluation, user_id, book_id) VALUES(?,?,?)';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$eval, $user_id, $book_id]);
     return $stmt->rowCount();
@@ -375,7 +376,7 @@ function addEvalDone($eval, $user_id, $book_id)
         throw new Exception("Dieses Buch gehört nicht zu diesem User.");
     }
 
-    $sql  = 'INSERT INTO eval_books (evaluation, user_id, book_id) VALUES(?,?,?)';
+    $sql = 'INSERT INTO eval_books (evaluation, user_id, book_id) VALUES(?,?,?)';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$eval, $user_id, $book_id]);
     return $stmt->rowCount();
