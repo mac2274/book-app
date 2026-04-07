@@ -73,6 +73,13 @@ function saveToFavs($data)
     }
     $user_id = $_SESSION['user_id'];
 
+    // Prüfung, ob Buch bereits hinzugefügt
+    $check = $pdo->prepare("SELECT id FROM books_fav WHERE title=? AND user_id=?");
+    $check->execute([$data['title'], $user_id]);
+    if ($check->rowCount() >0) {
+        throw new Exception('Buch ist bereuts in der Liste vorhanden.');
+    }
+
     $sql = 'INSERT INTO books_fav (title, author, subtitle, description, cover, user_id) VALUES(?,?,?,?,?,?)';
     $stmt = $pdo->prepare($sql);
     return $stmt->execute([
