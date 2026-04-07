@@ -42,7 +42,7 @@ require_once '../config/lib.php';
             <h2 class="text-4xl font-semibold text-center py-4">Deine Favouriten</h2>
             <ol
                 class="favList flex flex-col items-center list-decimal list-outside w-full md:w-[600px] lg:w-[760px] px-8">
-                <?php showFavs() ?>
+                <?php showFavs($_SESSION['user_id']) ?>
             </ol>
 
             <!-- ------------------ Button für weitere Bücher -->
