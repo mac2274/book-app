@@ -176,10 +176,10 @@ require_once '../config/lib.php';
         }
 
         // Bewertung speichern
-        async function sendEval(bookId, eval) {
+        async function sendEval(bookId, rating) {
             const formData = new FormData();
             formData.append('bookId', bookId);
-            formData.append('evaluation_book', eval);
+            formData.append('evaluation_book', rating);
 
             try {
                 const response = await fetch('./saveDoneReadingRating.php', {
@@ -248,7 +248,7 @@ require_once '../config/lib.php';
                 const bookId = container.querySelector('input[name="bookId"]').value;
                 sendEval(bookId, 0);
             }
-        
+
             console.log(container.querySelector('input[name="bookId"]').value);
         });
 
