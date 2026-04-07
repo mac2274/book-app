@@ -236,7 +236,7 @@ function showDoneReading($user_id)
                                 <label>
                                     <input type="hidden" name="bookId" value="' . htmlspecialchars($row['id']) . '">
                                 </label>
-                                <div class="flex gap-4 w-100">
+                                <div class="flex justify-center gap-4 w-100">
                                     <label for="like" class="thumb_like flex flex-col items-center">
                                         <input type="radio" value="1" name="evalution_book" class="like hidden">
                                         <svg class="likeSvgEmpty w-9 hover:text-green-600 transition-colors duration-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
