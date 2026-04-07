@@ -53,7 +53,7 @@ function loginUser($email, $pwd)
     if ($row) {
         if (password_verify($pwd, $row['pwd'])) {
             $_SESSION['name']      = $row['name'];
-            $_SESSION['userId']    = $row['id'];  // ← immer klein 'd'
+            $_SESSION['user_id']    = $row['id'];  // ← immer klein 'd'
             $_SESSION['loginDone'] = true;
             return true;
         } else {
@@ -68,12 +68,12 @@ function saveToFavs($data)
 {
     global $pdo;
 
-    if (!isset($_SESSION['userId'])) {
+    if (!isset($_SESSION['user_id'])) {
         throw new Exception('User ist nicht eingeloggt.');
     }
-    $userId = $_SESSION['userId'];
+    $user_id = $_SESSION['user_id'];
 
-    $sql = 'INSERT INTO books_fav (title, author, subtitle, description, cover, "userID") VALUES(?,?,?,?,?,?)';
+    $sql = 'INSERT INTO books_fav (title, author, subtitle, description, cover, user_id) VALUES(?,?,?,?,?,?)';
     $stmt = $pdo->prepare($sql);
     return $stmt->execute([
         $data['title'],
@@ -81,7 +81,7 @@ function saveToFavs($data)
         $data['subtitle'],
         $data['description'],
         $data['cover'],
-        $userId
+        $user_id
     ]);
 }
 
@@ -89,18 +89,18 @@ function saveToDone($data)
 {
     global $pdo;
 
-    if (!isset($_SESSION['userId'])) {
+    if (!isset($_SESSION['user_id'])) {
         throw new Exception('User ist nicht eingeloggt.');
     }
-    $userId = $_SESSION['userId'];
+    $user_id = $_SESSION['user_id'];
 
-    $sql = 'INSERT INTO books_read (title, author, cover, "userID") VALUES(?,?,?,?)';
+    $sql = 'INSERT INTO books_read (title, author, cover, user_id) VALUES(?,?,?,?)';
     $stmt = $pdo->prepare($sql);
     return $stmt->execute([
         $data['title'],
         $data['author'],
         $data['cover'],
-        $userId
+        $user_id
     ]);
 }
 
@@ -108,10 +108,10 @@ function saveToReads($data)
 {
     global $pdo;
 
-    if (!isset($_SESSION['userId'])) {
+    if (!isset($_SESSION['user_id'])) {
         throw new Exception('User ist nicht eingeloggt.');
     }
-    $userId = $_SESSION['userId'];
+    $user_id = $_SESSION['user_id'];
 
     $sql = 'INSERT INTO books_to_read (title, author, subtitle, description, cover, "userID") VALUES(?,?,?,?,?,?)';
     $stmt = $pdo->prepare($sql);
@@ -121,19 +121,17 @@ function saveToReads($data)
         $data['subtitle'],
         $data['description'],
         $data['cover'],
-        $userId
+        $user_id
     ]);
 }
 
-function showFavs()
+function showFavs($user_id) // Vorher muss $user_id = $_SESSION['user_id'] sein!
 {
     global $pdo;
 
-    $userId = $_SESSION['userId'];
-
-    $sql = 'SELECT * FROM books_fav WHERE "userID"=? LIMIT 10';
+    $sql = 'SELECT * FROM books_fav WHERE user_id=? LIMIT 10';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$userId]);
+    $stmt->execute([$user_id]);
     $rows = $stmt->fetchAll();
 
     if (count($rows) === 0) {
@@ -200,11 +198,11 @@ function showDoneReading()
 {
     global $pdo;
 
-    $userId = $_SESSION['userId'];
+    $user_id = $_SESSION['user_id'];
 
-    $sql = 'SELECT * FROM books_read WHERE "userID"=? LIMIT 10';
+    $sql = 'SELECT * FROM books_read WHERE user_id=? LIMIT 10';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$userId]);
+    $stmt->execute([$user_id]);
     $rows = $stmt->fetchAll();
 
     if (count($rows) === 0) {
@@ -262,15 +260,13 @@ function showDoneReading()
     }
 }
 
-function showToRead()
+function showToRead($user_id)
 {
     global $pdo;
 
-    $userId = $_SESSION['userId'];
-
-    $sql = 'SELECT * FROM books_to_read WHERE "userID"=? LIMIT 10';
+    $sql = 'SELECT * FROM books_to_read WHERE user_id=? LIMIT 10';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$userId]);
+    $stmt->execute([$user_id]);
     $rows = $stmt->fetchAll();
 
     if (count($rows) === 0) {
@@ -304,31 +300,29 @@ function showToRead()
     }
 }
 
-function getDoneReading($limit, $offset)
+function getDoneReading($user_id, $limit, $offset)
 {
     global $pdo;
 
-    $userId = $_SESSION['userId'];
     $limit  = (int) $limit;
     $offset = (int) $offset;
 
-    $sql  = 'SELECT * FROM books_read WHERE "userID"=? LIMIT ? OFFSET ?';
+    $sql  = 'SELECT * FROM books_read WHERE user_id=? LIMIT ? OFFSET ?';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$userId, $limit, $offset]);
+    $stmt->execute([$user_id, $limit, $offset]);
     return $stmt->fetchAll();
 }
 
-function getFavs($limit, $offset)
+function getFavs($user_id, $limit, $offset)
 {
     global $pdo;
 
-    $userId = $_SESSION['userId'];
     $limit  = (int) $limit;
     $offset = (int) $offset;
 
-    $sql  = 'SELECT * FROM books_fav WHERE "userID"=? LIMIT ? OFFSET ?';
+    $sql  = 'SELECT * FROM books_fav WHERE user_id=? LIMIT ? OFFSET ?';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$userId, $limit, $offset]);
+    $stmt->execute([$user_id, $limit, $offset]);
     return $stmt->fetchAll();
 }
 
@@ -336,46 +330,46 @@ function getToBeRead($limit, $offset)
 {
     global $pdo;
 
-    $userId = $_SESSION['userId'];
+    $user_id = $_SESSION['user_id'];;
     $limit  = (int) $limit;
     $offset = (int) $offset;
 
-    $sql  = 'SELECT * FROM books_to_read WHERE "userID"=? LIMIT ? OFFSET ?';
+    $sql  = 'SELECT * FROM books_to_read WHERE user_id=? LIMIT ? OFFSET ?';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$userId, $limit, $offset]);
+    $stmt->execute([$user_id, $limit, $offset]);
     return $stmt->fetchAll();
 }
 
-function addEvalFav($eval, $userId, $bookId)
+function addEvalFav($eval, $user_id, $book_id)
 {
     global $pdo;
 
-    $stmt = $pdo->prepare('SELECT id FROM books_fav WHERE id = ? AND "userID" = ?');
-    $stmt->execute([$bookId, $userId]);
+    $stmt = $pdo->prepare('SELECT id FROM books_fav WHERE id = ? AND user_id = ?');
+    $stmt->execute([$book_id, $user_id]);
 
     if ($stmt->rowCount() === 0) {
         throw new Exception("Dieses Buch gehört nicht zu diesem User.");
     }
 
-    $sql  = 'INSERT INTO eval_books (evaluation, userID, "bookId") VALUES(?,?,?)';
+    $sql  = 'INSERT INTO eval_books (evaluation, user_id, book_id) VALUES(?,?,?)';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$eval, $userId, $bookId]);
+    $stmt->execute([$eval, $user_id, $book_id]);
     return $stmt->rowCount();
 }
 
-function addEvalDone($eval, $userId, $bookId)
+function addEvalDone($eval, $user_id, $book_id)
 {
     global $pdo;
 
-    $stmt = $pdo->prepare('SELECT id FROM books_read WHERE id = ? AND "userID" = ?');
-    $stmt->execute([$bookId, $userId]);
+    $stmt = $pdo->prepare('SELECT id FROM books_read WHERE id = ? AND "user_id" = ?');
+    $stmt->execute([$book_id, $user_id]);
 
     if ($stmt->rowCount() === 0) {
         throw new Exception("Dieses Buch gehört nicht zu diesem User.");
     }
 
-    $sql  = 'INSERT INTO eval_books (evaluation, userID, "bookId") VALUES(?,?,?)';
+    $sql  = 'INSERT INTO eval_books (evaluation, user_id, book_id) VALUES(?,?,?)';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$eval, $userId, $bookId]);
+    $stmt->execute([$eval, $user_id, $book_id]);
     return $stmt->rowCount();
 }

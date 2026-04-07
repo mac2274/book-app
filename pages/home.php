@@ -1,19 +1,13 @@
 <?php
-
-
 require_once '../config/lib.php';
 
-$userId = $_SESSION['user_id'] ?? NULL;
-if (!$userID) {
+$user_id = $_SESSION['user_id'] ?? NULL;
+if (!$user_id) {
     header('Location: ./login.php?error=' . urlencode('Bitte zuerst einloggen.'));
     exit;
 }
 
 $success = $_GET['success'] ?? 'Erfolgreich eingeloggt!';
-
-
-
-
 ?>
 
 <!DOCTYPE html>
