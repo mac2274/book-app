@@ -42,7 +42,7 @@ require_once '../config/lib.php';
         <div id="searchDiv" class="mt-38 sm:px-10 flex flex-col items-center gap-y-4">
             <h2 class="text-4xl font-semibold text-center leading-snug text-2 block py-4">Deine Leseliste</h2>
             <ol class="toBeReadList flex flex-col items-center list-decimal list-outside w-full md:w-[600px] lg:w-[760px] md:w-3xl px-8">
-                <?php showToRead() ?>
+                <?php showToRead($_SESSION['user_id']) ?>
             </ol>
 
             <!-- ------------------ Button für weitere Bücher -->

@@ -50,7 +50,7 @@ require_once '../config/lib.php';
                     Bereits gelesene Bücher
                 </a>
 
-                <a href="../php/ShowToBeRead.php"
+                <a href="../php/showToBeRead.php"
                     class="flex text-md font-semibold text-center p-2 rounded-4xl border-1 border-black hover:bg-white hover:text-green-700 hover:border-green-700 hover:transition duration-500">
                     Noch zu lesene Bücher
                 </a>
