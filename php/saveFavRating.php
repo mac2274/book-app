@@ -9,10 +9,10 @@ try {
     if (!isset($_POST['bookId'])) {
         throw new Exception(('bookId fehlt!'));
     }
-    $bookId = (int) $_POST['bookId']; // aus dem HTML nehmen
+    $book_id = (int) $_POST['bookId']; // aus dem HTML nehmen
 
     $stmt = $pdo->prepare("SELECT id FROM books_fav WHERE id = ?");
-    $stmt->execute([$bookId]);
+    $stmt->execute([$book_id]);
 
     // 2. Existiert das Buch wirklich in der DB?
     if ($stmn->rowCount() === 0) {
@@ -30,10 +30,10 @@ try {
     }
 
     // Hier wird die Bewertung des Buchs gespeichert anhand Variablen
-    $userID = (int) $_SESSION['userID']; // aus Session
+    $user_id = (int) $_SESSION['user_id']; // aus Session
     $eval = (int) $_POST['evaluation_book']; // 1 oder 0
 
-    $row = addEvalFav($eval, $userID, $bookId);
+    $row = addEvalFav($eval, $user_id, $book_id);
 
     echo json_encode([
         "success" => true,
