@@ -333,12 +333,12 @@ function getFavs($user_id, $limit, $offset)
     return $stmt->fetchAll();
 }
 
-function getToBeRead($limit, $offset)
+function getToBeRead($user_id, $limit, $offset)
 {
     global $pdo;
 
-    $user_id = $_SESSION['user_id'];
-    ;
+    // $user_id = $_SESSION['user_id'];
+    
     $limit = (int) $limit;
     $offset = (int) $offset;
 
@@ -359,7 +359,7 @@ function addEvalFav($eval, $user_id, $book_id)
         throw new Exception("Dieses Buch gehört nicht zu diesem User.");
     }
 
-    $sql = 'INSERT INTO eval_books (evaluation, user_id, book_id) VALUES(?,?,?)';
+    $sql = 'INSERT INTO eval_fav_books (evaluation, user_id, book_id) VALUES(?,?,?)';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$eval, $user_id, $book_id]);
     return $stmt->rowCount();
@@ -369,14 +369,14 @@ function addEvalDone($eval, $user_id, $book_id)
 {
     global $pdo;
 
-    $stmt = $pdo->prepare('SELECT id FROM books_read WHERE id = ? AND "user_id" = ?');
+    $stmt = $pdo->prepare('SELECT id FROM books_read WHERE id = ? AND user_id = ?');
     $stmt->execute([$book_id, $user_id]);
 
-    if ($stmt->rowCount() === 0) {
+    if (!$stmt->fetch()) {
         throw new Exception("Dieses Buch gehört nicht zu diesem User.");
     }
 
-    $sql = 'INSERT INTO eval_books (evaluation, user_id, book_id) VALUES(?,?,?)';
+    $sql = 'INSERT INTO eval_read_books (evaluation, user_id, book_id) VALUES(?,?,?)';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$eval, $user_id, $book_id]);
     return $stmt->rowCount();
