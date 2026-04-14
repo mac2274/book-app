@@ -13,7 +13,7 @@ try {
 
     // 2. existiert Buch?
     $stmt = $pdo->prepare("SELECT id FROM books_read WHERE id = ?");
-    $stmt->execute([$bookId]);
+    $stmt->execute([$book_id]);
     if (!$stmt->fetch()) {
         throw new Exception("Buch existiert nicht!");
     }
