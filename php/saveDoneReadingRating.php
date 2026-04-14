@@ -9,7 +9,7 @@ try {
     if (!isset($_POST['bookId'])) {
         throw new Exception("book-ID fehlt");
     }
-    $book_Id = (int) $_POST['bookId'];
+    $book_id = (int) $_POST['bookId'];
 
     // 2. existiert Buch?
     $stmt = $pdo->prepare("SELECT id FROM books_read WHERE id = ?");
